@@ -131,3 +131,14 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;max-width:none;margin
 nav.tabs::-webkit-scrollbar{display:none;}
 nav.tabs button{flex:1 0 auto;min-width:68px;max-width:130px;white-space:nowrap;font-size:8.5px;letter-spacing:.05em;padding:7px 8px;border-radius:12px;}
 main{padding-bottom:110px;}
+
+/* ===== Compactage mobile (Orbitron est plus large que l'ancienne police) ===== */
+@media (max-width:640px){
+  main{zoom:.84;padding:14px 12px 110px;}
+  header.hud .hud-top{zoom:.9;padding:8px 14px;}
+  .stat-card .num,.rank-name,.levelup-card .num{letter-spacing:.02em;}
+  .modal-box{zoom:.9;}
+  .section-title h2{font-size:16px;letter-spacing:.08em;}
+  nav.tabs button{min-width:62px;font-size:8px;padding:6px 6px;}
+  nav.tabs button svg{width:20px;height:20px;}
+}
