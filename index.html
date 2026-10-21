@@ -26,13 +26,13 @@
   --text-primary:#eef1f8;
   --text-muted:#8a93a8;
   --text-dim:#54607a;
-  --accent-xp:#FFD700;
-  --accent-xp-dim:#FFD70033;
-  --accent-gold:#ffcc33;
-  --accent-gold-dim:#ffcc3333;
+  --accent-xp:#D4AF37;
+  --accent-xp-dim:#D4AF3733;
+  --accent-gold:#D4AF37;
+  --accent-gold-dim:#D4AF3733;
   --c-pectoraux:#ff3d6e;
   --c-dos:#3d9cff;
-  --c-jambes:#ffb800;
+  --c-jambes:#D4AF37;
   --c-epaules:#b57bff;
   --c-bras:#ff8a3d;
   --c-abdos:#2de6c9;
@@ -171,7 +171,7 @@ nav.tabs button{
   display:flex;align-items:center;gap:7px;transition:.15s;
 }
 nav.tabs button:hover{color:var(--text-primary);background:var(--bg-panel);}
-nav.tabs button.active{color:#04150f;background:linear-gradient(120deg, var(--accent-xp), #45ffd0);box-shadow:0 0 20px var(--accent-xp-dim), 0 4px 14px -4px #FFD70066;}
+nav.tabs button.active{color:#04150f;background:linear-gradient(120deg, var(--accent-xp), #45ffd0);box-shadow:0 0 20px var(--accent-xp-dim), 0 4px 14px -4px #D4AF3766;}
 
 main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
 .view{display:none;animation:fadein .35s ease;}
@@ -234,7 +234,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
   border:1px solid var(--border-soft);border-radius:var(--radius-lg);
   padding:22px 26px;margin-bottom:20px;position:relative;overflow:hidden;
 }
-.hero-quote::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 200px at 90% 0%, #FFD70022, transparent);}
+.hero-quote::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 200px at 90% 0%, #D4AF3722, transparent);}
 .hero-quote p{margin:0;font-size:19px;font-weight:600;font-family:'Rajdhani';position:relative;z-index:1;letter-spacing:.01em;}
 .insight-icon{margin-right:4px;}
 .hero-quote span{display:block;margin-top:6px;font-size:12px;color:var(--text-dim);font-family:'Inter';position:relative;z-index:1;}
@@ -345,7 +345,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
 .exercise-card h3{margin:0 0 10px;display:flex;align-items:center;gap:8px;font-size:19px;flex-wrap:wrap;}
 .btn-lastperf{margin-left:auto;background:var(--bg-elevated);border:1px solid var(--accent-gold-dim);color:var(--accent-gold);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;}
 .est-load-note{
-  font-size:11.5px;color:var(--accent-gold);background:var(--accent-gold-dim);border:1px solid #ffcc3355;
+  font-size:11.5px;color:var(--accent-gold);background:var(--accent-gold-dim);border:1px solid #D4AF3755;
   border-radius:8px;padding:6px 10px;margin-bottom:8px;line-height:1.4;
 }
 .set-row{
@@ -363,7 +363,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
   border-radius:8px;padding:8px;font-size:14px;text-align:center;font-family:'JetBrains Mono';
 }
 .set-row input:focus{border-color:var(--accent-xp);}
-.set-row.done{background:linear-gradient(90deg, #FFD7001a, transparent);border-radius:8px;}
+.set-row.done{background:linear-gradient(90deg, #D4AF371a, transparent);border-radius:8px;}
 .set-row.done input{opacity:.75;}
 .validate-btn{
   background:var(--bg-elevated);border:1px solid var(--border-soft);color:var(--text-muted);
@@ -673,17 +673,17 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
 }
 .rank-card.ssl::before{
   content:"";position:absolute;inset:0;padding:1.5px;border-radius:18px;
-  background:linear-gradient(120deg,#ff6bd6,#ffd23d,#4fd1ff,#b57bff,#ff6bd6);
+  background:linear-gradient(120deg,#ff6bd6,#D4AF37,#4fd1ff,#b57bff,#ff6bd6);
   background-size:300% 300%;animation:sslshift 3s linear infinite;
   -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;
 }
 .rank-card.ssl .rank-emblem{
-  background:linear-gradient(145deg,#ff6bd6,#ffd23d,#4fd1ff);background-size:250% 250%;
+  background:linear-gradient(145deg,#ff6bd6,#D4AF37,#4fd1ff);background-size:250% 250%;
   animation:sslshift 3s linear infinite;border-color:#fff8;
 }
 .rank-card.ssl .rank-name{
-  background:linear-gradient(90deg,#ff6bd6,#ffd23d,#4fd1ff,#ff6bd6);
+  background:linear-gradient(90deg,#ff6bd6,#D4AF37,#4fd1ff,#ff6bd6);
   background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
   animation:sslshift 2.5s linear infinite;
 }
@@ -722,7 +722,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
   border-color:transparent;
 }
 .rank-scale-row.ssl .name{
-  background:linear-gradient(90deg,#ff6bd6,#ffd23d,#4fd1ff,#ff6bd6);background-size:300% 100%;
+  background:linear-gradient(90deg,#ff6bd6,#D4AF37,#4fd1ff,#ff6bd6);background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;animation:sslshift 2.5s linear infinite;
 }
 .rank-tag{
@@ -957,7 +957,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
   </div>
   <nav class="tabs">
-    <button data-tab="dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Tableau de bord</span></button>
+    <button data-tab="dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Accueil</span></button>
     <button data-tab="programmes"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Programmes</span></button>
     <button data-tab="seance"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg><span>Séance</span></button>
     <button data-tab="historique"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Historique</span></button>
@@ -1303,7 +1303,7 @@ const MUSCLE_ICONS = {
 };
 const MUSCLE_HEX = {
   "Pectoraux": "#3B82F6", "Dos": "#A855F7", "Jambes": "#EF4444",
-  "Épaules": "#FFD700", "Bras": "#00E5FF", "Abdos": "#F5A623"
+  "Épaules": "#D4AF37", "Bras": "#00E5FF", "Abdos": "#F5A623"
 };
 const EXERCISE_LIBRARY = {
   "Pectoraux": ["Développé couché haltères"],
@@ -1470,7 +1470,7 @@ const STANDARDS_ALIASES = {
   'dips pectoraux':'Dips'
 };
 const LEVEL_LABELS = ['Pré-débutant','Débutant','Novice','Intermédiaire','Avancé','Elite'];
-const LEVEL_COLORS = ['#54607a','#8a93a8','#3d9cff','#FFD700','#b57bff','#ffcc33'];
+const LEVEL_COLORS = ['#54607a','#8a93a8','#3d9cff','#D4AF37','#b57bff','#D4AF37'];
 
 /* ============================= RANK TIER SYSTEM (façon ELO / MMR) ============================= */
 const RANK_TIERS = [
@@ -1499,10 +1499,10 @@ const RANK_TIERS = [
 ];
 const RANK_EMOJI = {'Bronze':'🥉','Argent':'🥈','Or':'🥇','Platine':'🧊'};
 const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'💎','Champion':'🏆','Grand Champion':'👑','Supersonic Légende':'🌟'};
-const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#FFD700','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#FFB800'};
+const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#D4AF37','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#D4AF37'};
 /* Teinte spécifique par sous-rang (1/2/3) : plus sombre/mat au palier 1, plus clair/éclatant au palier 3,
    pour bien visualiser la progression à l'intérieur d'une même famille de rang. */
-const RANK_TIER_COLORS = {'Bronze 1':'#d0a47a', 'Bronze 2':'#B87333', 'Bronze 3':'#805023', 'Argent 1':'#d6d6d6', 'Argent 2':'#C0C0C0', 'Argent 3':'#868686', 'Or 1':'#ffe559', 'Or 2':'#FFD700', 'Or 3':'#b29600', 'Platine 1':'#59eeff', 'Platine 2':'#00E5FF', 'Platine 3':'#00a0b2', 'Diamant 1':'#7fadf9', 'Diamant 2':'#3B82F6', 'Diamant 3':'#295bac', 'Champion 1':'#c690f9', 'Champion 2':'#A855F7', 'Champion 3':'#753bac', 'Grand Champion 1':'#f48585', 'Grand Champion 2':'#EF4444', 'Grand Champion 3':'#a72f2f', 'Supersonic Légende':'#FFB800'};
+const RANK_TIER_COLORS = {'Bronze 1':'#d0a47a', 'Bronze 2':'#B87333', 'Bronze 3':'#805023', 'Argent 1':'#d6d6d6', 'Argent 2':'#C0C0C0', 'Argent 3':'#868686', 'Or 1':'#E3CB7D', 'Or 2':'#D4AF37', 'Or 3':'#947A26', 'Platine 1':'#59eeff', 'Platine 2':'#00E5FF', 'Platine 3':'#00a0b2', 'Diamant 1':'#7fadf9', 'Diamant 2':'#3B82F6', 'Diamant 3':'#295bac', 'Champion 1':'#c690f9', 'Champion 2':'#A855F7', 'Champion 3':'#753bac', 'Grand Champion 1':'#f48585', 'Grand Champion 2':'#EF4444', 'Grand Champion 3':'#a72f2f', 'Supersonic Légende':'#D4AF37'};
 function tierNumber(tierName){
   const m = tierName.match(/(\d)$/);
   return m ? parseInt(m[1]) : null;
@@ -1741,7 +1741,7 @@ function renderMuscleCharts(){
     setChartEmpty(`muscle-chart-wrap-${m}`, false);
     const {svg} = svgLineChart(
       filtered.map(p=>fmtDate(p.date)),
-      [{name:m, color:MUSCLE_HEX[m]||'#FFD700', values:filtered.map(p=>Math.round(p.elo)), unit:'pts'}],
+      [{name:m, color:MUSCLE_HEX[m]||'#D4AF37', values:filtered.map(p=>Math.round(p.elo)), unit:'pts'}],
       {zeroBase:true}
     );
     document.getElementById(`muscle-chart-${m}`).innerHTML = svg;
@@ -1755,7 +1755,7 @@ function drawRankHistoryChart(){
   if(log.length===0){ setChartEmpty('rankhist-chart-wrap', true); return; }
   setChartEmpty('rankhist-chart-wrap', false);
   const currentRank = computeGlobalPerformanceRank();
-  const color = currentRank ? currentRank.color : '#FFD700';
+  const color = currentRank ? currentRank.color : '#D4AF37';
   const milestones = [];
   let lastRank = null;
   log.forEach((p,i)=>{
@@ -2163,7 +2163,7 @@ function hexToRgba(hex, alpha){
   return `rgba(${r},${g},${b},${alpha})`;
 }
 function applyAccentColor(){
-  const c = '#FFD700';
+  const c = '#D4AF37';
   document.documentElement.style.setProperty('--accent-xp', c);
   document.documentElement.style.setProperty('--accent-xp-dim', hexToRgba(c, 0.2));
 }
@@ -2221,7 +2221,7 @@ function addXP(amount){
 
 function spawnConfetti(count){
   count = count || 60;
-  const colors = ['#FFD700','#3d9cff','#ff3d6e','#ffb800','#b57bff','#2de6c9','#ff8a3d'];
+  const colors = ['#D4AF37','#3d9cff','#ff3d6e','#D4AF37','#b57bff','#2de6c9','#ff8a3d'];
   for(let i=0;i<count;i++){
     const el = document.createElement('div');
     el.className = 'confetti-piece';
@@ -2475,7 +2475,7 @@ function programCardEl(p, opts){
   const div = document.createElement('div');
   div.className = 'prog-card';
   const musclesSet = [...new Set(p.exercises.map(e=>e.muscle))];
-  const hexList = musclesSet.map(m=>MUSCLE_HEX[m]||'#FFD700');
+  const hexList = musclesSet.map(m=>MUSCLE_HEX[m]||'#D4AF37');
   const grad = hexList.length>1 ? `linear-gradient(90deg, ${hexList.join(',')})` : `linear-gradient(90deg, ${hexList[0]}, ${hexList[0]}aa)`;
   div.style.setProperty('--prog-grad', grad);
   div.innerHTML = `
@@ -3353,7 +3353,7 @@ function buildStrengthLevelCard(name){
   }
   const color = LEVEL_COLORS[res.levelIdx] || '#8a93a8';
   const clampedScore = Math.min(100, res.score);
-  const segColors = ['#54607a','#3d9cff','#FFD700','#b57bff','#ffcc33'];
+  const segColors = ['#54607a','#3d9cff','#D4AF37','#b57bff','#D4AF37'];
   const isUnranked = res.levelIdx===0;
   const elo = computeExerciseElo(res);
   const rank = eloToRank(elo);
@@ -3524,7 +3524,7 @@ function drawRadarChart(){
   });
   if(elosByMuscle.every(v=>v===0)){ setChartEmpty('radar-chart-wrap', true); return; }
   setChartEmpty('radar-chart-wrap', false);
-  const svg = svgRadarChart(musclesList.map(m => (MUSCLE_ICONS[m]||'') + ' ' + m), elosByMuscle, '#FFD700');
+  const svg = svgRadarChart(musclesList.map(m => (MUSCLE_ICONS[m]||'') + ' ' + m), elosByMuscle, '#D4AF37');
   document.getElementById('radar-chart').innerHTML = svg;
 }
 
@@ -3541,7 +3541,7 @@ function drawWeeklyChart(){
   const keys = Object.keys(groups).sort((a,b)=>a-b);
   const {svg} = svgLineChart(
     keys.map(k => fmtDate(new Date(parseInt(k)))),
-    [{name:'Volume/semaine', color:'#ffb800', values: keys.map(k=>Math.round(groups[k])), unit:'kg'}]
+    [{name:'Volume/semaine', color:'#D4AF37', values: keys.map(k=>Math.round(groups[k])), unit:'kg'}]
   );
   document.getElementById('weekly-chart').innerHTML = svg;
 }
@@ -3562,8 +3562,8 @@ function drawExerciseChart(name){
   const {svg, legendSvg} = svgLineChart(
     points.map(p=>p.date),
     [
-      {name:'Poids max (kg)', color:'#FFD700', values: points.map(p=>p.maxWeight), unit:'kg'},
-      {name:'Volume (kg)', color:'#ffcc33', values: points.map(p=>p.vol), unit:'kg'}
+      {name:'Poids max (kg)', color:'#D4AF37', values: points.map(p=>p.maxWeight), unit:'kg'},
+      {name:'Volume (kg)', color:'#D4AF37', values: points.map(p=>p.vol), unit:'kg'}
     ],
     {zeroBase:false}
   );

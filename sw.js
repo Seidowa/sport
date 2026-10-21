@@ -1,5 +1,5 @@
 // Incrémente VERSION à chaque mise à jour de l'appli pour forcer le rafraîchissement du cache
-const VERSION = 'v5';
+const VERSION = 'v6';
 const CACHE = 'stat-tracker-' + VERSION;
 const CORE = ['./', './index.html', './manifest.webmanifest', './premium.css', './icons/splash.jpg', './icons/logo.png', './icons/banner.jpg', './icons/ranks/bronze.png', './icons/ranks/argent.png', './icons/ranks/or.png', './icons/ranks/platine.png', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png'];
 
