@@ -120,3 +120,14 @@ body.splash-on{overflow:hidden;}
   nav.tabs button{flex:1 0 auto;min-width:68px;white-space:nowrap;font-size:8px;letter-spacing:.05em;padding:7px 8px;}
   nav.tabs button.active{background:linear-gradient(180deg,#d4af3730,#d4af3708);}
 }
+
+/* ===== Bannière pleine largeur ===== */
+header.hud{padding:env(safe-area-inset-top,0px) 0 0;background:#0A0A0F;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:1px solid #d4af3744;}
+header.hud .banner{display:block;width:100%;height:auto;border:none;border-radius:0;box-shadow:none;margin:0;}
+header.hud .hud-top{padding:10px 16px;row-gap:8px;}
+
+/* ===== Barre d'onglets fixe en bas (toutes tailles) ===== */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;max-width:none;margin:0;display:flex;justify-content:safe center;gap:4px;overflow-x:auto;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,#0e0e14f2,#0A0A0F);border-top:1px solid #d4af3755;box-shadow:0 -8px 30px #000c;scrollbar-width:none;}
+nav.tabs::-webkit-scrollbar{display:none;}
+nav.tabs button{flex:1 0 auto;min-width:68px;max-width:130px;white-space:nowrap;font-size:8.5px;letter-spacing:.05em;padding:7px 8px;border-radius:12px;}
+main{padding-bottom:110px;}
