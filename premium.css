@@ -96,3 +96,13 @@ footer.credits{color:#FFD70088;letter-spacing:.2em;}
 #splash button:active{transform:scale(.97);}
 @keyframes splashPulse{0%,100%{box-shadow:0 0 22px #ffd70055,inset 0 1px 0 #fff9;}50%{box-shadow:0 0 42px #ffd700aa,inset 0 1px 0 #fff9;}}
 body.splash-on{overflow:hidden;}
+
+/* ===== Blasons de rang en image ===== */
+.rank-img{width:100%;height:100%;object-fit:contain;display:block;}
+.rank-emblem:has(.rank-img){clip-path:none;background:none;filter:drop-shadow(0 4px 12px color-mix(in srgb,currentColor 55%,transparent));width:76px;height:76px;}
+.rank-card.compact .rank-emblem:has(.rank-img){width:58px;height:58px;}
+.rankup-emblem:has(.rank-img){background:none;border:none;box-shadow:none;animation:none;width:170px;height:170px;filter:drop-shadow(0 0 26px var(--rank-c));}
+.rank-tag-emblem:has(.rank-img){background:none;border:none;width:24px;height:24px;}
+.rank-scale-row .emblem:has(.rank-img){background:none;border:none;box-shadow:none;}
+.brand-mark{border-radius:12px;overflow:hidden;filter:drop-shadow(0 0 8px #ffd70077);border:1px solid #ffd70055;}
+.brand-mark img{object-fit:cover;}
