@@ -935,6 +935,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 <link rel="stylesheet" href="premium.css">
 </head>
 <body>
+<div id="splash"><button id="splash-btn" type="button">Commencer</button></div>
 <div class="bg-fx">
   <div class="bg-orb o1"></div>
   <div class="bg-orb o2"></div>
@@ -3691,6 +3692,16 @@ applyTheme();
 fillExerciseDatalist();
 refreshHUD();
 renderDashboard();
+</script>
+<script>
+(function(){
+  var sp=document.getElementById('splash');
+  document.body.classList.add('splash-on');
+  document.getElementById('splash-btn').addEventListener('click',function(){
+    sp.classList.add('hide');document.body.classList.remove('splash-on');
+    setTimeout(function(){sp.remove();},650);
+  });
+})();
 </script>
 <script>
 if('serviceWorker' in navigator){
