@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080a10">
+<meta name="theme-color" content="#0A0A0F">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>STAT TRACKER — Ton RPG de musculation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg-void:#080a10;
@@ -26,8 +26,8 @@
   --text-primary:#eef1f8;
   --text-muted:#8a93a8;
   --text-dim:#54607a;
-  --accent-xp:#00e6a0;
-  --accent-xp-dim:#00e6a033;
+  --accent-xp:#FFD700;
+  --accent-xp-dim:#FFD70033;
   --accent-gold:#ffcc33;
   --accent-gold-dim:#ffcc3333;
   --c-pectoraux:#ff3d6e;
@@ -171,7 +171,7 @@ nav.tabs button{
   display:flex;align-items:center;gap:7px;transition:.15s;
 }
 nav.tabs button:hover{color:var(--text-primary);background:var(--bg-panel);}
-nav.tabs button.active{color:#04150f;background:linear-gradient(120deg, var(--accent-xp), #45ffd0);box-shadow:0 0 20px var(--accent-xp-dim), 0 4px 14px -4px #00e6a066;}
+nav.tabs button.active{color:#04150f;background:linear-gradient(120deg, var(--accent-xp), #45ffd0);box-shadow:0 0 20px var(--accent-xp-dim), 0 4px 14px -4px #FFD70066;}
 
 main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
 .view{display:none;animation:fadein .35s ease;}
@@ -234,7 +234,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
   border:1px solid var(--border-soft);border-radius:var(--radius-lg);
   padding:22px 26px;margin-bottom:20px;position:relative;overflow:hidden;
 }
-.hero-quote::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 200px at 90% 0%, #00e6a022, transparent);}
+.hero-quote::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 200px at 90% 0%, #FFD70022, transparent);}
 .hero-quote p{margin:0;font-size:19px;font-weight:600;font-family:'Rajdhani';position:relative;z-index:1;letter-spacing:.01em;}
 .insight-icon{margin-right:4px;}
 .hero-quote span{display:block;margin-top:6px;font-size:12px;color:var(--text-dim);font-family:'Inter';position:relative;z-index:1;}
@@ -363,7 +363,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
   border-radius:8px;padding:8px;font-size:14px;text-align:center;font-family:'JetBrains Mono';
 }
 .set-row input:focus{border-color:var(--accent-xp);}
-.set-row.done{background:linear-gradient(90deg, #00e6a01a, transparent);border-radius:8px;}
+.set-row.done{background:linear-gradient(90deg, #FFD7001a, transparent);border-radius:8px;}
 .set-row.done input{opacity:.75;}
 .validate-btn{
   background:var(--bg-elevated);border:1px solid var(--border-soft);color:var(--text-muted);
@@ -932,6 +932,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
   nav.tabs button{padding:7px 9px;font-size:12px;}
 }
 </style>
+<link rel="stylesheet" href="premium.css">
 </head>
 <body>
 <div class="bg-fx">
@@ -944,10 +945,10 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 <header class="hud">
   <div class="hud-top">
     <div class="brand">
-      <div class="brand-mark">⚔️</div>
+      <div class="brand-mark"><img src="icons/logo.svg" alt="Stat Tracker"></div>
       <div class="brand-text">
         <h1 class="display">STAT TRACKER</h1>
-        <span>Musculation • RPG</span>
+        <span>Track / Progress / Level up</span>
       </div>
     </div>
     <div class="hud-stat">
@@ -961,13 +962,13 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
   </div>
   <nav class="tabs">
-    <button data-tab="dashboard" class="active">🏠 Tableau de bord</button>
-    <button data-tab="programmes">📋 Programmes</button>
-    <button data-tab="seance">🏋️ Séance</button>
-    <button data-tab="historique">🕘 Historique</button>
-    <button data-tab="progression">📈 Progression</button>
-    <button data-tab="records">🏆 Records</button>
-    <button data-tab="rangs">🎖️ Rangs</button>
+    <button data-tab="dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Tableau de bord</span></button>
+    <button data-tab="programmes"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Programmes</span></button>
+    <button data-tab="seance"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg><span>Séance</span></button>
+    <button data-tab="historique"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Historique</span></button>
+    <button data-tab="progression"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span>Progression</span></button>
+    <button data-tab="records"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg><span>Records</span></button>
+    <button data-tab="rangs"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Rangs</span></button>
   </nav>
 </header>
 
@@ -1159,8 +1160,8 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <div class="section-title"><h2>🎨 Couleur d'accent</h2></div>
     <div class="panel" style="margin-bottom:20px;">
       <div class="form-inline">
-        <input type="color" id="accent-color-input" value="#00e6a0" onchange="setAccentColor(this.value)" style="width:60px;height:40px;border:none;border-radius:8px;background:none;">
-        <button class="btn btn-ghost btn-sm" onclick="setAccentColor('#00e6a0')">Réinitialiser (vert)</button>
+        <input type="color" id="accent-color-input" value="#FFD700" onchange="setAccentColor(this.value)" style="width:60px;height:40px;border:none;border-radius:8px;background:none;">
+        <button class="btn btn-ghost btn-sm" onclick="setAccentColor('#FFD700')">Réinitialiser (vert)</button>
       </div>
     </div>
 
@@ -1313,8 +1314,8 @@ const MUSCLE_ICONS = {
   "Bras": "🥊", "Abdos": "🔥"
 };
 const MUSCLE_HEX = {
-  "Pectoraux": "#ff3d6e", "Dos": "#3d9cff", "Jambes": "#ffb800",
-  "Épaules": "#b57bff", "Bras": "#ff8a3d", "Abdos": "#2de6c9"
+  "Pectoraux": "#3B82F6", "Dos": "#A855F7", "Jambes": "#EF4444",
+  "Épaules": "#FFD700", "Bras": "#00E5FF", "Abdos": "#F5A623"
 };
 const EXERCISE_LIBRARY = {
   "Pectoraux": ["Développé couché haltères"],
@@ -1481,7 +1482,7 @@ const STANDARDS_ALIASES = {
   'dips pectoraux':'Dips'
 };
 const LEVEL_LABELS = ['Pré-débutant','Débutant','Novice','Intermédiaire','Avancé','Elite'];
-const LEVEL_COLORS = ['#54607a','#8a93a8','#3d9cff','#00e6a0','#b57bff','#ffcc33'];
+const LEVEL_COLORS = ['#54607a','#8a93a8','#3d9cff','#FFD700','#b57bff','#ffcc33'];
 
 /* ============================= RANK TIER SYSTEM (façon ELO / MMR) ============================= */
 const RANK_TIERS = [
@@ -1509,19 +1510,10 @@ const RANK_TIERS = [
   {name:'Supersonic Légende', min:1876}
 ];
 const RANK_ICONS = {'Bronze':'🥉','Argent':'🥈','Or':'🥇','Platine':'🧊','Diamant':'💎','Champion':'🏆','Grand Champion':'👑','Supersonic Légende':'🌟'};
-const RANK_COLORS = {'Bronze':'#c17a4a','Argent':'#b0b8c8','Or':'#ffd23d','Platine':'#5fd6c9','Diamant':'#4fd1ff','Champion':'#b57bff','Grand Champion':'#ff3b3b','Supersonic Légende':'#ff6bd6'};
+const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#FFD700','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#FFB800'};
 /* Teinte spécifique par sous-rang (1/2/3) : plus sombre/mat au palier 1, plus clair/éclatant au palier 3,
    pour bien visualiser la progression à l'intérieur d'une même famille de rang. */
-const RANK_TIER_COLORS = {
-  'Bronze 1':'#d6b39a', 'Bronze 2':'#d48349', 'Bronze 3':'#c0570c',
-  'Argent 1':'#c7cad1', 'Argent 2':'#929cb0', 'Argent 3':'#546a96',
-  'Or 1':'#d6c79a', 'Or 2':'#d4b249', 'Or 3':'#c0930c',
-  'Platine 1':'#9ad6d0', 'Platine 2':'#49d4c6', 'Platine 3':'#0cc0ae',
-  'Diamant 1':'#9ac3d6', 'Diamant 2':'#49a8d4', 'Diamant 3':'#0c87c0',
-  'Champion 1':'#b39ad6', 'Champion 2':'#8349d4', 'Champion 3':'#570cc0',
-  'Grand Champion 1':'#d69a9a', 'Grand Champion 2':'#d44949', 'Grand Champion 3':'#c00c0c',
-  'Supersonic Légende':'#ff6bd6'
-};
+const RANK_TIER_COLORS = {'Bronze 1':'#d0a47a', 'Bronze 2':'#B87333', 'Bronze 3':'#805023', 'Argent 1':'#d6d6d6', 'Argent 2':'#C0C0C0', 'Argent 3':'#868686', 'Or 1':'#ffe559', 'Or 2':'#FFD700', 'Or 3':'#b29600', 'Platine 1':'#59eeff', 'Platine 2':'#00E5FF', 'Platine 3':'#00a0b2', 'Diamant 1':'#7fadf9', 'Diamant 2':'#3B82F6', 'Diamant 3':'#295bac', 'Champion 1':'#c690f9', 'Champion 2':'#A855F7', 'Champion 3':'#753bac', 'Grand Champion 1':'#f48585', 'Grand Champion 2':'#EF4444', 'Grand Champion 3':'#a72f2f', 'Supersonic Légende':'#FFB800'};
 function tierNumber(tierName){
   const m = tierName.match(/(\d)$/);
   return m ? parseInt(m[1]) : null;
@@ -1760,7 +1752,7 @@ function renderMuscleCharts(){
     setChartEmpty(`muscle-chart-wrap-${m}`, false);
     const {svg} = svgLineChart(
       filtered.map(p=>fmtDate(p.date)),
-      [{name:m, color:MUSCLE_HEX[m]||'#00e6a0', values:filtered.map(p=>Math.round(p.elo)), unit:'pts'}],
+      [{name:m, color:MUSCLE_HEX[m]||'#FFD700', values:filtered.map(p=>Math.round(p.elo)), unit:'pts'}],
       {zeroBase:true}
     );
     document.getElementById(`muscle-chart-${m}`).innerHTML = svg;
@@ -1774,7 +1766,7 @@ function drawRankHistoryChart(){
   if(log.length===0){ setChartEmpty('rankhist-chart-wrap', true); return; }
   setChartEmpty('rankhist-chart-wrap', false);
   const currentRank = computeGlobalPerformanceRank();
-  const color = currentRank ? currentRank.color : '#00e6a0';
+  const color = currentRank ? currentRank.color : '#FFD700';
   const milestones = [];
   let lastRank = null;
   log.forEach((p,i)=>{
@@ -2182,7 +2174,7 @@ function hexToRgba(hex, alpha){
   return `rgba(${r},${g},${b},${alpha})`;
 }
 function applyAccentColor(){
-  const c = state.settings.accentColor || '#00e6a0';
+  const c = state.settings.accentColor || '#FFD700';
   document.documentElement.style.setProperty('--accent-xp', c);
   document.documentElement.style.setProperty('--accent-xp-dim', hexToRgba(c, 0.2));
   const input = document.getElementById('accent-color-input');
@@ -2247,7 +2239,7 @@ function addXP(amount){
 
 function spawnConfetti(count){
   count = count || 60;
-  const colors = ['#00e6a0','#3d9cff','#ff3d6e','#ffb800','#b57bff','#2de6c9','#ff8a3d'];
+  const colors = ['#FFD700','#3d9cff','#ff3d6e','#ffb800','#b57bff','#2de6c9','#ff8a3d'];
   for(let i=0;i<count;i++){
     const el = document.createElement('div');
     el.className = 'confetti-piece';
@@ -2501,7 +2493,7 @@ function programCardEl(p, opts){
   const div = document.createElement('div');
   div.className = 'prog-card';
   const musclesSet = [...new Set(p.exercises.map(e=>e.muscle))];
-  const hexList = musclesSet.map(m=>MUSCLE_HEX[m]||'#00e6a0');
+  const hexList = musclesSet.map(m=>MUSCLE_HEX[m]||'#FFD700');
   const grad = hexList.length>1 ? `linear-gradient(90deg, ${hexList.join(',')})` : `linear-gradient(90deg, ${hexList[0]}, ${hexList[0]}aa)`;
   div.style.setProperty('--prog-grad', grad);
   div.innerHTML = `
@@ -3379,7 +3371,7 @@ function buildStrengthLevelCard(name){
   }
   const color = LEVEL_COLORS[res.levelIdx] || '#8a93a8';
   const clampedScore = Math.min(100, res.score);
-  const segColors = ['#54607a','#3d9cff','#00e6a0','#b57bff','#ffcc33'];
+  const segColors = ['#54607a','#3d9cff','#FFD700','#b57bff','#ffcc33'];
   const isUnranked = res.levelIdx===0;
   const elo = computeExerciseElo(res);
   const rank = eloToRank(elo);
@@ -3550,7 +3542,7 @@ function drawRadarChart(){
   });
   if(elosByMuscle.every(v=>v===0)){ setChartEmpty('radar-chart-wrap', true); return; }
   setChartEmpty('radar-chart-wrap', false);
-  const svg = svgRadarChart(musclesList.map(m => (MUSCLE_ICONS[m]||'') + ' ' + m), elosByMuscle, '#00e6a0');
+  const svg = svgRadarChart(musclesList.map(m => (MUSCLE_ICONS[m]||'') + ' ' + m), elosByMuscle, '#FFD700');
   document.getElementById('radar-chart').innerHTML = svg;
 }
 
@@ -3588,7 +3580,7 @@ function drawExerciseChart(name){
   const {svg, legendSvg} = svgLineChart(
     points.map(p=>p.date),
     [
-      {name:'Poids max (kg)', color:'#00e6a0', values: points.map(p=>p.maxWeight), unit:'kg'},
+      {name:'Poids max (kg)', color:'#FFD700', values: points.map(p=>p.maxWeight), unit:'kg'},
       {name:'Volume (kg)', color:'#ffcc33', values: points.map(p=>p.vol), unit:'kg'}
     ],
     {zeroBase:false}

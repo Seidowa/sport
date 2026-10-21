@@ -1,7 +1,7 @@
 // Incrémente VERSION à chaque mise à jour de l'appli pour forcer le rafraîchissement du cache
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = 'stat-tracker-' + VERSION;
-const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png'];
+const CORE = ['./', './index.html', './manifest.webmanifest', './premium.css', './icons/logo.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
