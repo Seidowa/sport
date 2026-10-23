@@ -1019,6 +1019,9 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     </div>
   </section>
 
+  <!-- DETAIL RANG -->
+  <section class="view" id="view-rankdetail"><div id="rankdetail-body"></div></section>
+
   <!-- PROGRAMMES -->
   <section class="view" id="view-programmes">
     <div class="section-title">
@@ -1509,7 +1512,7 @@ const RANK_TIERS = [
   {name:'Supersonic Légende', min:1876}
 ];
 const RANK_EMOJI = {'Bronze':'🥉','Argent':'🥈','Or':'🥇','Platine':'🧊'};
-const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'💎','Champion':'🏆','Grand Champion':'👑','Supersonic Légende':'🌟'};
+const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'<img class="rank-img" src="icons/ranks/diamant.png" alt="">','Champion':'<img class="rank-img" src="icons/ranks/champion.png" alt="">','Grand Champion':'<img class="rank-img" src="icons/ranks/grandchampion.png" alt="">','Supersonic Légende':'<img class="rank-img" src="icons/ranks/ssl.png" alt="">'};
 const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#D4AF37','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#D4AF37'};
 /* Teinte spécifique par sous-rang (1/2/3) : plus sombre/mat au palier 1, plus clair/éclatant au palier 3,
    pour bien visualiser la progression à l'intérieur d'une même famille de rang. */
@@ -1682,6 +1685,7 @@ function renderRanks(){
   const globalUp = checkRankLevelUp('global', global);
 
   wrap.innerHTML = rankCardHTML(global, 'Rang Global (performance)', "Moyenne de tes rangs par exercice — log des séances pour le débloquer", globalUp);
+  wrap.onclick = ()=>switchTab('rankdetail'); wrap.style.cursor = 'pointer';
 
   if(global) logGlobalRankPoint(global);
   renderRangePicker('range-rankhist','rankhist');
@@ -2273,6 +2277,81 @@ function editProfileName(){
   if(n===null) return;
   state.profile.name = n.trim().slice(0,20) || 'Athlète'; persist(); renderProfileName();
 }
+
+/* ============================= PAGE RANG GLOBAL ============================= */
+const RANK_FAMILIES = [['Bronze','Bronze'],['Argent','Argent'],['Or','Or'],['Platine','Platine'],['Diamant','Diamant'],['Champion','Champion'],['Grand Champion','Grand Champion'],['Supersonic Légende','SSL']];
+function rdExerciseStats(){
+  const names = [...new Set(state.sessions.flatMap(se=>(se.exercises||[]).map(e=>e.name)))];
+  const list = [];
+  names.forEach(name=>{
+    const std = resolveStandard(name); if(!std) return;
+    const res = computeStrengthLevel(name);
+    if(!res || res.needsProfile || res.noData) return;
+    const elo = computeExerciseElo(res);
+    list.push({name, muscle:std.muscle, elo, rank:eloToRank(elo)});
+  });
+  return list;
+}
+function renderRankDetail(){
+  const box = document.getElementById('rankdetail-body'); if(!box) return;
+  const rank = computeGlobalPerformanceRank();
+  const color = rank ? rank.color : '#8a93a8';
+  document.body.style.setProperty('--rd-c', color);
+  const back = '<button class="rd-back" onclick="switchTab(\'dashboard\')" aria-label="Retour">‹</button>';
+  if(!rank){
+    box.innerHTML = `<div class="rd-top">${back}<p class="rd-eyebrow">Rang global</p>
+      <div class="rd-hero"><svg class="rd-ring" viewBox="0 0 320 320"><circle cx="160" cy="160" r="148" class="rd-track"/></svg><div class="rd-emblem rd-lock">🔒</div></div>
+      <div class="rd-name">Pas encore de rang</div>
+      <div class="rd-next">Enregistre des séances avec des exercices suivis pour débloquer ton rang global.</div></div>`;
+    return;
+  }
+  const idx = tierIndexOf(rank.name);
+  const cur = RANK_TIERS[idx], nxt = RANK_TIERS[idx+1] || null;
+  const R = 148, C = 2*Math.PI*R, pct = Math.round(rank.progress*100);
+  let ticks = '';
+  for(let i=0;i<60;i++){ const a = i*6*Math.PI/180, r1 = 156, r2 = i%5===0 ? 150 : 153;
+    ticks += `<line x1="${(160+Math.sin(a)*r1).toFixed(1)}" y1="${(160-Math.cos(a)*r1).toFixed(1)}" x2="${(160+Math.sin(a)*r2).toFixed(1)}" y2="${(160-Math.cos(a)*r2).toFixed(1)}" class="rd-tick"/>`; }
+  const endA = rank.progress*2*Math.PI;
+  const dot = `<circle cx="${(160+Math.sin(endA)*R).toFixed(1)}" cy="${(160-Math.cos(endA)*R).toFixed(1)}" r="7" class="rd-dot"/>`;
+  const group = rankGroup(rank.name), gIdx = RANK_FAMILIES.findIndex(f=>f[0]===group);
+  const ladder = RANK_FAMILIES.map((f,i)=>`<div class="rd-step ${i<gIdx?'done':''} ${i===gIdx?'now':''} ${i>gIdx?'locked':''}"><div class="rd-step-img">${RANK_ICONS[f[0]]}</div><span>${f[1]}</span></div>`).join('');
+  const ex = rdExerciseStats().sort((a,b)=>b.elo-a.elo);
+  const exHTML = ex.length ? ex.slice(0,5).map(e=>`<div class="rd-row"><div class="rd-row-ic" style="--c:${e.rank.color}">${e.rank.icon}</div><div class="rd-row-main"><b>${escapeXml(e.name)}</b><small>${escapeXml(e.muscle)}</small></div><div class="rd-row-r" style="color:${e.rank.color}">${e.rank.name}<small>${e.rank.elo.toLocaleString('fr-FR')} MMR</small></div></div>`).join('') : '<p class="rd-empty">Aucun exercice classé pour le moment.</p>';
+  const byM = {}; ex.forEach(e=>{ (byM[e.muscle] = byM[e.muscle]||[]).push(e.elo); });
+  const mRows = Object.keys(byM).map(m=>{ const avg = byM[m].reduce((a,b)=>a+b,0)/byM[m].length; return {m, avg, rank:eloToRank(avg)}; }).sort((a,b)=>b.avg-a.avg);
+  const maxElo = RANK_TIERS[RANK_TIERS.length-1].min || 1;
+  const mHTML = mRows.length ? mRows.map(r=>`<div class="rd-mrow"><span class="rd-mname" style="color:${MUSCLE_HEX[r.m]||'#fff'}">${escapeXml(r.m)}</span><div class="rd-mbar"><i style="width:${Math.min(100,r.avg/maxElo*100).toFixed(0)}%;background:${MUSCLE_HEX[r.m]||color}"></i></div><span class="rd-mval">${r.rank.name}</span></div>`).join('') : '<p class="rd-empty">Pas encore de données par muscle.</p>';
+  let tip = '';
+  if(nxt && ex.length){ const weak = ex[ex.length-1]; tip = `Il te manque <b>${rank.pointsToNext} MMR</b> pour atteindre <b>${rank.nextName}</b>. Ton exercice le moins avancé est <b>${escapeXml(weak.name)}</b> (${weak.rank.name}) : c'est là que tu gagneras le plus vite.`; }
+  else if(nxt){ tip = `Il te manque <b>${rank.pointsToNext} MMR</b> pour atteindre <b>${rank.nextName}</b>.`; }
+  else tip = 'Tu as atteint le rang maximum. Respect, légende. 🌟';
+  const log = (state.rankHistory.globalLog||[]);
+  let chart = '<p class="rd-empty">Ton historique apparaîtra après quelques séances.</p>';
+  if(log.length>1){ const {svg} = svgLineChart(log.map(pt=>new Date(pt.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short'})),[{name:'MMR',color,values:log.map(pt=>pt.elo),unit:'MMR'}],{zeroBase:false,fullNumbers:true}); chart = `<div class="chart-canvas">${svg}</div>`; }
+  box.innerHTML = `
+  <div class="rd-top">${back}<p class="rd-eyebrow">Rang global</p>
+    <div class="rd-hero">
+      <svg class="rd-ring" viewBox="0 0 320 320"><g>${ticks}</g><circle cx="160" cy="160" r="${R}" class="rd-track"/><circle cx="160" cy="160" r="${R}" class="rd-prog" stroke-dasharray="${(C*rank.progress).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 160 160)"/>${dot}</svg>
+      <div class="rd-emblem">${rank.icon}</div>
+    </div>
+    <div class="rd-name">${rank.name}${tierPipsHTML(rank.name)}</div>
+    <div class="rd-mmr">${rank.elo.toLocaleString('fr-FR')} <span>MMR</span></div>
+    <div class="rd-range"><span>${cur.min.toLocaleString('fr-FR')}</span><div class="rd-rbar"><i style="width:${pct}%"></i></div><span>${nxt?nxt.min.toLocaleString('fr-FR'):'MAX'}</span></div>
+    <div class="rd-next">${nxt?`${rank.pointsToNext} pts avant ${rank.nextName} · ${pct}%`:'Rang maximum atteint 🌟'}</div>
+  </div>
+  <div class="rd-sec">
+    <div class="rd-tiles">
+      <div class="rd-tile"><small>Progression</small><b>${pct}%</b></div>
+      <div class="rd-tile"><small>Exercices classés</small><b>${ex.length}</b></div>
+      <div class="rd-tile"><small>Prochain rang</small><b>${nxt?rank.nextName:'—'}</b></div>
+    </div>
+    <div class="rd-card rd-tip">💡 <span>${tip}</span></div>
+    <h3 class="rd-h">Parcours des rangs</h3><div class="rd-card"><div class="rd-ladder">${ladder}</div></div>
+    <h3 class="rd-h">Meilleurs exercices</h3><div class="rd-card">${exHTML}</div>
+    <h3 class="rd-h">Rangs par muscle</h3><div class="rd-card">${mHTML}</div>
+    <h3 class="rd-h">Évolution du MMR</h3><div class="rd-card">${chart}</div>
+  </div>`;
+}
 function showNotif(){ const m=document.getElementById('insight-msg'); toast('💡 ' + (m ? m.textContent : 'Bienvenue !')); }
 function switchTab(name){
   document.body.dataset.tab = name; closeMore();
@@ -2280,6 +2359,7 @@ function switchTab(name){
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-'+name));
   if(name==='dashboard') renderDashboard();
+  if(name==='rankdetail') renderRankDetail();
   if(name==='programmes') renderPrograms();
   if(name==='seance') renderSeanceTab();
   if(name==='historique') renderHistory();
