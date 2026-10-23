@@ -2343,12 +2343,9 @@ function renderRankDetail(){
     <div class="rd-tiles">
       <div class="rd-tile"><small>Progression</small><b>${pct}%</b></div>
       <div class="rd-tile"><small>Exercices classés</small><b>${ex.length}</b></div>
-      <div class="rd-tile"><small>Prochain rang</small><b>${nxt?rank.nextName:'—'}</b></div>
+      <div class="rd-tile"><small>Points restants</small><b>${nxt?rank.pointsToNext:'—'}</b></div>
     </div>
     <div class="rd-card rd-tip">💡 <span>${tip}</span></div>
-    <h3 class="rd-h">Parcours des rangs</h3><div class="rd-card"><div class="rd-ladder">${ladder}</div></div>
-    <h3 class="rd-h">Meilleurs exercices</h3><div class="rd-card">${exHTML}</div>
-    <h3 class="rd-h">Rangs par muscle</h3><div class="rd-card">${mHTML}</div>
     <h3 class="rd-h">Évolution du MMR</h3><div class="rd-card">${chart}</div>
   </div>`;
 }
