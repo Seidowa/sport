@@ -934,7 +934,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 </style>
 <link rel="stylesheet" href="premium.css">
 </head>
-<body>
+<body data-tab="dashboard">
 <div id="splash"><button id="splash-btn" type="button">Commencer</button></div>
 <div class="bg-fx">
   <div class="bg-orb o1"></div>
@@ -946,14 +946,6 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 <header class="hud">
   <img class="banner" src="icons/banner.jpg" alt="Stat Tracker — Track / Progress / Level up">
   <div class="hud-top">
-    <div class="hud-stat">
-      <div class="level-badge" id="hud-level">1</div>
-      <div class="xp-wrap">
-        <div class="xp-label"><span id="hud-xp-text">0 / 500 XP</span></div>
-        <div class="xp-bar-bg"><div class="xp-bar-fill" id="hud-xp-bar" style="width:0%"></div></div>
-      </div>
-    </div>
-    <div class="streak-chip">🔥 <span id="hud-streak">0</span> j.</div>
     <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
   </div>
 </header>
@@ -962,50 +954,68 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <button data-tab="programmes"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Programmes</span></button>
     <button data-tab="seance"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg><span>Séance</span></button>
     <button data-tab="historique"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Historique</span></button>
-    <button data-tab="progression"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span>Progression</span></button>
-    <button data-tab="records"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg><span>Records</span></button>
-    <button data-tab="rangs"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Rangs</span></button>
+    <button data-more><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></button>
   </nav>
+  <div id="more-sheet" class="more-sheet" onclick="if(event.target===this)closeMore()"><div class="more-box"><h3>Profil &amp; stats</h3>
+    <button onclick="goMore('progression')"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>Progression</button>
+    <button onclick="goMore('records')"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg>Records</button>
+    <button onclick="goMore('rangs')"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Rangs</button>
+  </div></div>
 
 
 <main>
 
   <!-- DASHBOARD -->
   <section class="view active" id="view-dashboard">
+    <div class="dash-head"><img src="icons/dash-head.jpg" alt="Stat Tracker"><div class="dh-btns"><button class="round-btn" onclick="showNotif()" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></svg><i class="dot-orange"></i></button><button class="round-btn" onclick="openMore()" aria-label="Menu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></button></div></div>
     <div id="backup-reminder"></div>
 
-    <div class="hero-quote" id="insight-card">
+    <div class="panel profile-card">
+      <div class="prof-top">
+        <div class="avatar"><img src="icons/avatar.jpg" alt=""><div class="level-badge" id="hud-level">1</div></div>
+        <div class="prof-info">
+          <div class="prof-line"><span class="prof-name" id="prof-name">Athlète</span><button class="pencil" onclick="editProfileName()" aria-label="Modifier le prénom"><svg viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/></svg></button></div>
+          <div class="prof-level" id="hud-level-txt">Niveau 1</div>
+          <div class="xp-bar-bg"><div class="xp-bar-fill" id="hud-xp-bar" style="width:0%"></div></div>
+          <div class="xp-label"><span id="hud-xp-text">0 / 500 XP</span></div>
+        </div>
+        <div class="streak-box"><span class="flame">🔥</span><b><span id="hud-streak">0</span> j.</b><small>Série actuelle</small></div>
+      </div>
+      <div class="prof-sep"></div>
+      <div class="grid" style="grid-template-columns:1fr;" id="rank-cards"></div>
+    </div>
+
+    <div class="grid grid-3 stats-row">
+      <div class="stat-card"><span class="icon"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg></span><div class="num mono" id="stat-week-vol">0 kg</div><div class="lbl">Volume soulevé <span>(7 jours)</span></div></div>
+      <div class="stat-card"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span><div class="num mono" id="stat-week-count">0</div><div class="lbl">Séances cette semaine</div></div>
+      <div class="stat-card"><span class="icon"><svg viewBox="0 0 24 24"><path d="M5 20v-6M12 20V4M19 20v-9"/></svg></span><div class="num mono" id="stat-total-count">0</div><div class="lbl">Séances totales</div></div>
+    </div>
+
+    <div class="panel" style="margin-bottom:14px;">
+      <div class="chart-head"><h2><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg> Évolution MMR</h2><div class="range-picker" id="range-rankhist"></div></div>
+      <div class="chart-wrap" id="rankhist-chart-wrap">
+        <div class="chart-canvas" id="rankhist-chart"></div>
+        <div class="chart-empty"><div class="big">📈</div><p>Ton historique de progression de rang global apparaîtra ici.</p></div>
+      </div>
+    </div>
+
+    <div class="dash-bottom">
+      <div class="panel cal-panel">
+        <div class="section-title"><h2><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg> Calendrier</h2><span class="pill" id="calendar-count-pill" style="display:none;">0</span></div>
+        <div class="calendar-nav"><button class="cal-nav-btn" onclick="shiftCalendarMonth(-1)">‹</button><span id="calendar-month-label" onclick="goToCurrentMonth()">Ce mois-ci</span><button class="cal-nav-btn" onclick="shiftCalendarMonth(1)">›</button></div>
+        <div class="calendar-grid" id="calendar-weekdays"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+        <div class="calendar-grid" id="calendar-days"></div>
+        <div class="cal-legend"><span><i class="on"></i>Séance</span><span><i></i>Jour sans séance</span></div>
+      </div>
+      <div class="panel motiv-card">
+        <div class="motiv-txt"><h3>Plus fort<br>chaque jour</h3><p>Tes efforts d'aujourd'hui construisent ton rang de demain.</p></div>
+        <button class="btn btn-primary" onclick="switchTab('seance')">▶&nbsp; Commencer une séance</button>
+      </div>
+    </div>
+
+    <div class="hero-quote" id="insight-card" style="margin-top:14px;">
       <p id="insight-text"><span class="insight-icon" id="insight-icon">💡</span> <span id="insight-msg">Charge tes données pour voir ton premier insight.</span></p>
       <span>Insight du jour</span>
-    </div>
-
-    <div class="grid" style="margin-bottom:12px;grid-template-columns:1fr;" id="rank-cards"></div>
-    <div class="range-picker" id="range-rankhist" style="margin-bottom:8px;"></div>
-    <div class="chart-wrap" id="rankhist-chart-wrap" style="margin-bottom:20px;">
-      <div class="chart-canvas" id="rankhist-chart"></div>
-      <div class="chart-empty"><div class="big">📈</div><p>Ton historique de progression de rang global apparaîtra ici.</p></div>
-    </div>
-
-    <div class="grid grid-3" style="margin-bottom:20px;">
-      <div class="stat-card" style="--accent-c:var(--c-jambes);"><span class="icon">🔥</span><div class="num mono" id="stat-week-vol">0 kg</div><div class="lbl">Volume soulevé (7 jours)</div></div>
-      <div class="stat-card" style="--accent-c:var(--c-dos);"><span class="icon">📅</span><div class="num mono" id="stat-week-count">0</div><div class="lbl">Séances cette semaine</div></div>
-      <div class="stat-card" style="--accent-c:var(--c-pectoraux);"><span class="icon">⚡</span><div class="num mono" id="stat-total-count">0</div><div class="lbl">Séances totales</div></div>
-    </div>
-
-    <div class="panel" style="margin-bottom:20px;">
-      <div class="section-title">
-        <h2>📅 <span id="calendar-month-label">Ce mois-ci</span></h2>
-        <span class="pill" id="calendar-count-pill" style="color:var(--accent-xp);border-color:var(--accent-xp);">0 séance(s)</span>
-      </div>
-      <div class="calendar-nav">
-        <button class="cal-nav-btn" onclick="shiftCalendarMonth(-1)" title="Mois précédent">‹</button>
-        <button class="cal-nav-btn today" onclick="goToCurrentMonth()" title="Revenir à aujourd'hui">Aujourd'hui</button>
-        <button class="cal-nav-btn" onclick="shiftCalendarMonth(1)" title="Mois suivant">›</button>
-      </div>
-      <div class="calendar-grid" id="calendar-weekdays">
-        <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
-      </div>
-      <div class="calendar-grid" id="calendar-days"></div>
     </div>
   </section>
 
@@ -1656,7 +1666,7 @@ function rankCardHTML(rank, eyebrow, sub, justLeveledUp){
       <div class="rank-info">
         <p class="eyebrow" style="color:var(--text-dim);">${escapeXml(eyebrow)}</p>
         <div class="rank-name-row"><div class="rank-name">${rank.name}</div>${tierPipsHTML(rank.name)}</div>
-        <div class="rank-elo">${rank.elo.toLocaleString('fr-FR')} pts</div>
+        <div class="rank-elo">${rank.elo.toLocaleString('fr-FR')} MMR</div>
         ${!isSSL ? `
           <div class="rank-progress-bg"><div class="rank-progress-fill" style="width:${progressPct}%;"></div></div>
           <div class="rank-progress-text">${rank.pointsToNext} pts avant ${rank.nextName}</div>
@@ -1756,7 +1766,7 @@ function drawRankHistoryChart(){
   if(log.length===0){ setChartEmpty('rankhist-chart-wrap', true); return; }
   setChartEmpty('rankhist-chart-wrap', false);
   const currentRank = computeGlobalPerformanceRank();
-  const color = currentRank ? currentRank.color : '#D4AF37';
+  const color = currentRank ? currentRank.color : '#19D3EA';
   const milestones = [];
   let lastRank = null;
   log.forEach((p,i)=>{
@@ -1766,9 +1776,9 @@ function drawRankHistoryChart(){
     if(p.rankName) lastRank = p.rankName;
   });
   const {svg} = svgLineChart(
-    log.map(p=>fmtDate(p.date)),
+    log.map(p=>new Date(p.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short'})),
     [{name:'Rang Global (pts)', color, values: log.map(p=>p.elo), unit:'pts'}],
-    {zeroBase:true, milestones}
+    {zeroBase:false, milestones, fullNumbers:true}
   );
   document.getElementById('rankhist-chart').innerHTML = svg;
   const wrap = document.getElementById('rankhist-chart-wrap');
@@ -2201,6 +2211,8 @@ function levelTitle(level){
 function refreshHUD(){
   const info = levelInfo(state.profile.xp);
   document.getElementById('hud-level').textContent = info.level;
+  renderProfileName();
+  const lt=document.getElementById('hud-level-txt'); if(lt) lt.textContent = 'Niveau ' + info.level;
   document.getElementById('hud-xp-text').textContent = `${info.remaining} / ${info.need} XP`;
   document.getElementById('hud-xp-bar').style.width = Math.min(100, (info.remaining/info.need)*100) + '%';
   document.getElementById('hud-streak').textContent = state.profile.streak;
@@ -2252,7 +2264,19 @@ function registerSessionDate(){
 }
 
 /* ============================= TABS ============================= */
+function openMore(){ document.getElementById('more-sheet').classList.add('open'); }
+function closeMore(){ const e=document.getElementById('more-sheet'); if(e) e.classList.remove('open'); }
+function goMore(t){ closeMore(); switchTab(t); }
+function renderProfileName(){ const e=document.getElementById('prof-name'); if(e) e.textContent = state.profile.name || 'Athlète'; }
+function editProfileName(){
+  const n = prompt('Ton prénom ?', state.profile.name || '');
+  if(n===null) return;
+  state.profile.name = n.trim().slice(0,20) || 'Athlète'; persist(); renderProfileName();
+}
+function showNotif(){ const m=document.getElementById('insight-msg'); toast('💡 ' + (m ? m.textContent : 'Bienvenue !')); }
 function switchTab(name){
+  document.body.dataset.tab = name; closeMore();
+  const mb=document.querySelector('nav.tabs button[data-more]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['progression','records','rangs'].includes(name)),0);
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-'+name));
   if(name==='dashboard') renderDashboard();
@@ -2263,7 +2287,7 @@ function switchTab(name){
   if(name==='records') renderRecords();
   if(name==='rangs') renderRankScale();
 }
-document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', ()=>switchTab(b.dataset.tab)));
+document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', ()=>{ if(b.hasAttribute('data-more')) openMore(); else switchTab(b.dataset.tab); }));
 
 /* ============================= TOAST ============================= */
 let chartTooltipTimeout = null;
@@ -3117,6 +3141,7 @@ function svgLineChart(labels, series, opts){
   const gridColor = cssVar('--border-soft');
   const pointStroke = cssVar('--bg-panel');
   const showYAxis = series.length===1;
+  const fmtY = opts.fullNumbers ? (v=>Math.round(v).toLocaleString('fr-FR')) : formatAxisValue;
 
   let gridSvg = '', yLabelsSvg = '';
   let singleMax=0, singleMin=0;
@@ -3129,7 +3154,7 @@ function svgLineChart(labels, series, opts){
     gridSvg += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W-padR}" y2="${y.toFixed(1)}" stroke="${gridColor}" stroke-width="1" stroke-dasharray="${g===0?'0':'2,3'}"/>`;
     if(showYAxis){
       const val = singleMin + (g/4)*(singleMax-singleMin);
-      yLabelsSvg += `<text class="chart-svg-text" x="${padL-7}" y="${(y+3.5).toFixed(1)}" text-anchor="end">${formatAxisValue(val)}</text>`;
+      yLabelsSvg += `<text class="chart-svg-text" x="${padL-7}" y="${(y+3.5).toFixed(1)}" text-anchor="end">${fmtY(val)}</text>`;
     }
   }
 
@@ -3180,7 +3205,8 @@ function svgLineChart(labels, series, opts){
         return `<g>${marker(p[0],p[1], i===pts.length-1?4.2:2.9)}<title>${escapeXml(labels[i])} — ${escapeXml(s.values[i])} ${escapeXml(s.unit||'')}</title><circle class="chart-point-hit" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="11" fill="transparent" onclick="showChartTooltip(event,'${tip}')"/></g>`;
       }).join('')}
       <circle cx="${lastPt[0].toFixed(1)}" cy="${lastPt[1].toFixed(1)}" r="7.5" fill="none" stroke="${s.color}" stroke-width="1.3" opacity="0.45"/>
-      <text x="${Math.min(W-padR+2, lastPt[0]+8).toFixed(1)}" y="${(lastPt[1]+3.5 + (isDiamond?11:0)).toFixed(1)}" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="${s.color}">${formatAxisValue(lastVal)}</text>
+      <rect x="${(Math.min(W-padR+2,lastPt[0])-26).toFixed(1)}" y="${Math.max(2,lastPt[1]-27).toFixed(1)}" width="52" height="18" rx="9" fill="#04121c" stroke="${s.color}" stroke-width="1"/>
+      <text x="${Math.min(W-padR+2,lastPt[0]).toFixed(1)}" y="${(Math.max(2,lastPt[1]-27)+12.5).toFixed(1)}" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#E5E7EB">${fmtY(lastVal)}</text>
     `;
   });
   const seriesSvg = linesSvg + pointsSvg;
