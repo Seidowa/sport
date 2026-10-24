@@ -312,12 +312,6 @@ nav.tabs button.active svg{filter:drop-shadow(0 0 6px #e8c25a88);}
 @media (max-width:640px){nav.tabs button{font-size:12px;min-width:0;padding:6px 2px 10px;}}
 
 /* Feuille « Profil » */
-.more-sheet{position:fixed;inset:0;z-index:80;background:#000a;display:none;align-items:flex-end;}
-.more-sheet.open{display:flex;}
-.more-box{width:100%;background:#071622;border:1px solid #0f4d5f;border-bottom:none;border-radius:24px 24px 0 0;padding:18px 18px calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;}
-.more-box h3{margin:0 0 4px;font-family:'Inter',sans-serif;font-size:15px;color:#8db4c0;text-transform:none;letter-spacing:0;}
-.more-box button{display:flex;align-items:center;gap:14px;background:#0a2230;border:1px solid #0f4d5f;color:#e5f6fa;border-radius:14px;padding:14px;font-size:15px;font-family:'Inter',sans-serif;}
-.more-box button svg{width:24px;height:24px;stroke:#19d3ea;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
 /* ===== Page Rang global ===== */
 .rd-hero{position:relative;width:min(82vw,44vh,360px);aspect-ratio:1;margin:6px auto 4px;}
@@ -351,3 +345,43 @@ nav.tabs button.active svg{filter:drop-shadow(0 0 6px #e8c25a88);}
 
 .dash-rank .rd-sec{width:100%;margin-top:14px;text-align:left;}
 .dash-rank .rd-tip{margin:0;}
+
+/* ======================= PROFIL — avatar musculaire ======================= */
+body[data-tab="profil"] header.hud{display:none;}
+body[data-tab="profil"] main{zoom:1;padding:0 14px 110px;}
+body[data-tab="profil"] .bg-fx{background:radial-gradient(ellipse at 50% 26%,color-mix(in srgb,var(--rd-c,#19d3ea) 24%,transparent),transparent 56%),#050810;}
+#view-profil{font-family:'Inter',sans-serif;color:#fff;--rc:var(--rd-c,#19d3ea);}
+#view-profil *{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;}
+.pf-title{text-align:center;padding:calc(env(safe-area-inset-top,0px) + 16px) 0 6px;font-size:13px;font-weight:600;letter-spacing:.22em!important;text-transform:uppercase!important;color:var(--rc);}
+.av-stage{position:relative;width:min(70vw,330px);margin:6px auto 8px;aspect-ratio:236/676;}
+.av-glow{position:absolute;left:-18%;right:-18%;top:6%;bottom:2%;background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--rc) 30%,transparent),transparent 65%);filter:blur(12px);}
+.av-glow::after{content:"";position:absolute;left:12%;right:12%;bottom:-1%;height:5%;border-radius:50%;background:radial-gradient(ellipse,color-mix(in srgb,var(--rc) 55%,transparent),transparent 70%);}
+.av-fig{position:absolute;inset:0;filter:drop-shadow(0 8px 18px #000a);}
+.av-l{position:absolute;inset:0;background-size:100% 100%;background-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;transition:opacity .25s,filter .25s;}
+.av-fig.focus .av-l{opacity:.16;}
+.av-fig.focus .av-l.base{opacity:.3;}
+.av-fig.focus .av-l.on{opacity:1;filter:brightness(1.18) saturate(1.15);}
+.pf-global{display:flex;align-items:center;gap:12px;margin:6px 0 4px;padding:10px 14px;border-radius:18px;background:#09131fcc;border:1px solid color-mix(in srgb,var(--rc) 34%,#10202c);}
+.pf-gic{width:46px;height:46px;flex:none;display:grid;place-items:center;font-size:30px;}
+.pf-gic .rank-img{width:100%;height:100%;object-fit:contain;}
+.pf-global small{display:block;font-size:11px;color:#8fa6b2;}
+.pf-global b{font-size:17px;font-weight:700;}
+.pf-global em{margin-left:auto;font-style:normal;font-size:14px;color:#cfe0e6;font-weight:600;}
+.pf-hint{text-align:center;font-size:12px;color:#7f95a2;margin:8px 0 12px;}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pf-mcard{display:flex;align-items:center;gap:10px;text-align:left;padding:10px;border-radius:16px;background:#09131fcc;border:1px solid color-mix(in srgb,var(--mc) 38%,#10202c);color:#fff;transition:box-shadow .2s,border-color .2s;}
+.pf-mcard.sel{border-color:var(--mc);box-shadow:0 0 18px color-mix(in srgb,var(--mc) 45%,transparent);}
+.pf-mic{width:40px;height:40px;flex:none;display:grid;place-items:center;}
+.pf-mic .rank-img{width:100%;height:100%;object-fit:contain;}
+.pf-lock{font-size:22px;filter:grayscale(1);opacity:.7;}
+.pf-mtx{display:flex;flex-direction:column;min-width:0;flex:1;}
+.pf-mtx b{font-size:14px;font-weight:700;color:var(--mc);}
+.pf-mtx small{font-size:11.5px;color:#a9bcc6;}
+.pf-mmr{font-size:12px;color:#8fa6b2;font-weight:600;}
+.pf-links{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.pf-links button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:16px;background:#09131fcc;border:1px solid color-mix(in srgb,var(--rc) 30%,#10202c);color:#e5f6fa;font-size:13px;}
+.pf-links svg{width:24px;height:24px;stroke:var(--rc);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Zone non classée : déjà grise (désaturée). Ajuste la luminosité ici :
+   1 = gris foncé actuel · 1.6 = gris plus clair · 0.5 = presque noir */
+.av-l.unranked{filter:brightness(1);}

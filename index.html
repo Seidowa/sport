@@ -954,20 +954,15 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <button data-tab="programmes"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Programmes</span></button>
     <button data-tab="seance"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg><span>Séance</span></button>
     <button data-tab="historique"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Historique</span></button>
-    <button data-more><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></button>
+    <button data-tab="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></button>
   </nav>
-  <div id="more-sheet" class="more-sheet" onclick="if(event.target===this)closeMore()"><div class="more-box"><h3>Profil &amp; stats</h3>
-    <button onclick="goMore('progression')"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>Progression</button>
-    <button onclick="goMore('records')"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg>Records</button>
-    <button onclick="goMore('rangs')"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Rangs</button>
-  </div></div>
 
 
 <main>
 
   <!-- DASHBOARD -->
   <section class="view active" id="view-dashboard">
-    <div class="dash-head"><img src="icons/dash-head.jpg" alt="Stat Tracker"><div class="dh-btns"><button class="round-btn" onclick="showNotif()" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></svg><i class="dot-orange"></i></button><button class="round-btn" onclick="openMore()" aria-label="Menu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></button></div></div>
+    <div class="dash-head"><img src="icons/dash-head.jpg" alt="Stat Tracker"><div class="dh-btns"><button class="round-btn" onclick="showNotif()" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></svg><i class="dot-orange"></i></button><button class="round-btn" onclick="switchTab('profil')" aria-label="Profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></button></div></div>
     <div id="backup-reminder"></div>
     <div class="dash-rank" id="dash-rank"></div>
 
@@ -1017,6 +1012,12 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       <p id="insight-text"><span class="insight-icon" id="insight-icon">💡</span> <span id="insight-msg">Charge tes données pour voir ton premier insight.</span></p>
       <span>Insight du jour</span>
     </div>
+  </section>
+
+  <!-- PROFIL -->
+  <section class="view" id="view-profil">
+    <div class="pf-title">Profil</div>
+    <div id="profil-body"></div>
   </section>
 
   <!-- PROGRAMMES -->
@@ -2265,9 +2266,6 @@ function registerSessionDate(){
 }
 
 /* ============================= TABS ============================= */
-function openMore(){ document.getElementById('more-sheet').classList.add('open'); }
-function closeMore(){ const e=document.getElementById('more-sheet'); if(e) e.classList.remove('open'); }
-function goMore(t){ closeMore(); switchTab(t); }
 function renderProfileName(){ const e=document.getElementById('prof-name'); if(e) e.textContent = state.profile.name || 'Athlète'; }
 function editProfileName(){
   const n = prompt('Ton prénom ?', state.profile.name || '');
@@ -2306,6 +2304,58 @@ function rdDetailHTML(rank){
     <div class="rd-card rd-tip">💡 <span>${tip}</span></div>
   </div>`;
 }
+
+/* ============================= PROFIL : AVATAR MUSCULAIRE ============================= */
+const AV_FILE = {'Bronze':'bronze','Argent':'argent','Or':'or','Platine':'platine','Diamant':'diamant','Champion':'champion','Grand Champion':'grandchampion','Supersonic Légende':'ssl'};
+const AV_MASK = {'Pectoraux':'pectoraux','Dos':'dos','Jambes':'jambes','Épaules':'epaules','Bras':'bras','Abdos':'abdos'};
+function avFileOf(rank){ return rank ? (AV_FILE[rankGroup(rank.name)] || 'none') : 'none'; }
+function computeMuscleRanks(){
+  const logged = [...new Set(state.sessions.flatMap(se=>(se.exercises||[]).map(e=>e.name)))];
+  const out = {};
+  Object.keys(AV_MASK).forEach(m=>{
+    const elos = logged.filter(n=>{ const sd = resolveStandard(n); return sd && sd.muscle===m; }).map(n=>{
+      const r = computeStrengthLevel(n); return (r && !r.needsProfile && !r.noData) ? computeExerciseElo(r) : null; }).filter(e=>e!==null);
+    out[m] = elos.length ? eloToRank(elos.reduce((a,b)=>a+b,0)/elos.length) : null;
+  });
+  return out;
+}
+function avLayer(img, mask, extra){
+  return `<i class="av-l ${extra||''}" style="background-image:url(icons/avatar/${img}.webp);-webkit-mask-image:url(icons/avatar/mask-${mask}.png);mask-image:url(icons/avatar/mask-${mask}.png)"></i>`;
+}
+function renderProfile(){
+  const box = document.getElementById('profil-body'); if(!box) return;
+  const g = computeGlobalPerformanceRank();
+  document.body.style.setProperty('--rd-c', g ? g.color : '#19D3EA');
+  const mr = computeMuscleRanks();
+  const layers = avLayer(avFileOf(g),'base','base') + Object.keys(AV_MASK).map(m=>avLayer(avFileOf(mr[m]),AV_MASK[m],'m-'+AV_MASK[m]+(mr[m]?'':' unranked'))).join('');
+  const cards = Object.keys(AV_MASK).map(m=>{
+    const r = mr[m], col = r ? r.color : '#7d8794';
+    return `<button class="pf-mcard" data-m="${AV_MASK[m]}" style="--mc:${col}" onclick="avFocus('${AV_MASK[m]}')">
+      <span class="pf-mic">${r ? r.icon : '<span class="pf-lock">🔒</span>'}</span>
+      <span class="pf-mtx"><b>${m}</b><small>${r ? r.name : 'Non classé'}</small></span>
+      <span class="pf-mmr">${r ? r.elo.toLocaleString('fr-FR') : '—'}</span></button>`; }).join('');
+  const ico = d=>'<svg viewBox="0 0 24 24">'+d+'</svg>';
+  box.innerHTML = `
+    <div class="av-stage"><div class="av-glow"></div>
+      <div class="av-fig" id="av-fig" onclick="avFocus(null)">${layers}</div></div>
+    <div class="pf-global">${g ? `<span class="pf-gic">${g.icon}</span><span><small>Rang global</small><b style="color:${g.color}">${g.name}</b></span><em>${g.elo.toLocaleString('fr-FR')} MMR</em>` : '<span class="pf-gic">🔒</span><span><small>Rang global</small><b>Pas encore de rang</b></span>'}</div>
+    <p class="pf-hint">Touche un groupe musculaire pour le mettre en évidence.</p>
+    <div class="pf-grid">${cards}</div>
+    <div class="pf-links">
+      <button onclick="switchTab('progression')">${ico('<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>')}Progression</button>
+      <button onclick="switchTab('records')">${ico('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/>')}Records</button>
+      <button onclick="switchTab('rangs')">${ico('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>')}Rangs</button>
+    </div>`;
+}
+let _avSel = null;
+function avFocus(m){
+  _avSel = (m && _avSel===m) ? null : m;
+  const fig = document.getElementById('av-fig'); if(!fig) return;
+  fig.classList.toggle('focus', !!_avSel);
+  fig.querySelectorAll('.av-l').forEach(l=>l.classList.toggle('on', !!_avSel && l.classList.contains('m-'+_avSel)));
+  document.querySelectorAll('.pf-mcard').forEach(c=>c.classList.toggle('sel', c.dataset.m===_avSel));
+  if(_avSel) fig.scrollIntoView({behavior:'smooth', block:'center'});
+}
 function rdHeroHTML(rank){
   if(!rank) return `<div class="rd-hero"><svg class="rd-ring" viewBox="0 0 320 320"><circle cx="160" cy="160" r="148" class="rd-track"/></svg><div class="rd-emblem rd-lock">🔒</div></div><div class="rd-name">Pas encore de rang</div><div class="rd-next">Enregistre des séances pour débloquer ton rang global.</div>`;
   const idx = tierIndexOf(rank.name), cur = RANK_TIERS[idx], nxt = RANK_TIERS[idx+1] || null;
@@ -2328,11 +2378,12 @@ function renderDashRankHero(rank){
 }
 function showNotif(){ const m=document.getElementById('insight-msg'); toast('💡 ' + (m ? m.textContent : 'Bienvenue !')); }
 function switchTab(name){
-  document.body.dataset.tab = name; closeMore();
-  const mb=document.querySelector('nav.tabs button[data-more]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['progression','records','rangs'].includes(name)),0);
+  document.body.dataset.tab = name;
+  const mb=document.querySelector('nav.tabs button[data-tab="profil"]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['profil','progression','records','rangs'].includes(name)),0);
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-'+name));
   if(name==='dashboard') renderDashboard();
+  if(name==='profil') renderProfile();
   if(name==='programmes') renderPrograms();
   if(name==='seance') renderSeanceTab();
   if(name==='historique') renderHistory();
@@ -2340,7 +2391,7 @@ function switchTab(name){
   if(name==='records') renderRecords();
   if(name==='rangs') renderRankScale();
 }
-document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', ()=>{ if(b.hasAttribute('data-more')) openMore(); else switchTab(b.dataset.tab); }));
+document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', ()=>{ switchTab(b.dataset.tab); }));
 
 /* ============================= TOAST ============================= */
 let chartTooltipTimeout = null;
