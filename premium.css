@@ -293,14 +293,13 @@ body[data-tab="dashboard"] .bg-orb{opacity:.05;}
 
 /* Héros du rang en tête d'accueil */
 #view-dashboard{--rc:var(--rd-c,#19d3ea);}
-.dash-rank{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:2px 0 14px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.dash-rank{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:2px 0 14px;margin-bottom:10px;}
 .dash-rank .rd-eyebrow-s{margin:0 0 6px;font-size:12px;letter-spacing:.22em!important;text-transform:uppercase!important;color:var(--rd-c,#19d3ea);font-weight:600;}
 .dash-rank .rd-hero{width:min(72vw,290px);margin:2px auto;}
 .dash-rank .rd-name{font-size:23px;margin-top:4px;}
 .dash-rank .rd-mmr{font-size:30px;}
 .dash-rank .rd-range{width:min(72vw,300px);margin-top:8px;}
 .dash-rank .rd-next{margin-top:8px;font-size:13px;}
-.dr-more{margin-top:8px;font-size:12px;color:var(--mut);letter-spacing:.04em;}
 #view-dashboard .motiv-card .btn-primary{background:linear-gradient(180deg,color-mix(in srgb,var(--rd-c,#19d3ea) 62%,#fff),var(--rd-c,#19d3ea) 55%,color-mix(in srgb,var(--rd-c,#19d3ea) 62%,#000));color:#04101a;box-shadow:0 0 14px color-mix(in srgb,var(--rd-c,#19d3ea) 45%,transparent);}
 #view-dashboard .hero-quote{border-left-color:var(--rd-c,#19d3ea);}
 /* Barre du bas façon maquette (5 onglets) */
@@ -321,14 +320,6 @@ nav.tabs button.active svg{filter:drop-shadow(0 0 6px #e8c25a88);}
 .more-box button svg{width:24px;height:24px;stroke:#19d3ea;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
 /* ===== Page Rang global ===== */
-body[data-tab="rankdetail"] header.hud{display:none;}
-body[data-tab="rankdetail"] main{zoom:1;padding:0 14px 110px;}
-body[data-tab="rankdetail"] .bg-fx{background:radial-gradient(ellipse at 50% 22%,color-mix(in srgb,var(--rd-c,#19d3ea) 28%,transparent),transparent 58%),#050810;}
-#view-rankdetail{--rc:var(--rd-c,#19d3ea);font-family:'Inter',sans-serif;color:#fff;}
-#view-rankdetail *{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;}
-.rd-top{position:relative;min-height:62vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(env(safe-area-inset-top,0px) + 54px) 0 10px;margin:0 -14px;}
-.rd-back{position:absolute;left:14px;top:calc(env(safe-area-inset-top,0px) + 12px);width:42px;height:42px;border-radius:50%;background:#0a1420;border:1px solid color-mix(in srgb,var(--rc) 45%,transparent);color:#fff;font-size:26px;line-height:1;padding:0 0 3px;}
-.rd-eyebrow{position:absolute;top:calc(env(safe-area-inset-top,0px) + 23px);margin:0;font-size:13px;letter-spacing:.2em!important;text-transform:uppercase!important;color:var(--rc);font-weight:600;}
 .rd-hero{position:relative;width:min(82vw,44vh,360px);aspect-ratio:1;margin:6px auto 4px;}
 .rd-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
 .rd-track{fill:none;stroke:color-mix(in srgb,var(--rc) 18%,#0a1420);stroke-width:9;}
@@ -357,26 +348,6 @@ body[data-tab="rankdetail"] .bg-fx{background:radial-gradient(ellipse at 50% 22%
 .rd-card{padding:14px;}
 .rd-tip{display:flex;gap:10px;font-size:13.5px;line-height:1.45;color:#dbe9ee;}
 .rd-tip b{color:var(--rc);}
-.rd-h{margin:8px 2px 0;font-size:13px;font-weight:600;color:var(--rc);text-transform:uppercase!important;letter-spacing:.14em!important;}
-.rd-ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 4px;}
-.rd-step{text-align:center;font-size:11px;color:#cfe0e6;}
-.rd-step-img{width:100%;aspect-ratio:1;}
-.rd-step-img .rank-img{width:100%;height:100%;object-fit:contain;}
-.rd-step.locked{opacity:.32;filter:grayscale(.9);}
-.rd-step.now .rd-step-img{filter:drop-shadow(0 0 12px var(--rc));transform:scale(1.12);}
-.rd-step.now span{color:var(--rc);font-weight:700;}
-.rd-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #12222e;}
-.rd-row:last-child{border-bottom:none;}
-.rd-row-ic{width:42px;height:42px;flex:none;}
-.rd-row-ic .rank-img{width:100%;height:100%;object-fit:contain;}
-.rd-row-main{flex:1;min-width:0;}
-.rd-row-main b{display:block;font-size:14px;font-weight:600;}
-.rd-row small{display:block;font-size:11px;color:#8fa6b2;font-weight:400;}
-.rd-row-r{text-align:right;font-size:13px;font-weight:700;}
-.rd-mrow{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13px;}
-.rd-mname{width:84px;font-weight:600;}
-.rd-mbar{flex:1;height:7px;border-radius:6px;background:#0c1b27;overflow:hidden;}
-.rd-mbar i{display:block;height:100%;border-radius:6px;box-shadow:0 0 8px currentColor;}
-.rd-mval{width:96px;text-align:right;color:#cfe0e6;font-size:12px;}
-.rd-empty{margin:4px 0;font-size:13px;color:#8fa6b2;}
-#view-rankdetail .chart-canvas{border:none;}
+
+.dash-rank .rd-sec{width:100%;margin-top:14px;text-align:left;}
+.dash-rank .rd-tip{margin:0;}
