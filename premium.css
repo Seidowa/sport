@@ -568,26 +568,5 @@ nav.tabs button.active:focus{background:none;}
 .av-fig.turning{animation:avTurn .7s ease-in-out;}
 @keyframes avTurn{0%{transform:scaleX(1);}50%{transform:scaleX(.03);}100%{transform:scaleX(1);}}
 
-/* ===== SSL sur l'avatar : fluide + éclat, sans blend ni filtre animé ===== */
-.av-ssl{overflow:visible;}
-.ssl-aura{position:absolute;inset:0;filter:blur(6px);}
-.ssl-aura i{position:absolute;inset:0;background:linear-gradient(135deg,#8fe9ff,#ffffff,#ffb3f0);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;animation:auraPulse 3.2s ease-in-out infinite;}
-@keyframes auraPulse{0%,100%{opacity:.3;}50%{opacity:.9;}}
-.ssl-flow{position:absolute;inset:0;overflow:hidden;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;}
-.flowgrad{position:absolute;left:-180px;top:-180px;width:calc(100% + 360px);height:calc(100% + 360px);will-change:transform;}
-.flowgrad.g1{background:
-  radial-gradient(circle at 25% 25%,#00e5ff 0,transparent 55%) 0 0/120px 120px,
-  radial-gradient(circle at 75% 30%,#ff4fd8 0,transparent 55%) 0 0/120px 120px,
-  radial-gradient(circle at 65% 75%,#ffd166 0,transparent 55%) 0 0/120px 120px,
-  radial-gradient(circle at 25% 80%,#7c5cff 0,transparent 55%) 0 0/120px 120px;
-  opacity:.6;animation:driftA 8s linear infinite;}
-.flowgrad.g2{background:
-  radial-gradient(circle at 30% 70%,#5effb0 0,transparent 55%) 0 0/170px 170px,
-  radial-gradient(circle at 70% 25%,#8fb4ff 0,transparent 55%) 0 0/170px 170px,
-  radial-gradient(circle at 80% 80%,#ffa6e7 0,transparent 55%) 0 0/170px 170px;
-  opacity:.5;animation:driftB 11s linear infinite;}
-@keyframes driftA{from{transform:translate3d(0,0,0);}to{transform:translate3d(120px,120px,0);}}
-@keyframes driftB{from{transform:translate3d(0,0,0);}to{transform:translate3d(-170px,170px,0);}}
-.flowstreak{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.95) 50%,transparent 60%);transform:translate3d(-130%,0,0);animation:streakGo 9s linear infinite;}
-@keyframes streakGo{0%{transform:translate3d(-130%,0,0);}14%{transform:translate3d(130%,0,0);}100%{transform:translate3d(130%,0,0);}}
-@media (prefers-reduced-motion:reduce){.flowgrad,.flowstreak,.ssl-aura i{animation:none!important;}}
+/* SSL sur l'avatar : animation pré-rendue (ssl-anim.webp), aucun effet CSS */
+

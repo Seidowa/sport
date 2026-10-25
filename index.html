@@ -2305,10 +2305,7 @@ function avLayer(img, mask, extra, idx){
   const mk = `-webkit-mask-image:url(icons/avatar/${mask}.png);mask-image:url(icons/avatar/${mask}.png)`;
   const st = `background-image:url(icons/avatar/${img}.webp);${mk}`;
   if(img==='ssl' || img==='back-ssl'){
-    const nm = mask.split('-')[1], pm = (img==='back-ssl' ? 'sslmb-' : 'sslm-') + nm;
-    const pmk = `-webkit-mask-image:url(icons/avatar/${pm}.png);mask-image:url(icons/avatar/${pm}.png)`;
-    const d = -((idx||0)*1.37);
-    return `<div class="av-l av-ssl ${extra||''}"><div class="ssl-aura"><i style="${pmk};animation-delay:${d}s"></i></div><i class="av-in" style="${st}"></i><div class="ssl-flow" style="${pmk}"><i class="flowgrad g1" style="animation-delay:${d}s"></i><i class="flowgrad g2" style="animation-delay:${d*1.7}s"></i><i class="flowstreak" style="animation-delay:${d*2.3-1}s"></i></div></div>`;
+    return `<i class="av-l ${extra||''}" style="background-image:url(icons/avatar/${img}-anim.webp);${mk}"></i>`;
   }
   return `<i class="av-l ${extra||''}" style="${st}"></i>`;
 }
