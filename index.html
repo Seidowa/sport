@@ -951,7 +951,6 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 </header>
   <nav class="tabs">
     <button data-tab="dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Accueil</span></button>
-    <button data-tab="programmes"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Programmes</span></button>
     <button data-tab="seance"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg><span>Séance</span></button>
     <button data-tab="historique"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Historique</span></button>
     <button data-tab="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></button>
@@ -959,6 +958,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
 
 <main>
+<div id="top-title" class="pf-title"></div>
 
   <!-- DASHBOARD -->
   <section class="view active" id="view-dashboard">
@@ -1020,20 +1020,10 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <div id="profil-body"></div>
   </section>
 
-  <!-- PROGRAMMES -->
-  <section class="view" id="view-programmes">
-    <div class="section-title">
-      <h2>📋 Mes programmes</h2>
-      <button class="btn btn-primary" onclick="openProgramModal()">+ Nouveau programme</button>
-    </div>
-    <div class="programs-summary" id="programs-summary"></div>
-    <div class="grid grid-3" id="programs-list"></div>
-  </section>
-
   <!-- SEANCE -->
   <section class="view" id="view-seance">
     <div id="seance-picker">
-      <div class="section-title"><h2>🏋️ Démarrer une séance</h2></div>
+      <div class="section-title"><h2>Mes séances</h2><button class="btn btn-primary btn-sm" onclick="openProgramModal()">+ Nouveau programme</button></div>
       <div class="grid grid-3" id="seance-program-list"></div>
       <div style="margin-top:16px;">
         <button class="btn btn-ghost" onclick="startSession(null)">⚡ Séance libre (sans programme)</button>
@@ -1067,14 +1057,14 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
   <!-- HISTORIQUE -->
   <section class="view" id="view-historique">
-    <div class="section-title"><h2>🕘 Historique des séances</h2></div>
+    <div class="section-title"><h2>Historique des séances</h2></div>
     <div id="history-list"></div>
   </section>
 
   <!-- PROGRESSION -->
   <section class="view" id="view-progression">
     <div class="section-title">
-      <h2>⚖️ Poids de corps &amp; profil</h2>
+      <h2>Poids de corps &amp; profil</h2>
       <div class="range-picker" id="range-bodyweight"></div>
     </div>
     <div class="panel" style="margin-bottom:20px;">
@@ -1100,11 +1090,11 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       </div>
     </div>
 
-    <div class="section-title"><h2>🏅 Niveau de force</h2></div>
+    <div class="section-title"><h2>Niveau de force</h2></div>
     <div id="strength-level-list" style="margin-bottom:20px;"></div>
 
     <div class="section-title">
-      <h2>📈 Progression par exercice</h2>
+      <h2>Progression par exercice</h2>
       <select id="prog-exercise-select" onchange="drawExerciseChart(this.value); drawOneRMChart(this.value);"></select>
     </div>
     <div class="range-picker" id="range-exercise" style="margin-bottom:12px;"></div>
@@ -1114,7 +1104,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     </div>
 
     <div class="section-title">
-      <h2>🏋️ Estimation du 1RM</h2>
+      <h2>Estimation du 1RM</h2>
       <div class="range-picker" id="range-onerm"></div>
     </div>
     <div class="chart-wrap" id="onerm-chart-wrap">
@@ -1124,7 +1114,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
     <div class="grid grid-2">
       <div>
-        <div class="section-title"><h2>🕸️ Profil de puissance</h2></div>
+        <div class="section-title"><h2>Profil de puissance</h2></div>
         <div class="chart-wrap" id="radar-chart-wrap">
           <div class="chart-canvas" id="radar-chart"></div>
           <div class="chart-empty"><div class="big">🕸️</div><p>Termine des séances avec des exercices reconnus (et renseigne ton poids/âge) pour voir tes points de rang par groupe musculaire.</p></div>
@@ -1132,7 +1122,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       </div>
       <div>
         <div class="section-title">
-          <h2>📆 Tendance hebdomadaire</h2>
+          <h2>Tendance hebdomadaire</h2>
           <div class="range-picker" id="range-weekly"></div>
         </div>
         <div class="chart-wrap" id="weekly-chart-wrap">
@@ -1142,11 +1132,11 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       </div>
     </div>
 
-    <div class="section-title"><h2>💪 Progression par groupe musculaire</h2></div>
+    <div class="section-title"><h2>Progression par groupe musculaire</h2></div>
     <div class="grid grid-2" id="muscle-charts-grid" style="margin-bottom:20px;"></div>
 
     <div class="section-title">
-      <h2>📊 Volume total par séance</h2>
+      <h2>Volume total par séance</h2>
       <div class="range-picker" id="range-global"></div>
     </div>
     <div class="chart-wrap" id="global-chart-wrap">
@@ -1154,7 +1144,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       <div class="chart-empty"><div class="big">📊</div><p>Termine ta première séance pour voir ton volume total apparaître ici.</p></div>
     </div>
 
-    <div class="section-title"><h2>💾 Sauvegarde &amp; transfert entre appareils</h2></div>
+    <div class="section-title"><h2>Sauvegarde &amp; transfert entre appareils</h2></div>
     <div class="panel" style="margin-bottom:20px;">
       <p class="backup-hint">Tes données sont stockées uniquement dans ce navigateur, sur cet appareil. Pour les transférer vers un autre appareil (ex : téléphone → PC), exporte un fichier de sauvegarde ici, puis importe-le là-bas.</p>
       <div class="danger-actions backup-actions">
@@ -1165,7 +1155,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     </div>
 
 
-    <div class="section-title"><h2>⚠️ Zone dangereuse</h2></div>
+    <div class="section-title"><h2>Zone dangereuse</h2></div>
     <div class="panel danger-zone">
       <p>Utile après des séances de test — ces actions sont <b>définitives et irréversibles</b>.</p>
       <div class="danger-actions">
@@ -1178,13 +1168,13 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
   <!-- RECORDS -->
   <section class="view" id="view-records">
-    <div class="section-title"><h2>🏆 Tableau des records</h2></div>
+    <div class="section-title"><h2>Tableau des records</h2></div>
     <div class="grid grid-3" id="records-list"></div>
   </section>
 
   <!-- RANGS (référence) -->
   <section class="view" id="view-rangs">
-    <div class="section-title"><h2>🎖️ Échelle des rangs</h2></div>
+    <div class="section-title"><h2>Échelle des rangs</h2></div>
     <div class="panel" style="margin-bottom:20px;">
       <p class="backup-hint" style="margin-bottom:0;">
         Stat Tracker utilise 3 rangs, tous basés sur cette même échelle de points (0 à 1876+) :
@@ -1510,7 +1500,7 @@ const RANK_TIERS = [
   {name:'Supersonic Légende', min:1876}
 ];
 const RANK_EMOJI = {'Bronze':'🥉','Argent':'🥈','Or':'🥇','Platine':'🧊'};
-const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'<img class="rank-img" src="icons/ranks/diamant.png" alt="">','Champion':'<img class="rank-img" src="icons/ranks/champion.png" alt="">','Grand Champion':'<img class="rank-img" src="icons/ranks/grandchampion.png" alt="">','Supersonic Légende':'<img class="rank-img" src="icons/ranks/ssl.png" alt="">'};
+const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'<img class="rank-img" src="icons/ranks/diamant.png" alt="">','Champion':'<img class="rank-img" src="icons/ranks/champion.png" alt="">','Grand Champion':'<img class="rank-img" src="icons/ranks/grandchampion.png" alt="">','Supersonic Légende':'<span class="ssl-fx"><img class="rank-img" src="icons/ranks/ssl.png" alt=""></span>'};
 const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#D4AF37','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#DCEBFF'};
 /* Teinte spécifique par sous-rang (1/2/3) : plus sombre/mat au palier 1, plus clair/éclatant au palier 3,
    pour bien visualiser la progression à l'intérieur d'une même famille de rang. */
@@ -2319,20 +2309,26 @@ function computeMuscleRanks(){
   });
   return out;
 }
-function avLayer(img, mask, extra){
-  return `<i class="av-l ${extra||''}" style="background-image:url(icons/avatar/${img}.webp);-webkit-mask-image:url(icons/avatar/${mask}.png);mask-image:url(icons/avatar/${mask}.png)"></i>`;
+function avLayer(img, mask, extra, idx){
+  const mk = `-webkit-mask-image:url(icons/avatar/${mask}.png);mask-image:url(icons/avatar/${mask}.png)`;
+  const st = `background-image:url(icons/avatar/${img}.webp);${mk}`;
+  if(img==='ssl' || img==='back-ssl'){
+    const d = -((idx||0)*0.83);
+    return `<div class="av-l av-aura ${extra||''}" style="animation-delay:${d}s"><i class="av-in" style="${st}"></i><i class="av-in shine" style="-webkit-mask-image:url(icons/avatar/${mask}.png),url(icons/avatar/${img}.webp);mask-image:url(icons/avatar/${mask}.png),url(icons/avatar/${img}.webp);-webkit-mask-composite:source-in;mask-composite:intersect;animation-delay:${d*1.3}s"></i></div>`;
+  }
+  return `<i class="av-l ${extra||''}" style="${st}"></i>`;
 }
 function renderProfile(){
   const box = document.getElementById('profil-body'); if(!box) return;
   const g = computeGlobalPerformanceRank();
-  document.body.style.setProperty('--rd-c', g ? g.color : '#19D3EA');
+  applyRankTheme(g ? g.color : '#19D3EA');
   const mr = computeMuscleRanks();
   const un = m=>(mr[m]?'':' unranked');
-  const front = avLayer(avFileOf(g),'mask-base','base') + Object.keys(AV_MASK).map(m=>avLayer(avFileOf(mr[m]),'mask-'+AV_MASK[m],'m-'+AV_MASK[m]+un(m))).join('');
-  const back = avLayer('back-'+avFileOf(g),'maskb-base','base') + ['Dos','Épaules','Bras','Jambes'].map(m=>avLayer('back-'+avFileOf(mr[m]),'maskb-'+AV_MASK[m],'m-'+AV_MASK[m]+un(m))).join('');
+  const front = avLayer(avFileOf(g),'mask-base','base',3) + Object.keys(AV_MASK).map((m,i)=>avLayer(avFileOf(mr[m]),'mask-'+AV_MASK[m],'m-'+AV_MASK[m]+un(m),i)).join('');
+  const back = avLayer('back-'+avFileOf(g),'maskb-base','base',3) + ['Dos','Épaules','Bras','Jambes'].map((m,i)=>avLayer('back-'+avFileOf(mr[m]),'maskb-'+AV_MASK[m],'m-'+AV_MASK[m]+un(m),i)).join('');
   const cards = Object.keys(AV_MASK).map(m=>{
     const r = mr[m], col = r ? r.color : '#7d8794';
-    return `<button class="pf-mcard" data-m="${AV_MASK[m]}" style="--mc:${col}" onclick="avFocus('${AV_MASK[m]}')">
+    return `<button class="pf-mcard${(r&&rankGroup(r.name)==='Supersonic Légende')?' ssl':''}" data-m="${AV_MASK[m]}" style="--mc:${col}" onclick="avFocus('${AV_MASK[m]}')">
       <span class="pf-mic">${r ? r.icon : '<span class="pf-lock">🔒</span>'}</span>
       <span class="pf-mtx"><b>${m}</b><small>${r ? r.name : 'Non classé'}</small></span>
       <span class="pf-mmr">${r ? r.elo.toLocaleString('fr-FR') : '—'}</span></button>`; }).join('');
@@ -2341,7 +2337,15 @@ function renderProfile(){
     <div class="av-stage"><div class="av-glow"></div>
       <div class="av-fig ${_avBack?'flipped':''}" id="av-fig" onclick="avFocus(null)"><div class="av-side front">${front}</div><div class="av-side back">${back}</div></div></div>
     <button class="av-flip" onclick="avFlip()"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span id="av-flip-lbl">${_avBack?'Voir de face':'Voir de dos'}</span></button>
-    <div class="pf-global">${g ? `<span class="pf-gic">${g.icon}</span><span><small>Rang global</small><b style="color:${g.color}">${g.name}</b></span><em>${g.elo.toLocaleString('fr-FR')} MMR</em>` : '<span class="pf-gic">🔒</span><span><small>Rang global</small><b>Pas encore de rang</b></span>'}</div>
+    <div class="pf-global${(g&&rankGroup(g.name)==='Supersonic Légende')?' ssl':''}">${g ? `<span class="pf-gic">${g.icon}</span><span><small>Rang global</small><b style="color:${g.color}">${g.name}</b></span><em>${g.elo.toLocaleString('fr-FR')} MMR</em>` : '<span class="pf-gic">🔒</span><span><small>Rang global</small><b>Pas encore de rang</b></span>'}</div>
+    <div class="pf-meas">
+      <div class="pf-meas-h"><span>Mes mesures</span><em id="pf-bmi"></em></div>
+      <div class="pf-meas-g">
+        <label><small>Poids actuel</small><span class="pf-in"><input type="number" inputmode="decimal" step="0.1" min="20" max="400" id="pf-weight" placeholder="—" onchange="setCurrentWeight(this.value)"><u>kg</u></span></label>
+        <label><small>Taille</small><span class="pf-in"><input type="number" inputmode="numeric" min="100" max="250" id="pf-height" placeholder="—" onchange="setProfileHeight(this.value)"><u>cm</u></span></label>
+        <label><small>Âge</small><span class="pf-in"><input type="number" inputmode="numeric" min="10" max="100" id="pf-age" placeholder="—" onchange="setProfileAge(this.value)"><u>ans</u></span></label>
+      </div>
+    </div>
     <p class="pf-hint">Touche un groupe musculaire pour le mettre en évidence.</p>
     <div class="pf-grid">${cards}</div>
     <div class="pf-links">
@@ -2349,6 +2353,29 @@ function renderProfile(){
       <button onclick="switchTab('records')">${ico('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/>')}Records</button>
       <button onclick="switchTab('rangs')">${ico('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>')}Rangs</button>
     </div>`;
+  fillMeasures();
+}
+function currentWeight(){ const b=[...state.bodyweight].sort((x,y)=>new Date(x.date)-new Date(y.date)); return b.length ? b[b.length-1].weight : null; }
+function updateBMI(){
+  const e=document.getElementById('pf-bmi'); if(!e) return;
+  const w=currentWeight(), h=state.profile.height;
+  e.textContent = (w&&h) ? 'IMC ' + (w/Math.pow(h/100,2)).toFixed(1).replace('.',',') : '';
+}
+function fillMeasures(){
+  const w=document.getElementById('pf-weight'), h=document.getElementById('pf-height'), a=document.getElementById('pf-age');
+  if(w) w.value = currentWeight() ?? ''; if(h) h.value = state.profile.height || ''; if(a) a.value = state.profile.age || '';
+  updateBMI();
+}
+function setCurrentWeight(val){
+  const v = parseFloat(String(val).replace(',','.')); if(!v || v<=0){ toast('⚠️ Entre un poids valide'); return; }
+  const d = todayStr(), i = state.bodyweight.findIndex(b=>b.date===d);
+  if(i>=0) state.bodyweight[i].weight = v; else state.bodyweight.push({date:d, weight:v});
+  state.bodyweight.sort((x,y)=>new Date(x.date)-new Date(y.date)); persist();
+  toast('⚖️ Poids enregistré'); updateBMI(); try{ renderBodyweightSection(); }catch(e){}
+}
+function setProfileHeight(val){
+  const h = parseInt(val); state.profile.height = (h && h>=100 && h<=250) ? h : null; persist();
+  toast('📏 Taille enregistrée'); updateBMI();
 }
 let _avSel = null, _avBack = false;
 function avFlip(force){
@@ -2377,26 +2404,31 @@ function rdHeroHTML(rank){
     ticks += `<line x1="${(160+Math.sin(a)*r1).toFixed(1)}" y1="${(160-Math.cos(a)*r1).toFixed(1)}" x2="${(160+Math.sin(a)*r2).toFixed(1)}" y2="${(160-Math.cos(a)*r2).toFixed(1)}" class="rd-tick"/>`; }
   const endA = rank.progress*2*Math.PI;
   const dot = `<circle cx="${(160+Math.sin(endA)*R).toFixed(1)}" cy="${(160-Math.cos(endA)*R).toFixed(1)}" r="7" class="rd-dot"/>`;
-  return `<div class="rd-hero"><svg class="rd-ring" viewBox="0 0 320 320"><g>${ticks}</g><circle cx="160" cy="160" r="${R}" class="rd-track"/><circle cx="160" cy="160" r="${R}" class="rd-prog" stroke-dasharray="${(C*rank.progress).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 160 160)"/>${dot}</svg><div class="rd-emblem">${rank.icon}</div></div>
+  return `<div class="rd-hero${rankGroup(rank.name)==='Supersonic Légende'?' ssl':''}"><svg class="rd-ring" viewBox="0 0 320 320"><g>${ticks}</g><circle cx="160" cy="160" r="${R}" class="rd-track"/><circle cx="160" cy="160" r="${R}" class="rd-prog" stroke-dasharray="${(C*rank.progress).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 160 160)"/>${dot}</svg><div class="rd-emblem">${rank.icon}</div></div>
     <div class="rd-name">${rank.name}${tierPipsHTML(rank.name)}</div>
     <div class="rd-mmr">${rank.elo.toLocaleString('fr-FR')} <span>MMR</span></div>
     <div class="rd-range"><span>${cur.min.toLocaleString('fr-FR')}</span><div class="rd-rbar"><i style="width:${pct}%"></i></div><span>${nxt?nxt.min.toLocaleString('fr-FR'):'MAX'}</span></div>
     <div class="rd-next">${nxt?`${rank.pointsToNext} pts avant ${rank.nextName} · ${pct}%`:'Rang maximum atteint 🌟'}</div>`;
 }
+function applyRankTheme(color){
+  document.body.style.setProperty('--rd-c', color);
+  const r = document.documentElement.style;
+  r.setProperty('--accent-xp', color); r.setProperty('--accent-xp-dim', 'color-mix(in srgb,'+color+' 20%,transparent)');
+}
 function renderDashRankHero(rank){
-  document.body.style.setProperty('--rd-c', rank ? rank.color : '#19D3EA');
+  applyRankTheme(rank ? rank.color : '#19D3EA');
   const box = document.getElementById('dash-rank'); if(!box) return;
   box.innerHTML = '<p class="rd-eyebrow-s">Rang global</p>' + rdHeroHTML(rank) + rdDetailHTML(rank);
 }
 function showNotif(){ const m=document.getElementById('insight-msg'); toast('💡 ' + (m ? m.textContent : 'Bienvenue !')); }
 function switchTab(name){
   document.body.dataset.tab = name;
+  const _tt = document.getElementById('top-title'); if(_tt) _tt.textContent = ({seance:'Séance',historique:'Historique',progression:'Progression',records:'Records',rangs:'Rangs'})[name] || '';
   const mb=document.querySelector('nav.tabs button[data-tab="profil"]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['profil','progression','records','rangs'].includes(name)),0);
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-'+name));
   if(name==='dashboard') renderDashboard();
   if(name==='profil') renderProfile();
-  if(name==='programmes') renderPrograms();
   if(name==='seance') renderSeanceTab();
   if(name==='historique') renderHistory();
   if(name==='progression') renderProgression();
@@ -2637,20 +2669,7 @@ function programCardEl(p, opts){
 }
 
 /* ============================= PROGRAMMES ============================= */
-function renderPrograms(){
-  const wrap = document.getElementById('programs-list');
-  const summary = document.getElementById('programs-summary');
-  if(summary) summary.innerHTML = '';
-  wrap.innerHTML = '';
-  if(state.programs.length===0){
-    wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big">📋</div><h3>Aucun programme</h3><p>Crée ta première routine d'entraînement.</p></div>`;
-    return;
-  }
-  state.programs.forEach(p=>{
-    const card = programCardEl(p, {manage:true});
-    wrap.appendChild(card);
-  });
-}
+function renderPrograms(){ renderSeanceTab(); }
 
 let editingProgramId = null;
 function openProgramModal(id){
@@ -2737,9 +2756,9 @@ function renderSeanceTab(){
     const wrap = document.getElementById('seance-program-list');
     wrap.innerHTML = '';
     if(state.programs.length===0){
-      wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big">🏋️</div><h3>Aucun programme disponible</h3><p>Crée un programme ou lance une séance libre.</p></div>`;
+      wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big">🏋️</div><h3>Aucun programme</h3><p>Crée ta première routine avec « + Nouveau programme », ou lance une séance libre.</p></div>`;
     } else {
-      state.programs.forEach(p => wrap.appendChild(programCardEl(p)));
+      state.programs.forEach(p => wrap.appendChild(programCardEl(p,{manage:true})));
     }
   }
 }
