@@ -471,7 +471,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 20px 80px;}
   transition:.2s;
 }
 .record-card:hover{transform:translateY(-2px);}
-.record-card::before{content:"🏆";position:absolute;right:-6px;top:-10px;font-size:64px;opacity:.06;}
+.record-card::before{content:"";position:absolute;right:-6px;top:-10px;font-size:64px;opacity:.06;}
 
 .record-card h3{margin:0 0 8px;font-size:16px;position:relative;z-index:1;}
 .record-metric{display:flex;justify-content:space-between;font-size:13px;color:var(--text-muted);margin-top:4px;position:relative;z-index:1;}
@@ -946,13 +946,14 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 <header class="hud">
   <img class="banner" src="icons/banner.jpg" alt="Stat Tracker — Track / Progress / Level up">
   <div class="hud-top">
-    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Changer de thème"></button>
   </div>
 </header>
   <nav class="tabs">
     <button data-tab="dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Accueil</span></button>
     <button data-tab="seance"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg><span>Séance</span></button>
     <button data-tab="historique"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Historique</span></button>
+    <button data-tab="progression"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span>Progression</span></button>
     <button data-tab="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></button>
   </nav>
 
@@ -975,7 +976,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
           <div class="xp-bar-bg"><div class="xp-bar-fill" id="hud-xp-bar" style="width:0%"></div></div>
           <div class="xp-label"><span id="hud-xp-text">0 / 500 XP</span></div>
         </div>
-        <div class="streak-box"><span class="flame">🔥</span><b><span id="hud-streak">0</span> j.</b><small>Série actuelle</small></div>
+        <div class="streak-box"><span class="flame"></span><b><span id="hud-streak">0</span> j.</b><small>Série actuelle</small></div>
       </div>
       <div class="grid" style="display:none;" id="rank-cards"></div>
     </div>
@@ -990,7 +991,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       <div class="chart-head"><h2><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg> Évolution MMR</h2><div class="range-picker" id="range-rankhist"></div></div>
       <div class="chart-wrap" id="rankhist-chart-wrap">
         <div class="chart-canvas" id="rankhist-chart"></div>
-        <div class="chart-empty"><div class="big">📈</div><p>Ton historique de progression de rang global apparaîtra ici.</p></div>
+        <div class="chart-empty"><div class="big"></div><p>Ton historique de progression de rang global apparaîtra ici.</p></div>
       </div>
     </div>
 
@@ -1009,7 +1010,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     </div>
 
     <div class="hero-quote" id="insight-card" style="margin-top:14px;">
-      <p id="insight-text"><span class="insight-icon" id="insight-icon">💡</span> <span id="insight-msg">Charge tes données pour voir ton premier insight.</span></p>
+      <p id="insight-text"><span class="insight-icon" id="insight-icon"></span> <span id="insight-msg">Charge tes données pour voir ton premier insight.</span></p>
       <span>Insight du jour</span>
     </div>
   </section>
@@ -1026,7 +1027,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       <div class="section-title"><h2>Mes séances</h2><button class="btn btn-primary btn-sm" onclick="openProgramModal()">+ Nouveau programme</button></div>
       <div class="grid grid-3" id="seance-program-list"></div>
       <div style="margin-top:16px;">
-        <button class="btn btn-ghost" onclick="startSession(null)">⚡ Séance libre (sans programme)</button>
+        <button class="btn btn-ghost" onclick="startSession(null)">Séance libre (sans programme)</button>
       </div>
     </div>
     <div id="seance-active" style="display:none;">
@@ -1041,10 +1042,10 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
         <div class="mono" id="session-volume-live" style="font-size:15px;color:var(--accent-gold);">0 kg</div>
         <button class="btn btn-ghost btn-sm" onclick="addExercisePrompt()">+ Exercice</button>
         <button class="btn btn-danger btn-sm" onclick="abandonSession()">Abandonner</button>
-        <button class="btn btn-primary btn-sm" onclick="finishSession()">✅ Terminer</button>
+        <button class="btn btn-primary btn-sm" onclick="finishSession()">Terminer</button>
       </div>
       <div class="rest-picker" id="rest-picker">
-        <span class="rest-picker-label">⏱ Repos par défaut :</span>
+        <span class="rest-picker-label">Repos par défaut :</span>
         <div class="rest-picker-chips" id="rest-picker-chips"></div>
         <div class="rest-custom">
           <input type="number" id="rest-custom-input" min="5" max="900" placeholder="Personnalisé (s)" title="Durée de repos personnalisée en secondes" onkeydown="if(event.key==='Enter') setCustomRestDuration()">
@@ -1063,93 +1064,83 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
   <!-- PROGRESSION -->
   <section class="view" id="view-progression">
-    <div class="section-title">
-      <h2>Poids de corps &amp; profil</h2>
-      <div class="range-picker" id="range-bodyweight"></div>
+    <div class="pg-tabs" id="pg-tabs">
+      <button data-pane="poids" class="active" onclick="pgShow('poids')">Poids</button>
+      <button data-pane="force" onclick="pgShow('force')">Force</button>
+      <button data-pane="exercices" onclick="pgShow('exercices')">Exercices</button>
+      <button data-pane="volume" onclick="pgShow('volume')">Volume</button>
+      <button data-pane="donnees" onclick="pgShow('donnees')">Données</button>
     </div>
-    <div class="panel" style="margin-bottom:20px;">
-      <div class="form-inline">
-        <div class="field">
-          <label>Nouvelle pesée (kg)</label>
-          <input type="number" id="bodyweight-input" step="0.1" min="0" placeholder="Ex : 78.4">
-        </div>
-        <div class="field">
-          <label>Date</label>
-          <input type="date" id="bodyweight-date-input">
-        </div>
-        <button class="btn btn-primary" onclick="logBodyWeight()">💾 Enregistrer</button>
-        <div class="field" style="max-width:120px;">
-          <label>🎂 Âge (ans)</label>
-          <input type="number" id="profile-age-input" min="10" max="100" placeholder="Ex : 28" onchange="setProfileAge(this.value)">
+
+    <div class="pg-pane active" data-pane="poids">
+      <div style="display:none"><input type="number" id="bodyweight-input"><input type="date" id="bodyweight-date-input"><input type="number" id="profile-age-input"></div>
+      <div class="wg-wrap" id="bodyweight-summary"></div>
+      <div class="panel pg-sec">
+        <div class="chart-head"><h2>Courbe de poids</h2><div class="range-picker" id="range-bodyweight"></div></div>
+        <div class="chart-wrap" id="bodyweight-chart-wrap">
+          <div class="chart-canvas" id="bodyweight-chart"></div>
+          <div class="chart-empty"><div class="big"></div><p>Renseigne ton poids dans l'onglet Profil pour voir ta courbe apparaître ici.</p></div>
         </div>
       </div>
-      <div style="display:flex;gap:18px;margin-top:14px;flex-wrap:wrap;" id="bodyweight-summary"></div>
-      <div class="chart-wrap" id="bodyweight-chart-wrap" style="margin-top:16px;margin-bottom:0;">
-        <div class="chart-canvas" id="bodyweight-chart"></div>
-        <div class="chart-empty"><div class="big">⚖️</div><p>Ajoute une pesée ci-dessus pour voir ta courbe de poids apparaître ici.</p></div>
-      </div>
     </div>
 
-    <div class="section-title"><h2>Niveau de force</h2></div>
-    <div id="strength-level-list" style="margin-bottom:20px;"></div>
-
-    <div class="section-title">
-      <h2>Progression par exercice</h2>
-      <select id="prog-exercise-select" onchange="drawExerciseChart(this.value); drawOneRMChart(this.value);"></select>
-    </div>
-    <div class="range-picker" id="range-exercise" style="margin-bottom:12px;"></div>
-    <div class="chart-wrap" id="exercise-chart-wrap">
-      <div class="chart-canvas" id="exercise-chart"></div>
-      <div class="chart-empty"><div class="big">📈</div><p>Termine une séance avec cet exercice pour voir sa progression.</p></div>
-    </div>
-
-    <div class="section-title">
-      <h2>Estimation du 1RM</h2>
-      <div class="range-picker" id="range-onerm"></div>
-    </div>
-    <div class="chart-wrap" id="onerm-chart-wrap">
-      <div class="chart-canvas" id="onerm-chart"></div>
-      <div class="chart-empty"><div class="big">🏋️</div><p>Termine une séance avec cet exercice pour voir ton 1RM estimé évoluer.</p></div>
-    </div>
-
-    <div class="grid grid-2">
-      <div>
-        <div class="section-title"><h2>Profil de puissance</h2></div>
+    <div class="pg-pane" data-pane="force">
+      <div class="pg-lead">Ton niveau de force par exercice, comparé à ton poids et à ton âge.</div>
+      <div id="strength-level-list" style="margin-bottom:16px;"></div>
+      <div class="panel pg-sec">
+        <div class="chart-head"><h2>Profil de puissance</h2></div>
         <div class="chart-wrap" id="radar-chart-wrap">
           <div class="chart-canvas" id="radar-chart"></div>
-          <div class="chart-empty"><div class="big">🕸️</div><p>Termine des séances avec des exercices reconnus (et renseigne ton poids/âge) pour voir tes points de rang par groupe musculaire.</p></div>
+          <div class="chart-empty"><div class="big"></div><p>Termine des séances avec des exercices reconnus (et renseigne ton poids et ton âge) pour voir ton profil de puissance.</p></div>
         </div>
       </div>
-      <div>
-        <div class="section-title">
-          <h2>Tendance hebdomadaire</h2>
-          <div class="range-picker" id="range-weekly"></div>
+    </div>
+
+    <div class="pg-pane" data-pane="exercices">
+      <div class="panel pg-sec">
+        <div class="chart-head"><h2>Progression par exercice</h2></div>
+        <select id="prog-exercise-select" class="pg-select" onchange="drawExerciseChart(this.value); drawOneRMChart(this.value);"></select>
+        <div class="range-picker" id="range-exercise" style="margin:12px 0;"></div>
+        <div class="chart-wrap" id="exercise-chart-wrap">
+          <div class="chart-canvas" id="exercise-chart"></div>
+          <div class="chart-empty"><div class="big"></div><p>Termine une séance avec cet exercice pour voir sa progression.</p></div>
         </div>
+      </div>
+      <div class="panel pg-sec">
+        <div class="chart-head"><h2>Estimation du 1RM</h2><div class="range-picker" id="range-onerm"></div></div>
+        <div class="chart-wrap" id="onerm-chart-wrap">
+          <div class="chart-canvas" id="onerm-chart"></div>
+          <div class="chart-empty"><div class="big"></div><p>Termine une séance avec cet exercice pour voir ton 1RM estimé évoluer.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-pane" data-pane="volume">
+      <div class="panel pg-sec">
+        <div class="chart-head"><h2>Tendance hebdomadaire</h2><div class="range-picker" id="range-weekly"></div></div>
         <div class="chart-wrap" id="weekly-chart-wrap">
           <div class="chart-canvas" id="weekly-chart"></div>
-          <div class="chart-empty"><div class="big">📆</div><p>Termine des séances pour voir la tendance de ton volume hebdomadaire.</p></div>
+          <div class="chart-empty"><div class="big"></div><p>Termine des séances pour voir la tendance de ton volume hebdomadaire.</p></div>
         </div>
       </div>
+      <div class="panel pg-sec">
+        <div class="chart-head"><h2>Volume par séance</h2><div class="range-picker" id="range-global"></div></div>
+        <div class="chart-wrap" id="global-chart-wrap">
+          <div class="chart-canvas" id="global-chart"></div>
+          <div class="chart-empty"><div class="big"></div><p>Termine ta première séance pour voir ton volume total apparaître ici.</p></div>
+        </div>
+      </div>
+      <div class="pg-lead" style="margin-top:6px;">Progression par groupe musculaire</div>
+      <div class="grid grid-2" id="muscle-charts-grid" style="margin-bottom:20px;"></div>
     </div>
 
-    <div class="section-title"><h2>Progression par groupe musculaire</h2></div>
-    <div class="grid grid-2" id="muscle-charts-grid" style="margin-bottom:20px;"></div>
-
-    <div class="section-title">
-      <h2>Volume total par séance</h2>
-      <div class="range-picker" id="range-global"></div>
-    </div>
-    <div class="chart-wrap" id="global-chart-wrap">
-      <div class="chart-canvas" id="global-chart"></div>
-      <div class="chart-empty"><div class="big">📊</div><p>Termine ta première séance pour voir ton volume total apparaître ici.</p></div>
-    </div>
-
-    <div class="section-title"><h2>Sauvegarde &amp; transfert entre appareils</h2></div>
+    <div class="pg-pane" data-pane="donnees">
+      <div class="section-title"><h2>Sauvegarde &amp; transfert entre appareils</h2></div>
     <div class="panel" style="margin-bottom:20px;">
       <p class="backup-hint">Tes données sont stockées uniquement dans ce navigateur, sur cet appareil. Pour les transférer vers un autre appareil (ex : téléphone → PC), exporte un fichier de sauvegarde ici, puis importe-le là-bas.</p>
       <div class="danger-actions backup-actions">
-        <button class="btn btn-primary" onclick="exportAllData()">💾 Exporter mes données (.json)</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('import-file-input').click()">📥 Importer une sauvegarde</button>
+        <button class="btn btn-primary" onclick="exportAllData()">Exporter mes données (.json)</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('import-file-input').click()">Importer une sauvegarde</button>
         <input type="file" id="import-file-input" accept="application/json" style="display:none;" onchange="handleImportFile(this)">
       </div>
     </div>
@@ -1159,10 +1150,12 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <div class="panel danger-zone">
       <p>Utile après des séances de test — ces actions sont <b>définitives et irréversibles</b>.</p>
       <div class="danger-actions">
-        <button class="btn btn-danger" onclick="resetRecordsOnly()">🏆 Réinitialiser uniquement les records</button>
-        <button class="btn btn-danger" onclick="resetSessionsOnly()">🕘 Réinitialiser uniquement l'historique des séances</button>
-        <button class="btn btn-danger" onclick="resetAllData()">🗑 Tout réinitialiser (programmes, séances, records, poids, réglages)</button>
+        <button class="btn btn-danger" onclick="resetRecordsOnly()">Réinitialiser uniquement les records</button>
+        <button class="btn btn-danger" onclick="resetSessionsOnly()">Réinitialiser uniquement l'historique des séances</button>
+        <button class="btn btn-danger" onclick="resetAllData()">Tout réinitialiser (programmes, séances, records, poids, réglages)</button>
       </div>
+    </div>
+  
     </div>
   </section>
 
@@ -1206,7 +1199,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="addExerciseRow()">+ Ajouter un exercice</button>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('modal-program')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveProgramForm()">💾 Enregistrer</button>
+      <button class="btn btn-primary" onclick="saveProgramForm()">Enregistrer</button>
     </div>
   </div>
 </div>
@@ -1239,7 +1232,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
 <!-- REST TIMER -->
 <div class="rest-overlay" id="rest-overlay">
-  <span class="rest-label" style="font-size:13px;color:var(--text-muted);">⏱ Repos</span>
+  <span class="rest-label" style="font-size:13px;color:var(--text-muted);">Repos</span>
   <button onclick="adjustRest(-15)">-15s</button>
   <div class="t" id="rest-time" onclick="openRestFullscreen()" title="Agrandir">90</div>
   <button onclick="adjustRest(15)">+15s</button>
@@ -1249,7 +1242,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 <!-- REST TIMER — VUE PLEIN ÉCRAN -->
 <div class="rest-fullscreen" id="rest-fullscreen">
   <button class="rest-fs-close" onclick="closeRestFullscreen()">✕</button>
-  <div class="rest-fs-label">⏱ Temps de repos</div>
+  <div class="rest-fs-label">Temps de repos</div>
   <div class="rest-fs-dial">
     <svg class="rest-fs-ring" viewBox="0 0 200 200">
       <circle cx="100" cy="100" r="88" fill="none" stroke="#ffffff14" stroke-width="10"/>
@@ -1279,7 +1272,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
   <div class="rankup-card" id="rankup-card">
     <div class="rankup-ring"></div>
     <div class="rankup-eyebrow" id="rankup-eyebrow">RANG GLOBAL</div>
-    <div class="rankup-emblem" id="rankup-emblem">💎</div>
+    <div class="rankup-emblem" id="rankup-emblem"></div>
     <div class="rankup-name" id="rankup-name">Diamant 2</div>
     <div class="rankup-pts" id="rankup-pts">915 pts</div>
     <button class="btn btn-primary" onclick="closeModal('rankup-overlay')">Continuer</button>
@@ -1300,8 +1293,8 @@ const MUSCLES = {
   "Abdos": "var(--c-abdos)"
 };
 const MUSCLE_ICONS = {
-  "Pectoraux": "💥", "Dos": "🦅", "Jambes": "🦵", "Épaules": "🛡️",
-  "Bras": "🥊", "Abdos": "🔥"
+  "Pectoraux": "", "Dos": "", "Jambes": "", "Épaules": "",
+  "Bras": "", "Abdos": ""
 };
 const MUSCLE_HEX = {
   "Pectoraux": "#3B82F6", "Dos": "#A855F7", "Jambes": "#EF4444",
@@ -1499,8 +1492,8 @@ const RANK_TIERS = [
   {name:'Grand Champion 3', min:1706},
   {name:'Supersonic Légende', min:1876}
 ];
-const RANK_EMOJI = {'Bronze':'🥉','Argent':'🥈','Or':'🥇','Platine':'🧊'};
-const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'<img class="rank-img" src="icons/ranks/diamant.png" alt="">','Champion':'<img class="rank-img" src="icons/ranks/champion.png" alt="">','Grand Champion':'<img class="rank-img" src="icons/ranks/grandchampion.png" alt="">','Supersonic Légende':'<span class="ssl-fx"><img class="rank-img" src="icons/ranks/ssl.png" alt=""></span>'};
+const RANK_EMOJI = {'Bronze':'','Argent':'','Or':'','Platine':''};
+const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'<img class="rank-img" src="icons/ranks/diamant.png" alt="">','Champion':'<img class="rank-img" src="icons/ranks/champion.png" alt="">','Grand Champion':'<img class="rank-img" src="icons/ranks/grandchampion.png" alt="">','Supersonic Légende':'<span class="ssl-fx"><img class="rank-img" src="icons/ranks/ssl.png" alt=""><i class="ssl-streak"></i></span>'};
 const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#D4AF37','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#DCEBFF'};
 /* Teinte spécifique par sous-rang (1/2/3) : plus sombre/mat au palier 1, plus clair/éclatant au palier 3,
    pour bien visualiser la progression à l'intérieur d'une même famille de rang. */
@@ -1529,7 +1522,7 @@ function eloToRank(elo){
   const progress = next ? Math.max(0,Math.min(1,(elo-matched.min)/(next.min-matched.min))) : 1;
   const pointsToNext = next ? Math.max(0, Math.round(next.min-elo)) : 0;
   return {
-    name:matched.name, elo:Math.round(elo), icon:RANK_ICONS[group]||'🏅',
+    name:matched.name, elo:Math.round(elo), icon:RANK_ICONS[group]||'',
     color:RANK_TIER_COLORS[matched.name] || RANK_COLORS[group] || '#8a93a8',
     progress, pointsToNext, nextName: next ? next.name : null
   };
@@ -1565,7 +1558,7 @@ function checkExerciseRankLevelUp(exerciseName, rank){
 }
 function celebrateRankUp(rank, label){
   spawnConfetti(45);
-  toast(`🎉 ${label} : tu passes ${rank.icon.replace(/<[^>]*>/g,'')} ${rank.name} !`);
+  toast(`${label} : tu passes ${rank.icon.replace(/<[^>]*>/g,'')} ${rank.name} !`);
 }
 function showRankUpOverlay(rank, eyebrowLabel){
   const card = document.getElementById('rankup-card');
@@ -1640,7 +1633,7 @@ function rankCardHTML(rank, eyebrow, sub, justLeveledUp){
   if(!rank){
     return `
       <div class="rank-card locked">
-        <div class="rank-emblem">🔒</div>
+        <div class="rank-emblem"></div>
         <div class="rank-info">
           <p class="eyebrow">${escapeXml(eyebrow)}</p>
           <div class="rank-name" style="color:var(--text-muted);">Pas encore de rang</div>
@@ -1652,7 +1645,7 @@ function rankCardHTML(rank, eyebrow, sub, justLeveledUp){
   const progressPct = Math.round(rank.progress*100);
   return `
     <div class="rank-card ${isSSL?'ssl':''} ${justLeveledUp?'rank-flash':''}" style="color:${rank.color};--rank-c:${rank.color};">
-      ${justLeveledUp ? '<span class="rank-up-ribbon">✨ Nouveau rang !</span>' : ''}
+      ${justLeveledUp ? '<span class="rank-up-ribbon">Nouveau rang !</span>' : ''}
       <div class="rank-emblem">${rank.icon}</div>
       <div class="rank-info">
         <p class="eyebrow" style="color:var(--text-dim);">${escapeXml(eyebrow)}</p>
@@ -1661,7 +1654,7 @@ function rankCardHTML(rank, eyebrow, sub, justLeveledUp){
         ${!isSSL ? `
           <div class="rank-progress-bg"><div class="rank-progress-fill" style="width:${progressPct}%;"></div></div>
           <div class="rank-progress-text">${rank.pointsToNext} pts avant ${rank.nextName}</div>
-        ` : `<div class="rank-progress-text">Rang maximum atteint 🌟</div>`}
+        ` : `<div class="rank-progress-text">Rang maximum atteint </div>`}
       </div>
     </div>
   `;
@@ -1735,7 +1728,7 @@ function renderMuscleCharts(){
       <div class="muscle-chart-title">${MUSCLE_ICONS[m]||''} ${escapeXml(m)}<div class="range-picker">${pickerHtml}</div></div>
       <div class="chart-wrap" id="muscle-chart-wrap-${m}">
         <div class="chart-canvas" id="muscle-chart-${m}"></div>
-        <div class="chart-empty"><div class="big">${MUSCLE_ICONS[m]||'💪'}</div><p>Termine des séances (${m}) pour voir ta progression ici.</p></div>
+        <div class="chart-empty"><div class="big">${MUSCLE_ICONS[m]||''}</div><p>Termine des séances (${m}) pour voir ta progression ici.</p></div>
       </div>
     `;
     grid.appendChild(card);
@@ -2067,26 +2060,26 @@ function persist(){
 }
 
 function resetRecordsOnly(){
-  if(!confirm('⚠️ Supprimer tous tes records personnels (PR) ? Cette action est irréversible.')) return;
+  if(!confirm('Supprimer tous tes records personnels (PR) ? Cette action est irréversible.')) return;
   state.records = {};
   persist();
-  toast('🏆 Records réinitialisés');
+  toast('Records réinitialisés');
   renderProgression(); renderDashboard();
   if(document.getElementById('view-records').classList.contains('active')) renderRecords();
 }
 
 function resetSessionsOnly(){
-  if(!confirm("⚠️ Supprimer tout l'historique des séances (l'historique, le volume, et les graphiques associés) ? Cette action est irréversible.")) return;
+  if(!confirm("Supprimer tout l'historique des séances (l'historique, le volume, et les graphiques associés) ? Cette action est irréversible.")) return;
   if(!confirm('Es-tu bien sûr ? Il n\'y a aucun moyen de récupérer ces données ensuite.')) return;
   state.sessions = [];
   persist();
-  toast('🕘 Historique des séances réinitialisé');
+  toast('Historique des séances réinitialisé');
   renderProgression(); renderDashboard();
   if(document.getElementById('view-historique').classList.contains('active')) renderHistory();
 }
 
 function resetAllData(){
-  if(!confirm('⚠️ Ceci va supprimer DÉFINITIVEMENT toutes tes données : programmes, séances, records, poids, âge, réglages. Cette action est irréversible.')) return;
+  if(!confirm('Ceci va supprimer DÉFINITIVEMENT toutes tes données : programmes, séances, records, poids, âge, réglages. Cette action est irréversible.')) return;
   if(!confirm('Dernière confirmation : es-tu vraiment sûr de vouloir tout effacer ? Il n\'y a aucun moyen de revenir en arrière.')) return;
   ['iq_programs','iq_sessions','iq_records','iq_profile','iq_bodyweight','iq_settings','iq_active_session','iq_rank_history'].forEach(k => localStorage.removeItem(k));
   location.reload();
@@ -2115,7 +2108,7 @@ function exportAllData(){
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  toast('💾 Sauvegarde téléchargée');
+  toast('Sauvegarde téléchargée');
   state.settings.lastExportAt = new Date().toISOString();
   state.settings.exportReminderSnoozedUntil = null;
   persist();
@@ -2129,11 +2122,11 @@ function handleImportFile(input){
   reader.onload = (e) => {
     let parsed;
     try{ parsed = JSON.parse(e.target.result); }
-    catch(err){ toast('⚠️ Fichier invalide (JSON illisible)'); input.value=''; return; }
+    catch(err){ toast('Fichier invalide (JSON illisible)'); input.value=''; return; }
 
     const data = parsed && parsed.data ? parsed.data : parsed;
     if(!data || typeof data !== 'object' || (!data.programs && !data.sessions && !data.records)){
-      toast('⚠️ Ce fichier ne ressemble pas à une sauvegarde Stat Tracker');
+      toast('Ce fichier ne ressemble pas à une sauvegarde Stat Tracker');
       input.value = '';
       return;
     }
@@ -2153,11 +2146,11 @@ function handleImportFile(input){
 
     persist();
     input.value = '';
-    toast('📥 Données importées avec succès !');
+    toast('Données importées avec succès !');
     applyTheme();
     switchTab('dashboard');
   };
-  reader.onerror = () => toast('⚠️ Impossible de lire ce fichier');
+  reader.onerror = () => toast('Impossible de lire ce fichier');
   reader.readAsText(file);
 }
 
@@ -2173,7 +2166,7 @@ function applyAccentColor(){
 function applyTheme(){
   document.body.classList.toggle('theme-light', state.settings.theme==='light');
   const btn = document.getElementById('theme-toggle');
-  if(btn) btn.textContent = state.settings.theme==='light' ? '☀️' : '🌙';
+  if(btn) btn.textContent = state.settings.theme==='light' ? '' : '';
   applyAccentColor();
 }
 function toggleTheme(){
@@ -2284,14 +2277,14 @@ function rdDetailHTML(rank){
   let tip = '';
   if(nxt && ex.length){ const weak = ex[ex.length-1]; tip = `Il te manque <b>${rank.pointsToNext} MMR</b> pour atteindre <b>${rank.nextName}</b>. Ton exercice le moins avancé est <b>${escapeXml(weak.name)}</b> (${weak.rank.name}) : c'est là que tu gagneras le plus vite.`; }
   else if(nxt){ tip = `Il te manque <b>${rank.pointsToNext} MMR</b> pour atteindre <b>${rank.nextName}</b>.`; }
-  else tip = 'Tu as atteint le rang maximum. Respect, légende. 🌟';
+  else tip = 'Tu as atteint le rang maximum. Respect, légende. ';
   return `<div class="rd-sec">
     <div class="rd-tiles">
       <div class="rd-tile"><small>Progression</small><b>${pct}%</b></div>
       <div class="rd-tile"><small>Exercices classés</small><b>${ex.length}</b></div>
       <div class="rd-tile"><small>Points restants</small><b>${nxt?rank.pointsToNext:'—'}</b></div>
     </div>
-    <div class="rd-card rd-tip">💡 <span>${tip}</span></div>
+    <div class="rd-card rd-tip"><span>${tip}</span></div>
   </div>`;
 }
 
@@ -2313,8 +2306,9 @@ function avLayer(img, mask, extra, idx){
   const mk = `-webkit-mask-image:url(icons/avatar/${mask}.png);mask-image:url(icons/avatar/${mask}.png)`;
   const st = `background-image:url(icons/avatar/${img}.webp);${mk}`;
   if(img==='ssl' || img==='back-ssl'){
-    const d = -((idx||0)*0.83);
-    return `<div class="av-l av-aura ${extra||''}" style="animation-delay:${d}s"><i class="av-in" style="${st}"></i><i class="av-in shine" style="-webkit-mask-image:url(icons/avatar/${mask}.png),url(icons/avatar/${img}.webp);mask-image:url(icons/avatar/${mask}.png),url(icons/avatar/${img}.webp);-webkit-mask-composite:source-in;mask-composite:intersect;animation-delay:${d*1.3}s"></i></div>`;
+    const d = -((idx||0)*1.37);
+    const both = `-webkit-mask-image:url(icons/avatar/${mask}.png),url(icons/avatar/${img}.webp);mask-image:url(icons/avatar/${mask}.png),url(icons/avatar/${img}.webp);-webkit-mask-composite:source-in;mask-composite:intersect`;
+    return `<div class="av-l av-aura ${extra||''}" style="animation-delay:${d}s"><i class="av-in" style="${st}"></i><i class="av-in flow" style="${both};animation-delay:${d}s"></i><i class="av-in streak" style="${both};animation-delay:${d*2.3-1}s"></i></div>`;
   }
   return `<i class="av-l ${extra||''}" style="${st}"></i>`;
 }
@@ -2329,7 +2323,7 @@ function renderProfile(){
   const cards = Object.keys(AV_MASK).map(m=>{
     const r = mr[m], col = r ? r.color : '#7d8794';
     return `<button class="pf-mcard${(r&&rankGroup(r.name)==='Supersonic Légende')?' ssl':''}" data-m="${AV_MASK[m]}" style="--mc:${col}" onclick="avFocus('${AV_MASK[m]}')">
-      <span class="pf-mic">${r ? r.icon : '<span class="pf-lock">🔒</span>'}</span>
+      <span class="pf-mic">${r ? r.icon : '<span class="pf-lock"></span>'}</span>
       <span class="pf-mtx"><b>${m}</b><small>${r ? r.name : 'Non classé'}</small></span>
       <span class="pf-mmr">${r ? r.elo.toLocaleString('fr-FR') : '—'}</span></button>`; }).join('');
   const ico = d=>'<svg viewBox="0 0 24 24">'+d+'</svg>';
@@ -2337,7 +2331,7 @@ function renderProfile(){
     <div class="av-stage"><div class="av-glow"></div>
       <div class="av-fig ${_avBack?'flipped':''}" id="av-fig" onclick="avFocus(null)"><div class="av-side front">${front}</div><div class="av-side back">${back}</div></div></div>
     <button class="av-flip" onclick="avFlip()"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span id="av-flip-lbl">${_avBack?'Voir de face':'Voir de dos'}</span></button>
-    <div class="pf-global${(g&&rankGroup(g.name)==='Supersonic Légende')?' ssl':''}">${g ? `<span class="pf-gic">${g.icon}</span><span><small>Rang global</small><b style="color:${g.color}">${g.name}</b></span><em>${g.elo.toLocaleString('fr-FR')} MMR</em>` : '<span class="pf-gic">🔒</span><span><small>Rang global</small><b>Pas encore de rang</b></span>'}</div>
+    <div class="pf-global${(g&&rankGroup(g.name)==='Supersonic Légende')?' ssl':''}">${g ? `<span class="pf-gic">${g.icon}</span><span><small>Rang global</small><b style="color:${g.color}">${g.name}</b></span><em>${g.elo.toLocaleString('fr-FR')} MMR</em>` : '<span class="pf-gic"></span><span><small>Rang global</small><b>Pas encore de rang</b></span>'}</div>
     <div class="pf-meas">
       <div class="pf-meas-h"><span>Mes mesures</span><em id="pf-bmi"></em></div>
       <div class="pf-meas-g">
@@ -2345,11 +2339,19 @@ function renderProfile(){
         <label><small>Taille</small><span class="pf-in"><input type="number" inputmode="numeric" min="100" max="250" id="pf-height" placeholder="—" onchange="setProfileHeight(this.value)"><u>cm</u></span></label>
         <label><small>Âge</small><span class="pf-in"><input type="number" inputmode="numeric" min="10" max="100" id="pf-age" placeholder="—" onchange="setProfileAge(this.value)"><u>ans</u></span></label>
       </div>
+      <div class="pf-goal">
+        <small>Objectif de poids</small>
+        <div class="pf-seg" id="pf-goal-seg">
+          <button data-g="perte" onclick="setGoal('perte')">Perte</button>
+          <button data-g="maintien" onclick="setGoal('maintien')">Maintien</button>
+          <button data-g="prise" onclick="setGoal('prise')">Prise</button>
+        </div>
+        <span class="pf-in pf-goalw"><input type="number" inputmode="decimal" step="0.1" min="20" max="400" id="pf-goalw" placeholder="Poids cible" onchange="setGoalWeight(this.value)"><u>kg</u></span>
+      </div>
     </div>
     <p class="pf-hint">Touche un groupe musculaire pour le mettre en évidence.</p>
     <div class="pf-grid">${cards}</div>
     <div class="pf-links">
-      <button onclick="switchTab('progression')">${ico('<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>')}Progression</button>
       <button onclick="switchTab('records')">${ico('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/>')}Records</button>
       <button onclick="switchTab('rangs')">${ico('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>')}Rangs</button>
     </div>`;
@@ -2364,18 +2366,20 @@ function updateBMI(){
 function fillMeasures(){
   const w=document.getElementById('pf-weight'), h=document.getElementById('pf-height'), a=document.getElementById('pf-age');
   if(w) w.value = currentWeight() ?? ''; if(h) h.value = state.profile.height || ''; if(a) a.value = state.profile.age || '';
+  document.querySelectorAll('#pf-goal-seg button').forEach(x=>x.classList.toggle('active', x.dataset.g===state.profile.goal));
+  const gw=document.getElementById('pf-goalw'); if(gw) gw.value = state.profile.goalWeight || '';
   updateBMI();
 }
 function setCurrentWeight(val){
-  const v = parseFloat(String(val).replace(',','.')); if(!v || v<=0){ toast('⚠️ Entre un poids valide'); return; }
+  const v = parseFloat(String(val).replace(',','.')); if(!v || v<=0){ toast('Entre un poids valide'); return; }
   const d = todayStr(), i = state.bodyweight.findIndex(b=>b.date===d);
   if(i>=0) state.bodyweight[i].weight = v; else state.bodyweight.push({date:d, weight:v});
   state.bodyweight.sort((x,y)=>new Date(x.date)-new Date(y.date)); persist();
-  toast('⚖️ Poids enregistré'); updateBMI(); try{ renderBodyweightSection(); }catch(e){}
+  toast('Poids enregistré'); updateBMI(); try{ renderBodyweightSection(); }catch(e){}
 }
 function setProfileHeight(val){
   const h = parseInt(val); state.profile.height = (h && h>=100 && h<=250) ? h : null; persist();
-  toast('📏 Taille enregistrée'); updateBMI();
+  toast('Taille enregistrée'); updateBMI();
 }
 let _avSel = null, _avBack = false;
 function avFlip(force){
@@ -2396,7 +2400,7 @@ function avFocus(m){
   }
 }
 function rdHeroHTML(rank){
-  if(!rank) return `<div class="rd-hero"><svg class="rd-ring" viewBox="0 0 320 320"><circle cx="160" cy="160" r="148" class="rd-track"/></svg><div class="rd-emblem rd-lock">🔒</div></div><div class="rd-name">Pas encore de rang</div><div class="rd-next">Enregistre des séances pour débloquer ton rang global.</div>`;
+  if(!rank) return `<div class="rd-hero"><svg class="rd-ring" viewBox="0 0 320 320"><circle cx="160" cy="160" r="148" class="rd-track"/></svg><div class="rd-emblem rd-lock"></div></div><div class="rd-name">Pas encore de rang</div><div class="rd-next">Enregistre des séances pour débloquer ton rang global.</div>`;
   const idx = tierIndexOf(rank.name), cur = RANK_TIERS[idx], nxt = RANK_TIERS[idx+1] || null;
   const R = 148, C = 2*Math.PI*R, pct = Math.round(rank.progress*100);
   let ticks = '';
@@ -2408,10 +2412,19 @@ function rdHeroHTML(rank){
     <div class="rd-name">${rank.name}${tierPipsHTML(rank.name)}</div>
     <div class="rd-mmr">${rank.elo.toLocaleString('fr-FR')} <span>MMR</span></div>
     <div class="rd-range"><span>${cur.min.toLocaleString('fr-FR')}</span><div class="rd-rbar"><i style="width:${pct}%"></i></div><span>${nxt?nxt.min.toLocaleString('fr-FR'):'MAX'}</span></div>
-    <div class="rd-next">${nxt?`${rank.pointsToNext} pts avant ${rank.nextName} · ${pct}%`:'Rang maximum atteint 🌟'}</div>`;
+    <div class="rd-next">${nxt?`${rank.pointsToNext} pts avant ${rank.nextName} · ${pct}%`:'Rang maximum atteint '}</div>`;
+}
+function rankImgFilter(hex){
+  const n = parseInt(hex.replace('#',''),16), r=(n>>16&255)/255, g=(n>>8&255)/255, b=(n&255)/255;
+  const mx=Math.max(r,g,b), mn=Math.min(r,g,b), c=mx-mn;
+  if(c<0.2) return 'grayscale(.92) brightness(1.08)';
+  let h; if(mx===r) h=((g-b)/c)%6; else if(mx===g) h=(b-r)/c+2; else h=(r-g)/c+4;
+  h=Math.round(h*60); if(h<0) h+=360;
+  return 'hue-rotate('+(((h-187)%360+360)%360)+'deg) saturate(1.1)';
 }
 function applyRankTheme(color){
   document.body.style.setProperty('--rd-c', color);
+  document.body.style.setProperty('--img-filter', rankImgFilter(color));
   const r = document.documentElement.style;
   r.setProperty('--accent-xp', color); r.setProperty('--accent-xp-dim', 'color-mix(in srgb,'+color+' 20%,transparent)');
 }
@@ -2420,11 +2433,11 @@ function renderDashRankHero(rank){
   const box = document.getElementById('dash-rank'); if(!box) return;
   box.innerHTML = '<p class="rd-eyebrow-s">Rang global</p>' + rdHeroHTML(rank) + rdDetailHTML(rank);
 }
-function showNotif(){ const m=document.getElementById('insight-msg'); toast('💡 ' + (m ? m.textContent : 'Bienvenue !')); }
+function showNotif(){ const m=document.getElementById('insight-msg'); toast('' + (m ? m.textContent : 'Bienvenue !')); }
 function switchTab(name){
   document.body.dataset.tab = name;
   const _tt = document.getElementById('top-title'); if(_tt) _tt.textContent = ({seance:'Séance',historique:'Historique',progression:'Progression',records:'Records',rangs:'Rangs'})[name] || '';
-  const mb=document.querySelector('nav.tabs button[data-tab="profil"]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['profil','progression','records','rangs'].includes(name)),0);
+  const mb=document.querySelector('nav.tabs button[data-tab="profil"]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['profil','records','rangs'].includes(name)),0);
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-'+name));
   if(name==='dashboard') renderDashboard();
@@ -2493,10 +2506,10 @@ function daysBetween(dateA, dateB){
 }
 function funEquivalence(totalKg){
   const refs = [
-    {mass:5000, label:"éléphant(s) d'Afrique 🐘"},
-    {mass:1300, label:'voiture(s) citadine(s) 🚗'},
-    {mass:300, label:'piano(s) à queue 🎹'},
-    {mass:70, label:'humain(s) adulte(s) 🧍'}
+    {mass:5000, label:"éléphant(s) d'Afrique "},
+    {mass:1300, label:'voiture(s) citadine(s) '},
+    {mass:300, label:'piano(s) à queue '},
+    {mass:70, label:'humain(s) adulte(s) '}
   ];
   for(const r of refs){
     const count = totalKg/r.mass;
@@ -2510,7 +2523,7 @@ function generateInsight(){
 
   // 1) No sessions yet — onboarding
   if(state.sessions.length===0){
-    return {icon:'🚀', text:"Prêt à commencer ? Crée ton premier programme et lance ta toute première séance."};
+    return {icon:'', text:"Prêt à commencer ? Crée ton premier programme et lance ta toute première séance."};
   }
 
   const sorted = [...state.sessions].sort((a,b)=> new Date(a.date)-new Date(b.date));
@@ -2540,7 +2553,7 @@ function generateInsight(){
       if(g >= 10 && g > neglectedGap){ neglected = m; neglectedGap = g; }
     });
     if(neglected){
-      return {icon: MUSCLE_ICONS[neglected]||'🎯', text:`Tu n'as pas travaillé ${neglected} depuis ${neglectedGap} jours — pense à l'inclure dans ta prochaine séance.`};
+      return {icon: MUSCLE_ICONS[neglected]||'', text:`Tu n'as pas travaillé ${neglected} depuis ${neglectedGap} jours — pense à l'inclure dans ta prochaine séance.`};
     }
   }
 
@@ -2548,7 +2561,7 @@ function generateInsight(){
   if(last.prs && last.prs.length){
     const exName = last.prs[0];
     const rec = state.records[exName];
-    return {icon:'🏆', text:`Nouveau record sur ${exName} lors de ta dernière séance : ${rec.maxWeight} kg. Continue comme ça !`};
+    return {icon:'', text:`Nouveau record sur ${exName} lors de ta dernière séance : ${rec.maxWeight} kg. Continue comme ça !`};
   }
 
   // 5) Weekly volume trend vs previous week
@@ -2561,22 +2574,22 @@ function generateInsight(){
   }).reduce((a,s)=>a+s.totalVolume,0);
   if(prevWeekVol > 0 && thisWeekVol > 0){
     const pct = Math.round(((thisWeekVol-prevWeekVol)/prevWeekVol)*100);
-    if(pct >= 10) return {icon:'📈', text:`Ton volume cette semaine dépasse celui de la semaine dernière de ${pct}%. Continue sur cette lancée !`};
-    if(pct <= -15) return {icon:'📉', text:`Ton volume est en baisse de ${Math.abs(pct)}% cette semaine par rapport à la précédente. Petit coup de mou ou juste une semaine plus light ?`};
+    if(pct >= 10) return {icon:'', text:`Ton volume cette semaine dépasse celui de la semaine dernière de ${pct}%. Continue sur cette lancée !`};
+    if(pct <= -15) return {icon:'', text:`Ton volume est en baisse de ${Math.abs(pct)}% cette semaine par rapport à la précédente. Petit coup de mou ou juste une semaine plus light ?`};
   }
 
   // 6) Streak encouragement
   if(state.profile.streak >= 3){
-    return {icon:'🔥', text:`${state.profile.streak} jours de suite ! Ne casse pas la chaîne aujourd'hui.`};
+    return {icon:'', text:`${state.profile.streak} jours de suite ! Ne casse pas la chaîne aujourd'hui.`};
   }
 
   // 7) Fallback — fun lifetime volume comparison
   const totalVolume = state.sessions.reduce((a,s)=>a+s.totalVolume,0);
   const eq = funEquivalence(totalVolume);
   if(eq){
-    return {icon:'💪', text:`Depuis le début, tu as soulevé ${Math.round(totalVolume).toLocaleString('fr-FR')} kg au total — l'équivalent de ${eq}.`};
+    return {icon:'', text:`Depuis le début, tu as soulevé ${Math.round(totalVolume).toLocaleString('fr-FR')} kg au total — l'équivalent de ${eq}.`};
   }
-  return {icon:'💪', text:"Chaque séance compte. Continue à construire ta progression, séance après séance."};
+  return {icon:'', text:"Chaque séance compte. Continue à construire ta progression, séance après séance."};
 }
 
 function renderInsight(){
@@ -2615,7 +2628,7 @@ function renderBackupReminder(){
   if(!show){ wrap.innerHTML=''; return; }
   wrap.innerHTML = `
     <div class="backup-reminder">
-      <span class="icon">💾</span>
+      <span class="icon"></span>
       <span class="msg">${escapeXml(msg)}</span>
       <div class="actions">
         <button class="btn btn-primary btn-sm" onclick="exportAllData()">Exporter</button>
@@ -2661,8 +2674,8 @@ function programCardEl(p, opts){
   footer.innerHTML = `<button class="btn btn-primary btn-sm" onclick="startSession('${p.id}')">▶ Démarrer</button>`;
   if(opts.manage){
     footer.innerHTML += `
-      <button class="btn btn-ghost btn-sm" onclick="openProgramModal('${p.id}')">✏️ Modifier</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteProgram('${p.id}')">🗑</button>
+      <button class="btn btn-ghost btn-sm" onclick="openProgramModal('${p.id}')">Modifier</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteProgram('${p.id}')">Supprimer</button>
     `;
   }
   return div;
@@ -2713,7 +2726,7 @@ function addExerciseRow(ex){
 }
 function saveProgramForm(){
   const name = document.getElementById('program-name-input').value.trim();
-  if(!name){ toast('⚠️ Donne un nom à ton programme'); return; }
+  if(!name){ toast('Donne un nom à ton programme'); return; }
   const rows = [...document.querySelectorAll('#program-exercises-editor .ex-row')];
   const exercises = rows.map(r => ({
     id: uid(),
@@ -2723,7 +2736,7 @@ function saveProgramForm(){
     reps: parseInt(r.querySelector('.ex-reps').value)||10,
     weight: parseFloat(r.querySelector('.ex-weight').value)||0
   }));
-  if(exercises.length===0){ toast('⚠️ Ajoute au moins un exercice'); return; }
+  if(exercises.length===0){ toast('Ajoute au moins un exercice'); return; }
 
   if(editingProgramId){
     const p = state.programs.find(x=>x.id===editingProgramId);
@@ -2733,7 +2746,7 @@ function saveProgramForm(){
   }
   persist();
   closeModal('modal-program');
-  toast('💾 Programme enregistré');
+  toast('Programme enregistré');
   renderPrograms(); renderDashboard();
 }
 function deleteProgram(id){
@@ -2756,7 +2769,7 @@ function renderSeanceTab(){
     const wrap = document.getElementById('seance-program-list');
     wrap.innerHTML = '';
     if(state.programs.length===0){
-      wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big">🏋️</div><h3>Aucun programme</h3><p>Crée ta première routine avec « + Nouveau programme », ou lance une séance libre.</p></div>`;
+      wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big"></div><h3>Aucun programme</h3><p>Crée ta première routine avec « + Nouveau programme », ou lance une séance libre.</p></div>`;
     } else {
       state.programs.forEach(p => wrap.appendChild(programCardEl(p,{manage:true})));
     }
@@ -2788,7 +2801,7 @@ function applyLastPerf(exIdx){
   activeSession.exercises[exIdx].sets = last.map(s=>({weight:s.weight, reps:s.reps, done:false}));
   save('iq_active_session', activeSession);
   renderActiveSession();
-  toast('🎯 Objectif : dépasse ta dernière perf !');
+  toast('Objectif : dépasse ta dernière perf !');
 }
 function removeSessionExercise(exIdx){
   const ex = activeSession.exercises[exIdx];
@@ -2796,7 +2809,7 @@ function removeSessionExercise(exIdx){
   activeSession.exercises.splice(exIdx, 1);
   save('iq_active_session', activeSession);
   renderActiveSession();
-  toast('🗑 Exercice retiré');
+  toast('Exercice retiré');
 }
 
 function startSession(programId){
@@ -2820,7 +2833,7 @@ function startSession(programId){
   };
   save('iq_active_session', activeSession);
   switchTab('seance');
-  toast('🚀 Séance lancée, à toi de jouer !');
+  toast('Séance lancée, à toi de jouer !');
 }
 
 function renderActiveSession(){
@@ -2837,7 +2850,7 @@ function renderActiveSession(){
     card.style.borderLeftColor = MUSCLES[ex.muscle] || 'var(--c-full)';
     card.style.setProperty('--ex-tint', mHex+'14');
     const estLoad = estimatedLoadPerRep(ex.name);
-    card.innerHTML = `<h3><span class="dot" style="background:${MUSCLES[ex.muscle]||'var(--c-full)'};box-shadow:0 0 10px ${mHex}88;"></span> ${MUSCLE_ICONS[ex.muscle]||''} ${ex.name} <span class="tag" style="background:${MUSCLES[ex.muscle]}22;color:${MUSCLES[ex.muscle]};font-size:10px;">${ex.muscle}</span> <button class="btn-lastperf" onclick="applyLastPerf(${exIdx})" title="Charger ma dernière perf sur cet exercice">🎯 Dernière fois</button> <button class="btn-lastperf" style="border-color:#4a1f30;color:#ff7b9b;" onclick="removeSessionExercise(${exIdx})" title="Retirer cet exercice de la séance">🗑 Retirer</button></h3>
+    card.innerHTML = `<h3><span class="dot" style="background:${MUSCLES[ex.muscle]||'var(--c-full)'};box-shadow:0 0 10px ${mHex}88;"></span> ${MUSCLE_ICONS[ex.muscle]||''} ${ex.name} <span class="tag" style="background:${MUSCLES[ex.muscle]}22;color:${MUSCLES[ex.muscle]};font-size:10px;">${ex.muscle}</span> <button class="btn-lastperf" onclick="applyLastPerf(${exIdx})" title="Charger ma dernière perf sur cet exercice">Dernière fois</button> <button class="btn-lastperf" style="border-color:#4a1f30;color:#ff7b9b;" onclick="removeSessionExercise(${exIdx})" title="Retirer cet exercice de la séance">Retirer</button></h3>
       ${estLoad!==null ? `<div class="est-load-note">≈ ${estLoad.toFixed(1)} kg estimés soulevés par répétition (fraction de ton poids de corps déplacée par ce mouvement)</div>` : ''}
       <div class="set-row-header"><span>Série</span><span>Poids (kg)</span><span>Répétitions</span><span></span></div>`;
     ex.sets.forEach((st, setIdx)=>{
@@ -2894,14 +2907,14 @@ function renderRestPicker(){
 }
 function setCustomRestDuration(){
   const val = parseInt(document.getElementById('rest-custom-input').value);
-  if(!val || val<5){ toast('⚠️ Entre une durée valide (5s minimum)'); return; }
+  if(!val || val<5){ toast('Entre une durée valide (5s minimum)'); return; }
   setRestDuration(val);
 }
 function setRestDuration(sec){
   state.settings.restDuration = sec;
   persist();
   renderRestPicker();
-  toast(`⏱ Repos par défaut réglé sur ${sec}s`);
+  toast(`Repos par défaut réglé sur ${sec}s`);
 }
 
 function validateSet(exIdx, setIdx){
@@ -2910,7 +2923,7 @@ function validateSet(exIdx, setIdx){
   save('iq_active_session', activeSession);
   renderActiveSession();
   if(st.done){
-    toast('+10 XP — série validée 💪');
+    toast('+10 XP — série validée ');
     startRestTimer(state.settings.restDuration);
   }
 }
@@ -2932,7 +2945,7 @@ function confirmAddExercise(){
   const sets = parseInt(document.getElementById('quick-ex-sets').value)||3;
   const reps = parseInt(document.getElementById('quick-ex-reps').value)||10;
   const weight = parseFloat(document.getElementById('quick-ex-weight').value)||0;
-  if(!name){ toast("⚠️ Donne un nom à l'exercice"); return; }
+  if(!name){ toast("Donne un nom à l'exercice"); return; }
   activeSession.exercises.push({
     name, muscle,
     sets: Array.from({length:sets}, ()=>({weight, reps, done:false}))
@@ -3000,9 +3013,9 @@ function finishSession(){
   localStorage.removeItem('iq_active_session');
   clearRestTimer();
 
-  let msg = `🎉 Séance enregistrée — +${xpEarned} XP`;
+  let msg = `Séance enregistrée — +${xpEarned} XP`;
   if(prHits.length){
-    msg += ` — ${prHits.length} nouveau(x) record(s) 🏆`;
+    msg += ` — ${prHits.length} nouveau(x) record(s) `;
     spawnConfetti(30);
   }
   toast(msg);
@@ -3031,7 +3044,7 @@ function startRestTimer(seconds){
     restRemaining--;
     if(restRemaining<=0){
       clearRestTimer();
-      toast("⏱ Repos terminé, c'est reparti !");
+      toast("Repos terminé, c'est reparti !");
       if(navigator.vibrate) navigator.vibrate([120,60,120]);
       return;
     }
@@ -3064,7 +3077,7 @@ function renderHistory(){
   const wrap = document.getElementById('history-list');
   wrap.innerHTML = '';
   if(state.sessions.length===0){
-    wrap.innerHTML = `<div class="empty-state"><div class="big">🕘</div><h3>Aucune séance enregistrée</h3><p>Termine ta première séance pour voir ton historique ici.</p></div>`;
+    wrap.innerHTML = `<div class="empty-state"><div class="big"></div><h3>Aucune séance enregistrée</h3><p>Termine ta première séance pour voir ton historique ici.</p></div>`;
     return;
   }
   const sorted = [...state.sessions].reverse();
@@ -3109,17 +3122,17 @@ function renderHistory(){
           <span class="pill">${escapeXml(s.programName)}</span>
           <span class="pill mono">${Math.round(s.totalVolume)} kg</span>
           <span class="pill" style="color:var(--accent-xp);border-color:var(--accent-xp);">+${s.xpEarned} XP</span>
-          ${s.prs && s.prs.length ? `<span class="pill" style="color:var(--accent-gold);border-color:var(--accent-gold);">🏆 ${s.prs.length} PR</span>` : ''}
+          ${s.prs && s.prs.length ? `<span class="pill" style="color:var(--accent-gold);border-color:var(--accent-gold);">${s.prs.length} PR</span>` : ''}
           <span class="hist-chevron">▼</span>
-          <button class="btn btn-danger btn-sm" style="margin-left:auto;" onclick="event.stopPropagation(); deleteSession('${s.id}')">🗑</button>
+          <button class="btn btn-danger btn-sm" style="margin-left:auto;" onclick="event.stopPropagation(); deleteSession('${s.id}')">Supprimer</button>
         </div>
         <div class="hist-body">
           <div class="hist-meta-row">
-            <span>📅 <b>${fmtDate(s.date)}</b></span>
-            ${s.durationMin ? `<span>⏱ <b>${s.durationMin} min</b></span>` : ''}
-            <span>🏋️ <b>${exCount}</b> exercice(s)</span>
-            <span>🔢 <b>${setCount}</b> série(s)</span>
-            <span>⚖️ <b>${Math.round(s.totalVolume).toLocaleString('fr-FR')} kg</b> soulevés</span>
+            <span><b>${fmtDate(s.date)}</b></span>
+            ${s.durationMin ? `<span><b>${s.durationMin} min</b></span>` : ''}
+            <span><b>${exCount}</b> exercice(s)</span>
+            <span><b>${setCount}</b> série(s)</span>
+            <span><b>${Math.round(s.totalVolume).toLocaleString('fr-FR')} kg</b> soulevés</span>
           </div>
           ${s.exercises.map(ex=>{
             const exVolume = effectiveExerciseVolume(ex.name, ex.sets, s.date);
@@ -3133,7 +3146,7 @@ function renderHistory(){
                 <span class="dot" style="background:${mHex};"></span>
                 ${MUSCLE_ICONS[ex.muscle]||''} ${escapeXml(ex.name)}
                 <span class="tag" style="background:${mHex}22;color:${mHex};font-size:10px;">${escapeXml(ex.muscle)}</span>
-                ${isPR ? '<span class="pr-flash">🏆 PR</span>' : ''}
+                ${isPR ? '<span class="pr-flash">PR</span>' : ''}
               </div>
               <div class="hist-sets-grid">
                 ${ex.sets.map((st,i)=>`<span class="hist-set-chip">#${i+1} <b>${st.weight}</b>kg × <b>${st.reps}</b></span>`).join('')}
@@ -3494,7 +3507,7 @@ function setProfileAge(val){
   const age = parseInt(val);
   state.profile.age = (age && age>0) ? age : null;
   persist();
-  toast('🎂 Âge enregistré');
+  toast('Âge enregistré');
   renderStrengthLevels();
 }
 
@@ -3504,7 +3517,7 @@ function buildStrengthLevelCard(name){
   card.className = 'sl-card';
   if(!res || res.needsProfile){
     card.innerHTML = `
-      <div class="sl-head"><span class="sl-icon">🏋️</span><span class="sl-name">${escapeXml(name)}</span></div>
+      <div class="sl-head"><span class="sl-icon"></span><span class="sl-name">${escapeXml(name)}</span></div>
       <div class="sl-empty">Renseigne ton poids et/ou ton âge ci-dessus pour calculer ton niveau.</div>
     `;
     return {card, elo:null};
@@ -3524,14 +3537,14 @@ function buildStrengthLevelCard(name){
   const exUp = checkExerciseRankLevelUp(name, rank);
   card.innerHTML = `
     <div class="sl-head">
-      <span class="sl-icon">🏋️</span>
+      <span class="sl-icon"></span>
       <div>
         <div class="sl-name">${escapeXml(name)}</div>
         <div class="sl-sub">${escapeXml(res.valueDisplay)}</div>
       </div>
     </div>
     <div class="rank-card compact ${isSSL?'ssl':''} ${exUp?'rank-flash':''}" style="color:${rank.color};--rank-c:${rank.color};">
-      ${exUp ? '<span class="rank-up-ribbon">✨ Nouveau rang !</span>' : ''}
+      ${exUp ? '<span class="rank-up-ribbon">Nouveau rang !</span>' : ''}
       <div class="rank-emblem">${rank.icon}</div>
       <div class="rank-info">
         <div class="rank-name-row"><div class="rank-name">${rank.name}</div>${tierPipsHTML(rank.name)}</div>
@@ -3539,7 +3552,7 @@ function buildStrengthLevelCard(name){
         ${!isSSL ? `
           <div class="rank-progress-bg"><div class="rank-progress-fill" style="width:${progressPct}%;"></div></div>
           <div class="rank-progress-text">${rank.pointsToNext} pts avant ${rank.nextName}</div>
-        ` : `<div class="rank-progress-text">Rang maximum 🌟</div>`}
+        ` : `<div class="rank-progress-text">Rang maximum </div>`}
       </div>
     </div>
     <div class="sl-standard">
@@ -3550,7 +3563,7 @@ function buildStrengthLevelCard(name){
       </div>
       <div class="sl-gauge-labels"><span>Déb.</span><span>Nov.</span><span>Int.</span><span>Av.</span><span>Elite</span></div>
       ${isUnranked && res.thresholds && res.rawValue!==undefined ? `
-        <div class="sl-predeb-note">🔸 Encore ${Math.max(0, res.thresholds[0]-res.rawValue).toFixed(1)} ${res.unit} avant d'atteindre officiellement le niveau Débutant (points légers en attendant).</div>
+        <div class="sl-predeb-note">Encore ${Math.max(0, res.thresholds[0]-res.rawValue).toFixed(1)} ${res.unit} avant d'atteindre officiellement le niveau Débutant (points légers en attendant).</div>
       ` : ''}
     </div>
   `;
@@ -3571,7 +3584,7 @@ function renderStrengthLevels(){
   const matched = loggedNames.filter(n => resolveStandard(n));
 
   if(matched.length===0){
-    wrap.innerHTML = `<div class="empty-state"><div class="big">🏅</div><h3>Aucun niveau calculable pour l'instant</h3><p>Termine une séance avec un exercice de la base de données (ex : Développé couché haltères, Dips, Extension triceps...) pour voir ton niveau apparaître ici.</p></div>`;
+    wrap.innerHTML = `<div class="empty-state"><div class="big"></div><h3>Aucun niveau calculable pour l'instant</h3><p>Termine une séance avec un exercice de la base de données (ex : Développé couché haltères, Dips, Extension triceps...) pour voir ton niveau apparaître ici.</p></div>`;
     return;
   }
 
@@ -3606,7 +3619,7 @@ function renderStrengthLevels(){
 
     const avgRank = elos.length ? eloToRank(elos.reduce((a,b)=>a+b,0)/elos.length) : null;
     header.innerHTML = `
-      <span class="sl-group-icon">${MUSCLE_ICONS[muscle]||'🏋️'}</span>
+      <span class="sl-group-icon">${MUSCLE_ICONS[muscle]||''}</span>
       <span class="sl-group-name">${escapeXml(muscle)}</span>
       <span class="sl-group-count">${names.length} exercice(s)</span>
       ${avgRank ? `<span class="rank-tag" style="color:${avgRank.color};border-color:${avgRank.color}77;background:${avgRank.color}1a;"><span class="rank-tag-emblem">${avgRank.icon}</span>${avgRank.name}</span>` : ''}
@@ -3622,38 +3635,65 @@ function renderStrengthLevels(){
 function logBodyWeight(){
   const val = parseFloat(document.getElementById('bodyweight-input').value);
   const dateInput = document.getElementById('bodyweight-date-input').value || todayStr();
-  if(!val || val<=0){ toast('⚠️ Entre un poids valide'); return; }
+  if(!val || val<=0){ toast('Entre un poids valide'); return; }
   const existingIdx = state.bodyweight.findIndex(b=>b.date===dateInput);
   if(existingIdx>=0) state.bodyweight[existingIdx].weight = val;
   else state.bodyweight.push({date:dateInput, weight:val});
   state.bodyweight.sort((a,b)=> new Date(a.date)-new Date(b.date));
   persist();
   document.getElementById('bodyweight-input').value = '';
-  toast('⚖️ Pesée enregistrée');
+  toast('Pesée enregistrée');
   renderBodyweightSection();
 }
 
+
+let _pgPane = 'poids';
+function pgShow(name){
+  _pgPane = name;
+  document.querySelectorAll('#pg-tabs button').forEach(b=>b.classList.toggle('active', b.dataset.pane===name));
+  document.querySelectorAll('#view-progression .pg-pane').forEach(p=>p.classList.toggle('active', p.dataset.pane===name));
+  try{ renderProgression(); }catch(e){}
+}
+function setGoal(g){
+  state.profile.goal = (state.profile.goal===g) ? null : g; persist(); fillMeasures();
+  try{ renderBodyweightSection(); }catch(e){}
+}
+function setGoalWeight(val){
+  const v = parseFloat(String(val).replace(',','.'));
+  state.profile.goalWeight = (v && v>=20 && v<=400) ? v : null; persist(); toast('Objectif enregistré');
+  try{ renderBodyweightSection(); }catch(e){}
+}
 function renderBodyweightSection(){
-  const dateInput = document.getElementById('bodyweight-date-input');
-  if(!dateInput.value) dateInput.value = todayStr();
-  const wrap = document.getElementById('bodyweight-summary');
-  wrap.innerHTML = '';
-  if(state.bodyweight.length===0){
-    wrap.innerHTML = `<div style="color:var(--text-muted);font-size:13px;">Ajoute ta première pesée pour suivre ton évolution.</div>`;
-  } else {
-    const sorted = state.bodyweight;
-    const current = sorted[sorted.length-1];
-    const first = sorted[0];
-    const thirtyAgo = Date.now() - 30*86400000;
-    const entry30 = [...sorted].reverse().find(b => new Date(b.date).getTime() <= thirtyAgo);
-    const diffAll = current.weight - first.weight;
-    const diff30 = entry30 ? current.weight - entry30.weight : null;
-    wrap.innerHTML = `
-      <div class="stat-card" style="--accent-c:var(--c-dos);flex:1;min-width:150px;"><div class="num mono">${current.weight} kg</div><div class="lbl">Poids actuel — ${fmtDate(current.date)}</div></div>
-      <div class="stat-card" style="--accent-c:${diffAll<=0?'var(--accent-xp)':'var(--c-pectoraux)'};flex:1;min-width:150px;"><div class="num mono">${diffAll>0?'+':''}${diffAll.toFixed(1)} kg</div><div class="lbl">Depuis la 1ère pesée</div></div>
-      ${entry30 ? `<div class="stat-card" style="--accent-c:${diff30<=0?'var(--accent-xp)':'var(--c-pectoraux)'};flex:1;min-width:150px;"><div class="num mono">${diff30>0?'+':''}${diff30.toFixed(1)} kg</div><div class="lbl">Sur les 30 derniers jours</div></div>` : ''}
-    `;
+  const wrap = document.getElementById('bodyweight-summary'); if(!wrap) return;
+  const b = state.bodyweight;
+  if(!b.length){ wrap.innerHTML = '<div class="wg-empty">Renseigne ton poids dans l\'onglet Profil pour suivre ton évolution.</div>'; drawBodyweightChart(); return; }
+  const cur = b[b.length-1], first = b[0], diff = cur.weight - first.weight;
+  const goal = state.profile.goal || null, target = state.profile.goalWeight || null;
+  const fmt = v => v.toFixed(1).replace('.',',');
+  const goalLbl = {perte:'Perte de poids', maintien:'Maintien', prise:'Prise de poids'}[goal] || 'Non défini';
+  let status = 'neutral', msg = 'Définis ton objectif dans l\'onglet Profil.';
+  if(goal==='perte'){ status = diff<0 ? 'good' : (diff===0?'neutral':'bad'); msg = diff<0 ? 'Tu es sur la bonne voie.' : (diff===0?'Aucun changement pour le moment.':'Tu prends du poids alors que ton objectif est de en perdre.'); }
+  if(goal==='prise'){ status = diff>0 ? 'good' : (diff===0?'neutral':'bad'); msg = diff>0 ? 'Tu es sur la bonne voie.' : (diff===0?'Aucun changement pour le moment.':'Tu perds du poids alors que ton objectif est d\'en prendre.'); }
+  if(goal==='maintien'){ status = Math.abs(diff)<=1 ? 'good' : 'bad'; msg = Math.abs(diff)<=1 ? 'Ton poids est stable.' : 'Ton poids s\'éloigne de ta valeur de départ.'; }
+  const word = diff<0 ? 'perdus' : (diff>0 ? 'gagnés' : 'de variation');
+  let prog = '';
+  if(target && goal && goal!=='maintien' && first.weight!==target){
+    const pct = Math.max(0, Math.min(1, (first.weight-cur.weight)/(first.weight-target)));
+    const left = Math.abs(cur.weight-target);
+    prog = `<div class="wg-prog"><div class="wg-prog-h"><span>Vers ${fmt(target)} kg</span><b>${Math.round(pct*100)}%</b></div><div class="wg-bar"><i style="width:${(pct*100).toFixed(0)}%"></i></div><small>${pct>=1?'Objectif atteint.':'Il te reste '+fmt(left)+' kg.'}</small></div>`;
   }
+  wrap.innerHTML = `
+    <div class="wg-hero ${status}">
+      <div class="wg-big"><b>${diff>0?'+':(diff<0?'−':'')}${fmt(Math.abs(diff))}</b><span>kg ${word}</span></div>
+      <div class="wg-sub">depuis la première pesée, le ${fmtDate(first.date)} (${fmt(first.weight)} kg)</div>
+      <div class="wg-msg">${msg}</div>
+      ${prog}
+    </div>
+    <div class="wg-row">
+      <div class="wg-mini"><small>Poids actuel</small><b>${fmt(cur.weight)} kg</b></div>
+      <div class="wg-mini"><small>Objectif</small><b>${goalLbl}</b></div>
+      <div class="wg-mini"><small>Pesées</small><b>${b.length}</b></div>
+    </div>`;
   drawBodyweightChart();
 }
 
@@ -3664,7 +3704,7 @@ function drawBodyweightChart(){
   setChartEmpty('bodyweight-chart-wrap', false);
   const {svg} = svgLineChart(
     filtered.map(b=>fmtDate(b.date)),
-    [{name:'Poids', color:'#3d9cff', values: filtered.map(b=>b.weight), unit:'kg'}],
+    [{name:'Poids', color:(getComputedStyle(document.body).getPropertyValue('--rd-c').trim()||'#D4AF37'), values: filtered.map(b=>b.weight), unit:'kg'}],
     {zeroBase:false}
   );
   document.getElementById('bodyweight-chart').innerHTML = svg;
@@ -3786,7 +3826,7 @@ function renderRankScale(){
       lastFamily = family;
     }
     const color = RANK_TIER_COLORS[tier.name] || RANK_COLORS[family] || '#8a93a8';
-    const icon = RANK_ICONS[family] || '🏅';
+    const icon = RANK_ICONS[family] || '';
     const next = RANK_TIERS[i+1];
     const pointsText = next ? `${tier.min.toLocaleString('fr-FR')} – ${(next.min-1).toLocaleString('fr-FR')} pts` : `${tier.min.toLocaleString('fr-FR')}+ pts`;
     const isSSL = tier.name==='Supersonic Légende';
@@ -3807,7 +3847,7 @@ function renderRecords(){
   wrap.innerHTML = '';
   const entries = Object.entries(state.records);
   if(entries.length===0){
-    wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big">🏆</div><h3>Aucun record pour l'instant</h3><p>Termine des séances pour débloquer tes premiers records.</p></div>`;
+    wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big"></div><h3>Aucun record pour l'instant</h3><p>Termine des séances pour débloquer tes premiers records.</p></div>`;
     return;
   }
   entries.sort((a,b)=>a[0].localeCompare(b[0], 'fr')).forEach(([name, rec])=>{

@@ -459,3 +459,109 @@ nav.tabs button.active:focus{background:none;}
 .av-aura.base{animation-name:avPulseSoft;}
 @keyframes avPulseSoft{0%,100%{filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px #8fdcff88);}50%{filter:drop-shadow(0 0 4px #fff) drop-shadow(0 0 12px #8fdcffaa);}}
 .rd-hero.ssl::before{-webkit-mask:radial-gradient(circle,transparent 54%,#000 66%);mask:radial-gradient(circle,transparent 54%,#000 66%);opacity:.6;filter:blur(20px);}
+
+/* ======================================================================
+   Icônes sobres (remplacent les emojis) + images teintées au rang
+   ====================================================================== */
+:root{
+  --i-lock:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='9' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+  --i-flame:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-2.500 1-4 2.500-5.500.2 2 1 3 2.500 3.500C11 8 10.500 5 12 2z' fill='black'/%3E%3C/svg%3E");
+  --i-info:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v6M12 7.500v.01'/%3E%3C/svg%3E");
+  --i-chart:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20V10M10 20V4M16 20v-8M22 20H2'/%3E%3C/svg%3E");
+}
+.streak-box .flame{display:block;width:30px;height:30px;font-size:0;}
+.streak-box .flame::before{content:"";display:block;width:100%;height:100%;background:linear-gradient(180deg,#ffd27a,#ff7a1a);-webkit-mask:var(--i-flame) center/contain no-repeat;mask:var(--i-flame) center/contain no-repeat;filter:drop-shadow(0 0 6px #ff9a3a88);}
+.pf-lock,.rd-lock,.rank-card.locked .rank-emblem{font-size:0!important;}
+.pf-lock::before{content:"";display:inline-block;width:22px;height:22px;background:#8fa0ad;-webkit-mask:var(--i-lock) center/contain no-repeat;mask:var(--i-lock) center/contain no-repeat;}
+.rd-lock::before{content:"";display:block;width:84px;height:84px;margin:auto;background:#8fa0ad;-webkit-mask:var(--i-lock) center/contain no-repeat;mask:var(--i-lock) center/contain no-repeat;}
+.rank-card.locked .rank-emblem::before{content:"";display:block;width:56%;height:56%;margin:22% auto 0;background:#8fa0ad;-webkit-mask:var(--i-lock) center/contain no-repeat;mask:var(--i-lock) center/contain no-repeat;}
+.rd-tip::before{content:"";flex:none;width:20px;height:20px;margin-top:1px;background:var(--rc,var(--rd-c,#D4AF37));-webkit-mask:var(--i-info) center/contain no-repeat;mask:var(--i-info) center/contain no-repeat;}
+.chart-empty .big,.empty-state .big{font-size:0;}
+.chart-empty .big::before,.empty-state .big::before{content:"";display:block;width:44px;height:44px;margin:0 auto 6px;background:color-mix(in srgb,var(--rd-c,#D4AF37) 65%,#0b1620);-webkit-mask:var(--i-chart) center/contain no-repeat;mask:var(--i-chart) center/contain no-repeat;opacity:.8;}
+.insight-icon:empty{display:none;}
+.sl-group-icon:empty::before{content:"";display:block;width:12px;height:12px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;}
+
+/* Images d'accueil teintées à la couleur du rang global */
+.dash-head img,.avatar img{filter:var(--img-filter,none);transition:filter .6s;}
+#view-dashboard .motiv-card{background:#071b29cc;position:relative;overflow:hidden;}
+#view-dashboard .motiv-card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#041019cc 0%,#04101900 28%,#041019ee 72%),url('icons/motiv.jpg') center top/cover no-repeat;filter:var(--img-filter,none);transition:filter .6s;}
+#view-dashboard .motiv-card>*{position:relative;z-index:1;}
+
+/* ======================= Progression repensée ======================= */
+.pg-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:3px;margin:4px 0 14px;border-radius:16px;background:#06141f;border:1px solid color-mix(in srgb,var(--rd-c,#D4AF37) 28%,#0b1620);}
+.pg-tabs::-webkit-scrollbar{display:none;}
+.pg-tabs button{flex:1 0 auto;padding:9px 14px;border:none;border-radius:12px;background:none;color:#a9bcc6;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;}
+.pg-tabs button.active{background:var(--gold-grad);color:#04101a;font-weight:600;box-shadow:0 0 12px color-mix(in srgb,var(--rd-c,#D4AF37) 45%,transparent);}
+.pg-pane{display:none;}
+.pg-pane.active{display:block;}
+.pg-sec{padding:14px;margin-bottom:14px;}
+.pg-lead{font-size:13px;color:#9db2bd;margin:2px 2px 12px;}
+.pg-select{width:100%;padding:10px 12px;font-size:14px;}
+.chart-head h2{font-size:14px;}
+#view-progression .chart-wrap{margin:0;}
+.wg-wrap{margin-bottom:14px;}
+.wg-hero{padding:18px 16px;border-radius:22px;background:#071b29cc;border:1px solid color-mix(in srgb,var(--st,var(--rd-c,#D4AF37)) 55%,#0b1620);box-shadow:0 0 28px color-mix(in srgb,var(--st,var(--rd-c,#D4AF37)) 16%,transparent);text-align:center;}
+.wg-hero.good{--st:#3ddc97;}.wg-hero.bad{--st:#ff6b6b;}.wg-hero.neutral{--st:var(--rd-c,#D4AF37);}
+.wg-big{display:flex;align-items:baseline;justify-content:center;gap:10px;}
+.wg-big b{font-size:44px;font-weight:700;color:var(--st);line-height:1;text-shadow:0 0 18px color-mix(in srgb,var(--st) 45%,transparent);}
+.wg-big span{font-size:15px;color:#cfe0e6;}
+.wg-sub{margin-top:8px;font-size:12.5px;color:#8fa6b2;}
+.wg-msg{margin-top:10px;font-size:13.5px;color:#e5f6fa;}
+.wg-prog{margin-top:14px;text-align:left;}
+.wg-prog-h{display:flex;justify-content:space-between;font-size:12.5px;color:#cfe0e6;margin-bottom:6px;}
+.wg-prog-h b{color:var(--st);}
+.wg-bar{height:8px;border-radius:6px;background:#0c1b27;overflow:hidden;}
+.wg-bar i{display:block;height:100%;border-radius:6px;background:var(--st);box-shadow:0 0 10px var(--st);}
+.wg-prog small{display:block;margin-top:6px;font-size:12px;color:#8fa6b2;}
+.wg-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
+.wg-mini{padding:11px 8px;text-align:center;border-radius:16px;background:#071b29cc;border:1px solid color-mix(in srgb,var(--rd-c,#D4AF37) 28%,#0b1620);}
+.wg-mini small{display:block;font-size:11px;color:#8fa6b2;margin-bottom:4px;}
+.wg-mini b{font-size:15px;font-weight:600;color:#fff;}
+.wg-empty{padding:18px;text-align:center;font-size:13.5px;color:#9db2bd;border-radius:18px;background:#071b29cc;border:1px dashed color-mix(in srgb,var(--rd-c,#D4AF37) 35%,#0b1620);}
+
+/* Objectif de poids (Profil) */
+.pf-goal{margin-top:12px;display:flex;flex-direction:column;gap:8px;}
+.pf-goal small{font-size:11px;color:#8fa6b2;}
+.pf-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:3px;border-radius:13px;background:#06141f;border:1px solid color-mix(in srgb,var(--rc) 26%,#0b1620);}
+.pf-seg button{padding:8px 4px;border:none;border-radius:10px;background:none;color:#cfe0e6;font-size:13px;font-weight:500;}
+.pf-seg button.active{background:var(--gold-grad);color:#04101a;font-weight:600;}
+.pf-goalw{max-width:none;}
+
+/* ======================= SSL : fluide multicolore + éclat occasionnel ======================= */
+.av-in.shine{display:none;}
+.av-in.flow{background:
+  radial-gradient(circle at 20% 22%,#00e5ff 0,transparent 42%),
+  radial-gradient(circle at 82% 18%,#ff4fd8 0,transparent 42%),
+  radial-gradient(circle at 72% 80%,#ffd166 0,transparent 42%),
+  radial-gradient(circle at 24% 86%,#7c5cff 0,transparent 42%),
+  linear-gradient(135deg,#7fe7ff,#ffffff,#ffb3f0);
+  background-size:260% 260%;mix-blend-mode:color;opacity:.92;animation:avFlow 7.5s ease-in-out infinite,avHue 14s linear infinite;}
+@keyframes avFlow{0%{background-position:0% 0%;}25%{background-position:100% 30%;}50%{background-position:60% 100%;}75%{background-position:0% 70%;}100%{background-position:0% 0%;}}
+@keyframes avHue{to{filter:hue-rotate(360deg);}}
+.av-in.streak{background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.95) 50%,transparent 60%);background-size:300% 100%;background-position:175% 0;animation:avStreak 9s linear infinite;}
+@keyframes avStreak{0%{background-position:175% 0;}13%{background-position:-75% 0;}100%{background-position:-75% 0;}}
+.ssl-fx::after{background:
+  radial-gradient(circle at 25% 25%,#00e5ff 0,transparent 45%),radial-gradient(circle at 78% 22%,#ff4fd8 0,transparent 45%),
+  radial-gradient(circle at 70% 80%,#ffd166 0,transparent 45%),radial-gradient(circle at 25% 85%,#7c5cff 0,transparent 45%);
+  background-size:260% 260%;mix-blend-mode:color;opacity:.9;animation:avFlow 7s ease-in-out infinite,avHue 12s linear infinite;}
+.ssl-streak{position:absolute;inset:0;z-index:3;-webkit-mask:url(icons/ranks/ssl.png) center/contain no-repeat;mask:url(icons/ranks/ssl.png) center/contain no-repeat;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.95) 50%,transparent 60%);background-size:300% 100%;background-position:175% 0;animation:avStreak 8s linear infinite;}
+.rd-hero.ssl .rd-prog{stroke:#8fe9ff;animation:ringHue 9s linear infinite;}
+@keyframes ringHue{from{filter:hue-rotate(0deg) drop-shadow(0 0 6px #fff) drop-shadow(0 0 16px #7fe7ff);}to{filter:hue-rotate(360deg) drop-shadow(0 0 6px #fff) drop-shadow(0 0 16px #7fe7ff);}}
+@media (prefers-reduced-motion:reduce){.av-in.flow,.av-in.streak,.ssl-fx::after,.ssl-streak,.rd-hero.ssl .rd-prog{animation:none!important;}}
+
+/* Le filtre de teinte ne doit pas décaler la couleur de l'anneau de l'avatar */
+.avatar img{border:none!important;box-shadow:none!important;}
+.avatar::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--rd-c,#D4AF37);box-shadow:0 0 18px color-mix(in srgb,var(--rd-c,#D4AF37) 45%,transparent);z-index:2;pointer-events:none;}
+.pf-lead,.pf-hint{font-family:'Inter',sans-serif;}
+.pf-links{grid-template-columns:repeat(2,1fr);}
+
+/* Fluide : plusieurs couleurs visibles en même temps dans chaque muscle */
+.av-in.flow{
+  background:
+    radial-gradient(circle at 30% 30%,#00e5ff 0,transparent 55%) 0 0/110px 110px,
+    radial-gradient(circle at 70% 30%,#ff4fd8 0,transparent 55%) 0 0/140px 140px,
+    radial-gradient(circle at 60% 70%,#ffd166 0,transparent 55%) 0 0/170px 170px,
+    radial-gradient(circle at 30% 75%,#7c5cff 0,transparent 55%) 0 0/200px 200px,
+    linear-gradient(135deg,#7fe7ff,#ffffff,#ffb3f0) 0 0/100% 100%;
+  animation:avFlow2 9s linear infinite,avHue 16s linear infinite;}
+@keyframes avFlow2{from{background-position:0 0,0 0,0 0,0 0,0 0;}to{background-position:110px 55px,-140px 140px,170px -170px,-200px -100px,0 0;}}
