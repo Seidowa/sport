@@ -955,6 +955,12 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <button data-tab="progression"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span>Progression</span></button>
     <button data-tab="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></button>
   </nav>
+  <div id="photo-sheet" class="photo-sheet" onclick="if(event.target===this)closePhotoSheet()"><div class="photo-box">
+    <h3>Photo de profil</h3>
+    <button onclick="pickPhoto()">Choisir une photo</button>
+    <button id="photo-remove" class="danger" onclick="removePhoto()">Revenir à l'avatar par défaut</button>
+    <button class="ghost" onclick="closePhotoSheet()">Annuler</button>
+  </div></div>
 
 
 <main>
@@ -968,7 +974,8 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
     <div class="panel profile-card">
       <div class="prof-top">
-        <div class="avatar"><img src="icons/avatar.jpg" alt=""><div class="level-badge" id="hud-level">1</div></div>
+        <div class="avatar" onclick="openPhotoSheet()" role="button" aria-label="Changer la photo de profil"><img id="prof-photo" src="icons/avatar.jpg" alt=""><div class="level-badge" id="hud-level">1</div><span class="av-cam"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-2.500h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></svg></span></div>
+        <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="onPhotoPicked(this)">
         <div class="prof-info">
           <div class="prof-line"><span class="prof-name" id="prof-name">Athlète</span><button class="pencil" onclick="editProfileName()" aria-label="Modifier le prénom"><svg viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/></svg></button></div>
           <div class="prof-level" id="hud-level-txt">Niveau 1</div>
@@ -2425,6 +2432,34 @@ function rankImgFilter(hex){
   h=Math.round(h*60); if(h<0) h+=360;
   return 'hue-rotate('+(((h-187)%360+360)%360)+'deg) saturate(1.1)';
 }
+function renderProfilePhoto(){
+  const img = document.getElementById('prof-photo'); if(!img) return;
+  const ph = state.profile.photo;
+  if(ph){ img.src = ph; img.classList.add('custom'); } else { img.src = 'icons/avatar.jpg'; img.classList.remove('custom'); }
+}
+function openPhotoSheet(){
+  const r = document.getElementById('photo-remove'); if(r) r.style.display = state.profile.photo ? '' : 'none';
+  document.getElementById('photo-sheet').classList.add('open');
+}
+function closePhotoSheet(){ const e = document.getElementById('photo-sheet'); if(e) e.classList.remove('open'); }
+function pickPhoto(){ closePhotoSheet(); document.getElementById('photo-input').click(); }
+function onPhotoPicked(inp){
+  const f = inp.files && inp.files[0]; if(!f) return;
+  const rd = new FileReader();
+  rd.onload = ()=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const S = 320, c = document.createElement('canvas'); c.width = c.height = S;
+      const m = Math.min(img.width, img.height);
+      c.getContext('2d').drawImage(img, (img.width-m)/2, (img.height-m)/2, m, m, 0, 0, S, S);
+      state.profile.photo = c.toDataURL('image/jpeg', 0.85); persist(); renderProfilePhoto(); toast('Photo mise à jour');
+    };
+    img.onerror = ()=>toast('Image non reconnue');
+    img.src = rd.result;
+  };
+  rd.readAsDataURL(f); inp.value = '';
+}
+function removePhoto(){ state.profile.photo = null; persist(); renderProfilePhoto(); closePhotoSheet(); toast('Avatar par défaut rétabli'); }
 function applyRankTheme(color){
   document.body.style.setProperty('--rd-c', color);
   document.body.style.setProperty('--img-filter', rankImgFilter(color));
@@ -2433,6 +2468,7 @@ function applyRankTheme(color){
 }
 function renderDashRankHero(rank){
   applyRankTheme(rank ? rank.color : '#19D3EA');
+  renderProfilePhoto();
   const box = document.getElementById('dash-rank'); if(!box) return;
   box.innerHTML = '<p class="rd-eyebrow-s">Rang global</p>' + rdHeroHTML(rank) + rdDetailHTML(rank);
 }
