@@ -583,3 +583,18 @@ nav.tabs button.active:focus{background:none;}
 .photo-box button{padding:14px;border-radius:14px;background:#0a2230;border:1px solid color-mix(in srgb,var(--rd-c,#D4AF37) 35%,#0b1620);color:#e5f6fa;font-size:15px;font-family:'Inter',sans-serif;}
 .photo-box button.danger{color:#ff8a7a;border-color:#6b2a2a;}
 .photo-box button.ghost{background:none;border-color:transparent;color:#9db2bd;}
+
+/* ===== Recadrage manuel ===== */
+.crop-sheet{position:fixed;inset:0;z-index:95;background:#050b12f2;display:none;align-items:center;justify-content:center;padding:20px;}
+.crop-sheet.open{display:flex;}
+.crop-box{width:100%;max-width:360px;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.crop-box h3{margin:0;font-family:'Inter',sans-serif;font-size:17px;color:#fff;text-transform:none;letter-spacing:0;}
+.crop-box p{margin:0;font-size:12.5px;color:#9db2bd;text-align:center;}
+.crop-stage{position:relative;width:280px;height:280px;border-radius:8px;overflow:hidden;touch-action:none;background:#000;}
+.crop-stage canvas{width:280px;height:280px;display:block;touch-action:none;}
+.crop-guide{position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 400px rgba(5,11,18,.72);border:2px solid var(--rd-c,#D4AF37);pointer-events:none;}
+#crop-zoom{width:280px;accent-color:var(--rd-c,#D4AF37);}
+.crop-actions{display:flex;gap:10px;width:280px;}
+.crop-actions button{flex:1;padding:13px;border-radius:13px;font-size:15px;font-family:'Inter',sans-serif;border:1px solid color-mix(in srgb,var(--rd-c,#D4AF37) 40%,#0b1620);background:#0a2230;color:#e5f6fa;}
+.crop-actions button.ok{background:var(--gold-grad);color:#04101a;font-weight:600;border:none;}
+.crop-actions button.ghost{background:none;color:#9db2bd;}
