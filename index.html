@@ -1511,10 +1511,10 @@ const RANK_TIERS = [
 ];
 const RANK_EMOJI = {'Bronze':'🥉','Argent':'🥈','Or':'🥇','Platine':'🧊'};
 const RANK_ICONS = {'Bronze':'<img class="rank-img" src="icons/ranks/bronze.png" alt="">','Argent':'<img class="rank-img" src="icons/ranks/argent.png" alt="">','Or':'<img class="rank-img" src="icons/ranks/or.png" alt="">','Platine':'<img class="rank-img" src="icons/ranks/platine.png" alt="">','Diamant':'<img class="rank-img" src="icons/ranks/diamant.png" alt="">','Champion':'<img class="rank-img" src="icons/ranks/champion.png" alt="">','Grand Champion':'<img class="rank-img" src="icons/ranks/grandchampion.png" alt="">','Supersonic Légende':'<img class="rank-img" src="icons/ranks/ssl.png" alt="">'};
-const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#D4AF37','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#D4AF37'};
+const RANK_COLORS = {'Bronze':'#B87333','Argent':'#C0C0C0','Or':'#D4AF37','Platine':'#00E5FF','Diamant':'#3B82F6','Champion':'#A855F7','Grand Champion':'#EF4444','Supersonic Légende':'#DCEBFF'};
 /* Teinte spécifique par sous-rang (1/2/3) : plus sombre/mat au palier 1, plus clair/éclatant au palier 3,
    pour bien visualiser la progression à l'intérieur d'une même famille de rang. */
-const RANK_TIER_COLORS = {'Bronze 1':'#d0a47a', 'Bronze 2':'#B87333', 'Bronze 3':'#805023', 'Argent 1':'#d6d6d6', 'Argent 2':'#C0C0C0', 'Argent 3':'#868686', 'Or 1':'#E3CB7D', 'Or 2':'#D4AF37', 'Or 3':'#947A26', 'Platine 1':'#59eeff', 'Platine 2':'#00E5FF', 'Platine 3':'#00a0b2', 'Diamant 1':'#7fadf9', 'Diamant 2':'#3B82F6', 'Diamant 3':'#295bac', 'Champion 1':'#c690f9', 'Champion 2':'#A855F7', 'Champion 3':'#753bac', 'Grand Champion 1':'#f48585', 'Grand Champion 2':'#EF4444', 'Grand Champion 3':'#a72f2f', 'Supersonic Légende':'#D4AF37'};
+const RANK_TIER_COLORS = {'Bronze 1':'#d0a47a', 'Bronze 2':'#B87333', 'Bronze 3':'#805023', 'Argent 1':'#d6d6d6', 'Argent 2':'#C0C0C0', 'Argent 3':'#868686', 'Or 1':'#E3CB7D', 'Or 2':'#D4AF37', 'Or 3':'#947A26', 'Platine 1':'#59eeff', 'Platine 2':'#00E5FF', 'Platine 3':'#00a0b2', 'Diamant 1':'#7fadf9', 'Diamant 2':'#3B82F6', 'Diamant 3':'#295bac', 'Champion 1':'#c690f9', 'Champion 2':'#A855F7', 'Champion 3':'#753bac', 'Grand Champion 1':'#f48585', 'Grand Champion 2':'#EF4444', 'Grand Champion 3':'#a72f2f', 'Supersonic Légende':'#DCEBFF'};
 function tierNumber(tierName){
   const m = tierName.match(/(\d)$/);
   return m ? parseInt(m[1]) : null;
@@ -2320,14 +2320,16 @@ function computeMuscleRanks(){
   return out;
 }
 function avLayer(img, mask, extra){
-  return `<i class="av-l ${extra||''}" style="background-image:url(icons/avatar/${img}.webp);-webkit-mask-image:url(icons/avatar/mask-${mask}.png);mask-image:url(icons/avatar/mask-${mask}.png)"></i>`;
+  return `<i class="av-l ${extra||''}" style="background-image:url(icons/avatar/${img}.webp);-webkit-mask-image:url(icons/avatar/${mask}.png);mask-image:url(icons/avatar/${mask}.png)"></i>`;
 }
 function renderProfile(){
   const box = document.getElementById('profil-body'); if(!box) return;
   const g = computeGlobalPerformanceRank();
   document.body.style.setProperty('--rd-c', g ? g.color : '#19D3EA');
   const mr = computeMuscleRanks();
-  const layers = avLayer(avFileOf(g),'base','base') + Object.keys(AV_MASK).map(m=>avLayer(avFileOf(mr[m]),AV_MASK[m],'m-'+AV_MASK[m]+(mr[m]?'':' unranked'))).join('');
+  const un = m=>(mr[m]?'':' unranked');
+  const front = avLayer(avFileOf(g),'mask-base','base') + Object.keys(AV_MASK).map(m=>avLayer(avFileOf(mr[m]),'mask-'+AV_MASK[m],'m-'+AV_MASK[m]+un(m))).join('');
+  const back = avLayer('back-'+avFileOf(g),'maskb-base','base') + ['Dos','Épaules','Bras','Jambes'].map(m=>avLayer('back-'+avFileOf(mr[m]),'maskb-'+AV_MASK[m],'m-'+AV_MASK[m]+un(m))).join('');
   const cards = Object.keys(AV_MASK).map(m=>{
     const r = mr[m], col = r ? r.color : '#7d8794';
     return `<button class="pf-mcard" data-m="${AV_MASK[m]}" style="--mc:${col}" onclick="avFocus('${AV_MASK[m]}')">
@@ -2337,7 +2339,8 @@ function renderProfile(){
   const ico = d=>'<svg viewBox="0 0 24 24">'+d+'</svg>';
   box.innerHTML = `
     <div class="av-stage"><div class="av-glow"></div>
-      <div class="av-fig" id="av-fig" onclick="avFocus(null)">${layers}</div></div>
+      <div class="av-fig ${_avBack?'flipped':''}" id="av-fig" onclick="avFocus(null)"><div class="av-side front">${front}</div><div class="av-side back">${back}</div></div></div>
+    <button class="av-flip" onclick="avFlip()"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg><span id="av-flip-lbl">${_avBack?'Voir de face':'Voir de dos'}</span></button>
     <div class="pf-global">${g ? `<span class="pf-gic">${g.icon}</span><span><small>Rang global</small><b style="color:${g.color}">${g.name}</b></span><em>${g.elo.toLocaleString('fr-FR')} MMR</em>` : '<span class="pf-gic">🔒</span><span><small>Rang global</small><b>Pas encore de rang</b></span>'}</div>
     <p class="pf-hint">Touche un groupe musculaire pour le mettre en évidence.</p>
     <div class="pf-grid">${cards}</div>
@@ -2347,14 +2350,23 @@ function renderProfile(){
       <button onclick="switchTab('rangs')">${ico('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>')}Rangs</button>
     </div>`;
 }
-let _avSel = null;
+let _avSel = null, _avBack = false;
+function avFlip(force){
+  _avBack = (typeof force==='boolean') ? force : !_avBack;
+  const fig = document.getElementById('av-fig'); if(fig) fig.classList.toggle('flipped', _avBack);
+  const l = document.getElementById('av-flip-lbl'); if(l) l.textContent = _avBack ? 'Voir de face' : 'Voir de dos';
+}
 function avFocus(m){
   _avSel = (m && _avSel===m) ? null : m;
   const fig = document.getElementById('av-fig'); if(!fig) return;
   fig.classList.toggle('focus', !!_avSel);
   fig.querySelectorAll('.av-l').forEach(l=>l.classList.toggle('on', !!_avSel && l.classList.contains('m-'+_avSel)));
   document.querySelectorAll('.pf-mcard').forEach(c=>c.classList.toggle('sel', c.dataset.m===_avSel));
-  if(_avSel) fig.scrollIntoView({behavior:'smooth', block:'center'});
+  if(_avSel){
+    const want = (_avSel==='dos') ? true : (_avSel==='pectoraux'||_avSel==='abdos') ? false : _avBack;
+    if(want!==_avBack) avFlip(want);
+    fig.scrollIntoView({behavior:'smooth', block:'center'});
+  }
 }
 function rdHeroHTML(rank){
   if(!rank) return `<div class="rd-hero"><svg class="rd-ring" viewBox="0 0 320 320"><circle cx="160" cy="160" r="148" class="rd-track"/></svg><div class="rd-emblem rd-lock">🔒</div></div><div class="rd-name">Pas encore de rang</div><div class="rd-next">Enregistre des séances pour débloquer ton rang global.</div>`;
