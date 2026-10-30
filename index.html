@@ -975,7 +975,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
 
   <!-- DASHBOARD -->
   <section class="view active" id="view-dashboard">
-    <div class="dash-head"><img src="icons/dash-head.jpg" alt="Stat Tracker"><div class="dh-btns"><button class="round-btn" onclick="showNotif()" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></svg><i class="dot-orange"></i></button><button class="round-btn" onclick="switchTab('profil')" aria-label="Profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></button></div></div>
+    <div class="dash-top"><div class="dt-left"><span class="dt-logo"><img src="icons/logo.png" alt=""></span><div class="dt-txt"><small id="dt-date"></small><b id="dt-hello">Bonjour</b></div></div><div class="dh-btns"><button class="round-btn" onclick="showNotif()" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></svg><i class="dot-orange"></i></button><button class="round-btn" onclick="switchTab('reglages')" aria-label="Réglages"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></button></div></div>
     <div id="backup-reminder"></div>
     <div class="dash-rank" id="dash-rank"></div>
 
@@ -1026,6 +1026,13 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       <p id="insight-text"><span class="insight-icon" id="insight-icon"></span> <span id="insight-msg">Charge tes données pour voir ton premier insight.</span></p>
       <span>Insight du jour</span>
     </div>
+  </section>
+
+  <!-- REGLAGES -->
+  <section class="view" id="view-reglages">
+    <button class="rg-back" onclick="switchTab('dashboard')">&lsaquo; Retour</button>
+    <div class="rg-title">Réglages</div>
+    <div id="reglages-body"></div>
   </section>
 
   <!-- PROFIL -->
@@ -1101,7 +1108,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       <div class="pg-lead">Ton niveau de force par exercice, comparé à ton poids et à ton âge.</div>
       <div id="strength-level-list" style="margin-bottom:16px;"></div>
       <div class="panel pg-sec">
-        <div class="chart-head"><h2>Profil de puissance</h2></div>
+        <div class="pp-head"><span class="pp-ico"><i></i><i></i><i></i><i></i></span><span class="pp-sep"></span><div><div class="pp-t">Profil de puissance</div><div class="pp-s">Votre équilibre musculaire</div></div></div>
         <div class="chart-wrap" id="radar-chart-wrap">
           <div class="chart-canvas" id="radar-chart"></div>
           <div class="chart-empty"><div class="big"></div><p>Termine des séances avec des exercices reconnus (et renseigne ton poids et ton âge) pour voir ton profil de puissance.</p></div>
@@ -2050,6 +2057,11 @@ let state = {
   rankHistory: load('iq_rank_history', {attendance:null, global:null, exercises:{}, globalLog:[], musclesLog:{}})
 };
 if(state.settings.restDuration===undefined) state.settings.restDuration = 90;
+if(state.settings.vibrate===undefined) state.settings.vibrate = true;
+if(state.settings.keepAwake===undefined) state.settings.keepAwake = false;
+if(state.settings.reduceMotion===undefined) state.settings.reduceMotion = false;
+if(state.settings.accent===undefined) state.settings.accent = 'auto';
+if(state.settings.weeklyGoal===undefined) state.settings.weeklyGoal = null;
 if(state.settings.theme===undefined) state.settings.theme = 'dark';
 if(state.settings.lastExportAt===undefined) state.settings.lastExportAt = null;
 if(state.settings.exportReminderSnoozedUntil===undefined) state.settings.exportReminderSnoozedUntil = null;
@@ -2262,7 +2274,7 @@ function registerSessionDate(){
 }
 
 /* ============================= TABS ============================= */
-function renderProfileName(){ const e=document.getElementById('prof-name'); if(e) e.textContent = state.profile.name || 'Athlète'; }
+function renderProfileName(){ const e=document.getElementById('prof-name'); if(e) e.textContent = state.profile.name || 'Athlète'; try{ renderDashHeader(); }catch(x){} }
 function editProfileName(){
   const n = prompt('Ton prénom ?', state.profile.name || '');
   if(n===null) return;
@@ -2319,7 +2331,8 @@ function avLayer(img, mask, extra, idx){
   const mk = `-webkit-mask-image:url(icons/avatar/${mask}.png);mask-image:url(icons/avatar/${mask}.png)`;
   const st = `background-image:url(icons/avatar/${img}.webp);${mk}`;
   if(img==='ssl' || img==='back-ssl'){
-    return `<i class="av-l ${extra||''}" style="background-image:url(icons/avatar/${img}-anim.webp);${mk}"></i>`;
+    const nm = mask.split('-')[1], ag = (img==='back-ssl' ? 'aurab-' : 'aura-') + nm;
+    return `<div class="av-l ssl-w ${extra||''}"><i class="gl" style="background-image:url(icons/avatar/${ag}.png);animation-delay:${-((idx||0)*0.9)}s"></i><i class="mu" style="background-image:url(icons/avatar/${img}-anim.webp);${mk}"></i></div>`;
   }
   return `<i class="av-l ${extra||''}" style="${st}"></i>`;
 }
@@ -2431,14 +2444,66 @@ function rdHeroHTML(rank){
     <div class="rd-range"><span>${cur.min.toLocaleString('fr-FR')}</span><div class="rd-rbar"><i style="width:${pct}%"></i></div><span>${nxt?nxt.min.toLocaleString('fr-FR'):'MAX'}</span></div>
     <div class="rd-next">${nxt?`${rank.pointsToNext} MMR avant ${rank.nextName} · ${pct}%`:'Rang maximum atteint '}</div>`;
 }
-function rankImgFilter(hex){
+function rankImgFilter(hex, baseHue){
+  baseHue = baseHue || 187;
   const n = parseInt(hex.replace('#',''),16), r=(n>>16&255)/255, g=(n>>8&255)/255, b=(n&255)/255;
   const mx=Math.max(r,g,b), mn=Math.min(r,g,b), c=mx-mn;
   if(c<0.2) return 'grayscale(.92) brightness(1.08)';
   let h; if(mx===r) h=((g-b)/c)%6; else if(mx===g) h=(b-r)/c+2; else h=(r-g)/c+4;
   h=Math.round(h*60); if(h<0) h+=360;
-  return 'hue-rotate('+(((h-187)%360+360)%360)+'deg) saturate(1.1)';
+  return 'hue-rotate('+(((h-baseHue)%360+360)%360)+'deg) saturate(1.1)';
 }
+function renderDashHeader(){
+  const h = new Date().getHours(), hello = (h<5 || h>=18) ? 'Bonsoir' : 'Bonjour';
+  const d = document.getElementById('dt-date'), t = document.getElementById('dt-hello');
+  if(d){ const txt = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}); d.textContent = txt.charAt(0).toUpperCase()+txt.slice(1); }
+  if(t) t.textContent = hello + ', ' + (state.profile.name || 'Athlète');
+}
+const APP_VERSION = 'v27';
+const ACCENTS = [['auto','Auto'],['#D4AF37','Or'],['#19D3EA','Cyan'],['#A855F7','Violet'],['#EF4444','Rouge'],['#34D27B','Vert']];
+function setSetting(key, val){
+  state.settings[key] = val; persist();
+  if(key==='reduceMotion') document.body.classList.toggle('reduce-motion', !!val);
+  if(key==='accent'){ try{ renderDashboard(); }catch(e){} }
+  renderSettings();
+}
+function setProfileName(v){ state.profile.name = (v||'').trim().slice(0,20) || 'Athlète'; persist(); renderProfileName(); renderDashHeader(); }
+function renderSettings(){
+  const box = document.getElementById('reglages-body'); if(!box) return;
+  const st = state.settings;
+  const chips = (key, opts, cur)=> '<div class="rg-chips">' + opts.map(o=>`<button class="${String(cur)===String(o[0])?'on':''}" onclick="setSetting('${key}', ${typeof o[0]==='number'?o[0]:(o[0]===null?'null':`'${o[0]}'`)})">${o[1]}</button>`).join('') + '</div>';
+  const sw = (key,label,sub)=> `<label class="rg-row"><span class="rg-lbl">${label}${sub?`<small>${sub}</small>`:''}</span><span class="sw"><input type="checkbox" ${st[key]?'checked':''} onchange="setSetting('${key}', this.checked)"><i></i></span></label>`;
+  const accent = '<div class="rg-chips rg-acc">' + ACCENTS.map(a=>`<button class="${st.accent===a[0]?'on':''}" onclick="setSetting('accent','${a[0]}')">${a[0]==='auto'?'':`<i style="background:${a[0]}"></i>`}${a[1]}</button>`).join('') + '</div>';
+  box.innerHTML = `
+    <div class="rg-card"><h3>Profil</h3>
+      <label class="rg-row"><span class="rg-lbl">Prénom</span><input class="rg-input" type="text" maxlength="20" value="${escapeXml(state.profile.name||'')}" placeholder="Athlète" onchange="setProfileName(this.value)"></label>
+      <button class="rg-link" onclick="openPhotoSheet()">Changer la photo de profil<span>&rsaquo;</span></button>
+    </div>
+    <div class="rg-card"><h3>Entraînement</h3>
+      <div class="rg-block"><div class="rg-lbl">Temps de repos par défaut</div>${chips('restDuration',[[45,'45 s'],[60,'1 min'],[90,'1 min 30'],[120,'2 min'],[180,'3 min']],st.restDuration)}</div>
+      <div class="rg-block"><div class="rg-lbl">Objectif de séances par semaine<small>Affiché sur l'accueil</small></div>${chips('weeklyGoal',[[null,'Aucun'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6']],st.weeklyGoal)}</div>
+      ${sw('vibrate','Vibration en fin de repos','Si ton téléphone le permet')}
+      ${sw('keepAwake','Garder l\'écran allumé','Pendant une séance en cours')}
+    </div>
+    <div class="rg-card"><h3>Apparence</h3>
+      <div class="rg-block"><div class="rg-lbl">Couleur de l'application<small>Auto : la couleur de ton rang global</small></div>${accent}</div>
+      ${sw('reduceMotion','Réduire les animations','Désactive les effets animés')}
+    </div>
+    <div class="rg-card"><h3>Données</h3>
+      <button class="rg-link" onclick="switchTab('progression'); pgShow('donnees')">Sauvegarde et transfert<span>&rsaquo;</span></button>
+      <p class="rg-note">Toutes tes données restent sur cet appareil. Pense à exporter une sauvegarde de temps en temps.</p>
+    </div>
+    <div class="rg-about">Stat Tracker · ${APP_VERSION}</div>`;
+}
+let _wl = null;
+async function syncWakeLock(){
+  try{
+    const want = state.settings.keepAwake && activeSession;
+    if(want && !_wl && 'wakeLock' in navigator && document.visibilityState==='visible'){ _wl = await navigator.wakeLock.request('screen'); _wl.addEventListener('release', ()=>{ _wl = null; }); }
+    else if(!want && _wl){ await _wl.release(); _wl = null; }
+  }catch(e){}
+}
+setInterval(syncWakeLock, 4000); document.addEventListener('visibilitychange', syncWakeLock);
 function renderProfilePhoto(){
   const img = document.getElementById('prof-photo'); if(!img) return;
   const ph = state.profile.photo;
@@ -2504,26 +2569,31 @@ function validateCrop(){
 }
 function removePhoto(){ state.profile.photo = null; persist(); renderProfilePhoto(); closePhotoSheet(); toast('Avatar par défaut rétabli'); }
 function applyRankTheme(color){
+  const ov = (typeof state!=='undefined' && state.settings && state.settings.accent && state.settings.accent!=='auto') ? state.settings.accent : null;
+  if(ov) color = ov;
   document.body.style.setProperty('--rd-c', color);
   document.body.style.setProperty('--img-filter', rankImgFilter(color));
+  document.body.style.setProperty('--logo-filter', rankImgFilter(color, 46));
   const r = document.documentElement.style;
   r.setProperty('--accent-xp', color); r.setProperty('--accent-xp-dim', 'color-mix(in srgb,'+color+' 20%,transparent)');
 }
 function renderDashRankHero(rank){
   applyRankTheme(rank ? rank.color : '#19D3EA');
-  renderProfilePhoto();
+  renderProfilePhoto(); renderDashHeader();
+  document.body.classList.toggle('reduce-motion', !!state.settings.reduceMotion);
   const box = document.getElementById('dash-rank'); if(!box) return;
   box.innerHTML = '<p class="rd-eyebrow-s">Rang global</p>' + rdHeroHTML(rank) + rdDetailHTML(rank);
 }
 function showNotif(){ const m=document.getElementById('insight-msg'); toast('' + (m ? m.textContent : 'Bienvenue !')); }
 function switchTab(name){
   document.body.dataset.tab = name;
-  const _tt = document.getElementById('top-title'); if(_tt) _tt.textContent = ({seance:'Séance',historique:'Historique',progression:'Progression',records:'Records',rangs:'Rangs'})[name] || '';
+  const _tt = document.getElementById('top-title'); if(_tt) _tt.textContent = ({reglages:'',seance:'Séance',historique:'Historique',progression:'Progression',records:'Records',rangs:'Rangs'})[name] || '';
   const mb=document.querySelector('nav.tabs button[data-tab="profil"]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['profil','records','rangs'].includes(name)),0);
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-'+name));
   if(name==='dashboard') renderDashboard();
   if(name==='profil') renderProfile();
+  if(name==='reglages') renderSettings();
   if(name==='seance') renderSeanceTab();
   if(name==='historique') renderHistory();
   if(name==='progression') renderProgression();
@@ -2734,7 +2804,7 @@ function renderDashboard(){
   const weekVol = weekSessions.reduce((a,s)=>a+s.totalVolume,0);
   const calendarWeekSessions = state.sessions.filter(s => new Date(s.date).getTime() >= calendarWeekStart);
   document.getElementById('stat-week-vol').textContent = Math.round(weekVol).toLocaleString('fr-FR') + ' kg';
-  document.getElementById('stat-week-count').textContent = calendarWeekSessions.length;
+  document.getElementById('stat-week-count').textContent = state.settings.weeklyGoal ? (calendarWeekSessions.length + ' / ' + state.settings.weeklyGoal) : calendarWeekSessions.length;
   document.getElementById('stat-total-count').textContent = state.sessions.length;
 }
 
@@ -3127,7 +3197,7 @@ function startRestTimer(seconds){
     if(restRemaining<=0){
       clearRestTimer();
       toast("Repos terminé, c'est reparti !");
-      if(navigator.vibrate) navigator.vibrate([120,60,120]);
+      if(navigator.vibrate && state.settings.vibrate!==false) navigator.vibrate([120,60,120]);
       return;
     }
     updateRestDisplays();
@@ -3793,23 +3863,46 @@ function drawBodyweightChart(){
 }
 
 function drawRadarChart(){
-  const musclesList = Object.keys(MUSCLES);
-  const loggedNames = [...new Set(state.sessions.flatMap(s=>s.exercises.map(e=>e.name)))];
-  const elosByMuscle = musclesList.map(m=>{
-    const names = loggedNames.filter(name=>{
-      const std = resolveStandard(name);
-      return std && std.muscle === m;
-    });
-    const elos = names.map(name=>{
-      const res = computeStrengthLevel(name);
-      return (res && !res.needsProfile && !res.noData) ? computeExerciseElo(res) : null;
-    }).filter(e=>e!==null);
-    return elos.length ? elos.reduce((a,b)=>a+b,0)/elos.length : 0;
-  });
-  if(elosByMuscle.every(v=>v===0)){ setChartEmpty('radar-chart-wrap', true); return; }
+  const mr = computeMuscleRanks();
+  const defs = {
+    'Pectoraux':{k:'pectoraux',c:'#ff3b5c',ang:-90,pos:'top'},
+    'Bras':{k:'bras',c:'#ffbe3b',ang:-30,pos:'ur'},
+    'Dos':{k:'dos',c:'#a35cff',ang:30,pos:'lr'},
+    'Jambes':{k:'jambes',c:'#19d3ea',ang:90,pos:'bottom'},
+    'Abdos':{k:'abdos',c:'#34d27b',ang:150,pos:'ll'},
+    'Épaules':{k:'epaules',c:'#1fb6ff',ang:210,pos:'ul'}
+  };
+  const order = ['Pectoraux','Bras','Dos','Jambes','Abdos','Épaules'];
+  const vals = order.map(m=> mr[m] ? mr[m].elo : 0);
+  if(vals.every(v=>v===0)){ setChartEmpty('radar-chart-wrap', true); return; }
   setChartEmpty('radar-chart-wrap', false);
-  const svg = svgRadarChart(musclesList.map(m => (MUSCLE_ICONS[m]||'') + ' ' + m), elosByMuscle, '#D4AF37');
-  document.getElementById('radar-chart').innerHTML = svg;
+  const W=440, H=540, cx=220, cy=285, R=104;
+  const max = Math.max(2000, Math.ceil(Math.max(...vals)/400)*400);
+  const pt = (ang,r)=>[cx+Math.cos(ang*Math.PI/180)*r, cy+Math.sin(ang*Math.PI/180)*r];
+  const hex = r=>order.map(m=>pt(defs[m].ang,r).map(n=>n.toFixed(1)).join(',')).join(' ');
+  let g = '';
+  for(let i=1;i<=5;i++) g += `<polygon points="${hex(R*i/5)}" fill="none" stroke="#1d4a73" stroke-opacity="${i===5?0.9:0.55}" stroke-width="1"/>`;
+  order.forEach(m=>{ const [x,y]=pt(defs[m].ang,R); g += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#1d4a73" stroke-opacity=".6"/>`; });
+  g = `<circle cx="${cx}" cy="${cy}" r="${(R*1.28).toFixed(1)}" fill="none" stroke="#123a5e" stroke-opacity=".55"/>` + g;
+  const lab = v=> v>=1000 ? (v/1000).toString().replace('.',',')+'k' : v;
+  for(let i=1;i<=5;i++) g += `<text x="${cx+6}" y="${(cy-R*i/5+4).toFixed(1)}" font-size="10" fill="#5b79a8" font-family="Inter,sans-serif">${lab(Math.round(max*i/5))}</text>`;
+  const poly = order.map((m,i)=>pt(defs[m].ang,R*Math.min(1,vals[i]/max)).map(n=>n.toFixed(1)).join(',')).join(' ');
+  const dots = order.map((m,i)=>{ const [x,y]=pt(defs[m].ang,R*Math.min(1,vals[i]/max)); return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="#caa9ff" stroke="#7c4dff" stroke-width="2"/>`; }).join('');
+  // cartes (HTML) + traits de liaison (SVG)
+  const box = {top:{x:220,y:10,w:132,h:104}, bottom:{x:220,y:430,w:132,h:104}, ul:{x:74,y:150,w:140,h:62}, ur:{x:366,y:150,w:140,h:62}, ll:{x:74,y:358,w:140,h:62}, lr:{x:366,y:358,w:140,h:62}};
+  let lines = '', cards = '';
+  order.forEach((m,i)=>{
+    const d = defs[m], b = box[d.pos], [vx,vy] = pt(d.ang,R);
+    let sx, sy;
+    if(d.pos==='top'){ sx=b.x; sy=b.y+b.h; } else if(d.pos==='bottom'){ sx=b.x; sy=b.y; }
+    else { sx = (d.pos==='ul'||d.pos==='ll') ? b.x+b.w/2 : b.x-b.w/2; sy = b.y+b.h/2; }
+    lines += `<polyline points="${sx},${sy} ${vx.toFixed(1)},${vy.toFixed(1)}" fill="none" stroke="${d.c}" stroke-opacity=".75" stroke-width="1.3"/><circle cx="${vx.toFixed(1)}" cy="${vy.toFixed(1)}" r="3.5" fill="${d.c}"/>`;
+    const r = mr[m], val = r ? Math.round(r.elo).toLocaleString('fr-FR').replace(/\s/g,'') : '—';
+    const left = ((b.x-b.w/2)/W*100).toFixed(2), top = (b.y/H*100).toFixed(2), wp = (b.w/W*100).toFixed(2), hp = (b.h/H*100).toFixed(2);
+    cards += `<div class="pp-card pp-${d.pos}" style="--c:${d.c};left:${left}%;top:${top}%;width:${wp}%;height:${hp}%"><span class="pp-hex"><img src="icons/pp/${d.k}.png" alt=""></span><div class="pp-tx"><div class="pp-name">${m.toUpperCase()}</div><div class="pp-val">${val}</div></div></div>`;
+  });
+  const svg = `<svg viewBox="0 0 ${W} ${H}" class="pp-svg"><defs><linearGradient id="ppg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8d5cff" stop-opacity=".55"/><stop offset="1" stop-color="#4b2bd6" stop-opacity=".35"/></linearGradient></defs>${g}<polygon points="${poly}" fill="url(#ppg)" stroke="#b388ff" stroke-width="2.6" stroke-linejoin="round" style="filter:drop-shadow(0 0 8px #7c4dffaa)"/>${lines}${dots}</svg>`;
+  document.getElementById('radar-chart').innerHTML = `<div class="pp-wrap">${svg}${cards}</div>`;
 }
 
 function drawWeeklyChart(){
@@ -3830,6 +3923,12 @@ function drawWeeklyChart(){
   document.getElementById('weekly-chart').innerHTML = svg;
 }
 
+function rankColorNow(){ return (getComputedStyle(document.body).getPropertyValue('--rd-c').trim()) || '#D4AF37'; }
+function altColorNow(){
+  const c = rankColorNow().replace('#',''); const n = parseInt(c.length===3?c.split('').map(x=>x+x).join(''):c,16);
+  const r=n>>16&255, g=n>>8&255, b=n&255, warm = r>g && r>b*1.2;
+  return warm ? '#7CB8FF' : '#FFB547';
+}
 function drawExerciseChart(name){
   const matchingSessions = filterByRange(
     state.sessions.filter(s=>s.exercises.some(e=>e.name===name)),
@@ -3846,8 +3945,8 @@ function drawExerciseChart(name){
   const {svg, legendSvg} = svgLineChart(
     points.map(p=>p.date),
     [
-      {name:'Poids max (kg)', color:'#D4AF37', values: points.map(p=>p.maxWeight), unit:'kg'},
-      {name:'Volume (kg)', color:'#D4AF37', values: points.map(p=>p.vol), unit:'kg'}
+      {name:'Poids max (kg)', color:rankColorNow(), values: points.map(p=>p.maxWeight), unit:'kg'},
+      {name:'Volume (kg)', color:altColorNow(), values: points.map(p=>p.vol), unit:'kg'}
     ],
     {zeroBase:false}
   );
@@ -3910,7 +4009,7 @@ function renderRankScale(){
     const color = RANK_TIER_COLORS[tier.name] || RANK_COLORS[family] || '#8a93a8';
     const icon = RANK_ICONS[family] || '';
     const next = RANK_TIERS[i+1];
-    const pointsText = next ? `${tier.min.toLocaleString('fr-FR')} – ${(next.min-1).toLocaleString('fr-FR')} MMR` : `${tier.min.toLocaleString('fr-FR')}+ pts`;
+    const pointsText = next ? `${tier.min.toLocaleString('fr-FR')} – ${(next.min-1).toLocaleString('fr-FR')} MMR` : `${tier.min.toLocaleString('fr-FR')}+ MMR`;
     const isSSL = tier.name==='Supersonic Légende';
     html += `
       <div class="rank-scale-row ${isSSL?'ssl':''}" style="color:${color};--rank-c:${color};">
