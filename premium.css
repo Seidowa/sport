@@ -676,3 +676,34 @@ body[data-tab="reglages"] main{zoom:1;padding:0 14px 110px;}
 .dt-logo img{width:100%;height:100%;object-fit:cover;}
 .pp-top,.pp-bottom{height:auto!important;}
 .pp-wrap{margin-bottom:26px;}
+
+/* ===== Statistiques (Bilan) ===== */
+.bl-hero{padding:20px 16px;margin-bottom:12px;text-align:center;border-radius:22px;background:#071b29cc;border:1px solid color-mix(in srgb,var(--rd-c,#D4AF37) 45%,#0b1620);box-shadow:0 0 28px color-mix(in srgb,var(--rd-c,#D4AF37) 14%,transparent);}
+.bl-big{display:flex;align-items:baseline;justify-content:center;gap:10px;}
+.bl-big b{font-size:48px;font-weight:700;line-height:1;color:var(--rd-c,#D4AF37);text-shadow:0 0 18px color-mix(in srgb,var(--rd-c,#D4AF37) 45%,transparent);}
+.bl-big span{font-size:15px;color:#cfe0e6;}
+.bl-sub{margin-top:8px;font-size:12.5px;color:#8fa6b2;}
+.bl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.bl-wide{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:16px;}
+.bl-tile{padding:13px 12px;border-radius:18px;background:#071b29cc;border:1px solid color-mix(in srgb,var(--rd-c,#D4AF37) 28%,#0b1620);}
+.bl-tile small{display:block;font-size:12px;color:#8fa6b2;margin-bottom:5px;}
+.bl-tile b{display:block;font-size:19px;font-weight:600;color:#fff;overflow-wrap:anywhere;}
+.bl-tile em{display:block;font-style:normal;font-size:12px;color:#8fa6b2;margin-top:3px;}
+/* Réglages : sauvegarde */
+.rg-btns{display:flex;flex-direction:column;gap:10px;padding:6px 0 14px;}
+.rg-danger{border-color:#5b2a2f;}
+.rg-danger h3{color:#ff8a7a;}
+/* Radar dans Profil */
+.pp-block{margin:14px 0 4px;}
+.pp-empty{padding:18px;text-align:center;font-size:13px;color:#8fa6b2;border-radius:16px;background:#09131fcc;border:1px dashed #1c3a55;}
+/* Série de jours : le flamme est maintenant dans la statistique */
+.streak-box{display:none!important;}
+.pf-links{grid-template-columns:1fr!important;}
+.pf-links button{flex-direction:row;justify-content:center;gap:10px;}
+.rg-btns .btn{justify-content:center;text-align:center;width:100%;}
+.record-card{padding:16px;}
+.record-card h3{font-family:'Inter',sans-serif;font-size:17px;font-weight:600;color:#fff;margin:0 0 10px;}
+.record-metric{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;font-size:14px;color:#a9bcc6;border-top:1px solid #10263a;}
+.record-metric:first-of-type{border-top:none;}
+.record-metric b{font-family:'Inter',sans-serif!important;font-size:15px;font-weight:600;color:var(--rd-c,#D4AF37);}
+.record-metric .mono{font-family:'Inter',sans-serif!important;color:#cfe0e6;}

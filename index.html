@@ -997,7 +997,7 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <div class="grid grid-3 stats-row">
       <div class="stat-card"><span class="icon"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg></span><div class="num mono" id="stat-week-vol">0 kg</div><div class="lbl">Volume soulevé <span>(7 jours)</span></div></div>
       <div class="stat-card"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span><div class="num mono" id="stat-week-count">0</div><div class="lbl">Séances cette semaine</div></div>
-      <div class="stat-card"><span class="icon"><svg viewBox="0 0 24 24"><path d="M5 20v-6M12 20V4M19 20v-9"/></svg></span><div class="num mono" id="stat-total-count">0</div><div class="lbl">Séances totales</div></div>
+      <div class="stat-card"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3c1 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3.500 2-4.500 0 1.500.800 2.500 2 2.500C11 8 10.500 5.500 12 3z"/></svg></span><div class="num mono" id="stat-total-count">0</div><div class="lbl">Série de jours</div></div>
     </div>
 
     <div class="panel" style="margin-bottom:14px;">
@@ -1033,6 +1033,23 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <button class="rg-back" onclick="switchTab('dashboard')">&lsaquo; Retour</button>
     <div class="rg-title">Réglages</div>
     <div id="reglages-body"></div>
+    <div class="rg-card"><h3>Sauvegarde et transfert</h3>
+      <p class="rg-note">Tes données sont stockées uniquement sur cet appareil. Pour les transférer vers un autre téléphone ou ordinateur, exporte un fichier de sauvegarde ici, puis importe-le là-bas. Pense à en faire une de temps en temps.</p>
+      <div class="rg-btns">
+        <button class="btn btn-primary" onclick="exportAllData()">Exporter mes données (.json)</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('import-file-input').click()">Importer une sauvegarde</button>
+        <input type="file" id="import-file-input" accept="application/json" style="display:none;" onchange="handleImportFile(this)">
+      </div>
+    </div>
+    <div class="rg-card rg-danger"><h3>Zone dangereuse</h3>
+      <p class="rg-note">Utile après des séances de test. Ces actions sont définitives et irréversibles.</p>
+      <div class="rg-btns">
+        <button class="btn btn-danger" onclick="resetRecordsOnly()">Réinitialiser uniquement les records</button>
+        <button class="btn btn-danger" onclick="resetSessionsOnly()">Réinitialiser uniquement l'historique des séances</button>
+        <button class="btn btn-danger" onclick="resetAllData()">Tout réinitialiser</button>
+      </div>
+    </div>
+    <div class="rg-about" id="rg-about"></div>
   </section>
 
   <!-- PROFIL -->
@@ -1085,14 +1102,18 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
   <!-- PROGRESSION -->
   <section class="view" id="view-progression">
     <div class="pg-tabs" id="pg-tabs">
-      <button data-pane="poids" class="active" onclick="pgShow('poids')">Poids</button>
+      <button data-pane="bilan" class="active" onclick="pgShow('bilan')">Bilan</button>
+      <button data-pane="poids" onclick="pgShow('poids')">Poids</button>
       <button data-pane="force" onclick="pgShow('force')">Force</button>
       <button data-pane="exercices" onclick="pgShow('exercices')">Exercices</button>
       <button data-pane="volume" onclick="pgShow('volume')">Volume</button>
-      <button data-pane="donnees" onclick="pgShow('donnees')">Données</button>
     </div>
 
-    <div class="pg-pane active" data-pane="poids">
+    <div class="pg-pane active" data-pane="bilan">
+      <div id="stats-body"></div>
+    </div>
+
+    <div class="pg-pane" data-pane="poids">
       <div style="display:none"><input type="number" id="bodyweight-input"><input type="date" id="bodyweight-date-input"><input type="number" id="profile-age-input"></div>
       <div class="wg-wrap" id="bodyweight-summary"></div>
       <div class="panel pg-sec">
@@ -1107,13 +1128,6 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
     <div class="pg-pane" data-pane="force">
       <div class="pg-lead">Ton niveau de force par exercice, comparé à ton poids et à ton âge.</div>
       <div id="strength-level-list" style="margin-bottom:16px;"></div>
-      <div class="panel pg-sec">
-        <div class="pp-head"><span class="pp-ico"><i></i><i></i><i></i><i></i></span><span class="pp-sep"></span><div><div class="pp-t">Profil de puissance</div><div class="pp-s">Votre équilibre musculaire</div></div></div>
-        <div class="chart-wrap" id="radar-chart-wrap">
-          <div class="chart-canvas" id="radar-chart"></div>
-          <div class="chart-empty"><div class="big"></div><p>Termine des séances avec des exercices reconnus (et renseigne ton poids et ton âge) pour voir ton profil de puissance.</p></div>
-        </div>
-      </div>
     </div>
 
     <div class="pg-pane" data-pane="exercices">
@@ -1133,6 +1147,8 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
           <div class="chart-empty"><div class="big"></div><p>Termine une séance avec cet exercice pour voir ton 1RM estimé évoluer.</p></div>
         </div>
       </div>
+      <div class="pg-lead" style="margin-top:6px;">Records personnels</div>
+      <div class="grid grid-2" id="records-list" style="margin-bottom:20px;"></div>
     </div>
 
     <div class="pg-pane" data-pane="volume">
@@ -1154,35 +1170,6 @@ footer.credits{text-align:center;color:var(--text-dim);font-size:12px;padding:20
       <div class="grid grid-2" id="muscle-charts-grid" style="margin-bottom:20px;"></div>
     </div>
 
-    <div class="pg-pane" data-pane="donnees">
-      <div class="section-title"><h2>Sauvegarde &amp; transfert entre appareils</h2></div>
-    <div class="panel" style="margin-bottom:20px;">
-      <p class="backup-hint">Tes données sont stockées uniquement dans ce navigateur, sur cet appareil. Pour les transférer vers un autre appareil (ex : téléphone → PC), exporte un fichier de sauvegarde ici, puis importe-le là-bas.</p>
-      <div class="danger-actions backup-actions">
-        <button class="btn btn-primary" onclick="exportAllData()">Exporter mes données (.json)</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('import-file-input').click()">Importer une sauvegarde</button>
-        <input type="file" id="import-file-input" accept="application/json" style="display:none;" onchange="handleImportFile(this)">
-      </div>
-    </div>
-
-
-    <div class="section-title"><h2>Zone dangereuse</h2></div>
-    <div class="panel danger-zone">
-      <p>Utile après des séances de test — ces actions sont <b>définitives et irréversibles</b>.</p>
-      <div class="danger-actions">
-        <button class="btn btn-danger" onclick="resetRecordsOnly()">Réinitialiser uniquement les records</button>
-        <button class="btn btn-danger" onclick="resetSessionsOnly()">Réinitialiser uniquement l'historique des séances</button>
-        <button class="btn btn-danger" onclick="resetAllData()">Tout réinitialiser (programmes, séances, records, poids, réglages)</button>
-      </div>
-    </div>
-  
-    </div>
-  </section>
-
-  <!-- RECORDS -->
-  <section class="view" id="view-records">
-    <div class="section-title"><h2>Tableau des records</h2></div>
-    <div class="grid grid-3" id="records-list"></div>
   </section>
 
   <!-- RANGS (référence) -->
@@ -2090,7 +2077,7 @@ function resetRecordsOnly(){
   persist();
   toast('Records réinitialisés');
   renderProgression(); renderDashboard();
-  if(document.getElementById('view-records').classList.contains('active')) renderRecords();
+  renderRecords();
 }
 
 function resetSessionsOnly(){
@@ -2298,18 +2285,13 @@ function rdExerciseStats(){
 function rdDetailHTML(rank){
   if(!rank) return '';
   const idx = tierIndexOf(rank.name), nxt = RANK_TIERS[idx+1] || null, pct = Math.round(rank.progress*100);
-  const ex = rdExerciseStats().sort((x,y)=>y.elo-x.elo);
-  let tip = '';
-  if(nxt && ex.length){ const weak = ex[ex.length-1]; tip = `Il te manque <b>${rank.pointsToNext} MMR</b> pour atteindre <b>${rank.nextName}</b>. Ton exercice le moins avancé est <b>${escapeXml(weak.name)}</b> (${weak.rank.name}) : c'est là que tu gagneras le plus vite.`; }
-  else if(nxt){ tip = `Il te manque <b>${rank.pointsToNext} MMR</b> pour atteindre <b>${rank.nextName}</b>.`; }
-  else tip = 'Tu as atteint le rang maximum. Respect, légende. ';
+  const ex = rdExerciseStats();
   return `<div class="rd-sec">
     <div class="rd-tiles">
       <div class="rd-tile"><small>Progression</small><b>${pct}%</b></div>
       <div class="rd-tile"><small>Exercices classés</small><b>${ex.length}</b></div>
       <div class="rd-tile"><small>MMR restant</small><b>${nxt?rank.pointsToNext:'—'}</b></div>
     </div>
-    <div class="rd-card rd-tip"><span>${tip}</span></div>
   </div>`;
 }
 
@@ -2375,11 +2357,12 @@ function renderProfile(){
     </div>
     <p class="pf-hint">Touche un groupe musculaire pour le mettre en évidence.</p>
     <div class="pf-grid">${cards}</div>
+    <div class="pp-block"><div class="pp-head"><span class="pp-ico"><i></i><i></i><i></i><i></i></span><span class="pp-sep"></span><div><div class="pp-t">Profil de puissance</div><div class="pp-s">Votre équilibre musculaire</div></div></div><div id="radar-chart"></div></div>
     <div class="pf-links">
-      <button onclick="switchTab('records')">${ico('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/>')}Records</button>
       <button onclick="switchTab('rangs')">${ico('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>')}Rangs</button>
     </div>`;
   fillMeasures();
+  drawRadarChart();
 }
 function currentWeight(){ const b=[...state.bodyweight].sort((x,y)=>new Date(x.date)-new Date(y.date)); return b.length ? b[b.length-1].weight : null; }
 function updateBMI(){
@@ -2459,7 +2442,7 @@ function renderDashHeader(){
   if(d){ const txt = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}); d.textContent = txt.charAt(0).toUpperCase()+txt.slice(1); }
   if(t) t.textContent = hello + ', ' + (state.profile.name || 'Athlète');
 }
-const APP_VERSION = 'v27';
+const APP_VERSION = 'v28';
 const ACCENTS = [['auto','Auto'],['#D4AF37','Or'],['#19D3EA','Cyan'],['#A855F7','Violet'],['#EF4444','Rouge'],['#34D27B','Vert']];
 function setSetting(key, val){
   state.settings[key] = val; persist();
@@ -2489,11 +2472,8 @@ function renderSettings(){
       <div class="rg-block"><div class="rg-lbl">Couleur de l'application<small>Auto : la couleur de ton rang global</small></div>${accent}</div>
       ${sw('reduceMotion','Réduire les animations','Désactive les effets animés')}
     </div>
-    <div class="rg-card"><h3>Données</h3>
-      <button class="rg-link" onclick="switchTab('progression'); pgShow('donnees')">Sauvegarde et transfert<span>&rsaquo;</span></button>
-      <p class="rg-note">Toutes tes données restent sur cet appareil. Pense à exporter une sauvegarde de temps en temps.</p>
-    </div>
-    <div class="rg-about">Stat Tracker · ${APP_VERSION}</div>`;
+`;
+  const ab = document.getElementById('rg-about'); if(ab) ab.textContent = 'Stat Tracker · ' + APP_VERSION;
 }
 let _wl = null;
 async function syncWakeLock(){
@@ -2587,8 +2567,8 @@ function renderDashRankHero(rank){
 function showNotif(){ const m=document.getElementById('insight-msg'); toast('' + (m ? m.textContent : 'Bienvenue !')); }
 function switchTab(name){
   document.body.dataset.tab = name;
-  const _tt = document.getElementById('top-title'); if(_tt) _tt.textContent = ({reglages:'',seance:'Séance',historique:'Historique',progression:'Progression',records:'Records',rangs:'Rangs'})[name] || '';
-  const mb=document.querySelector('nav.tabs button[data-tab="profil"]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['profil','records','rangs'].includes(name)),0);
+  const _tt = document.getElementById('top-title'); if(_tt) _tt.textContent = ({reglages:'',seance:'Séance',historique:'Historique',progression:'Progression',rangs:'Rangs'})[name] || '';
+  const mb=document.querySelector('nav.tabs button[data-tab="profil"]'); if(mb) setTimeout(()=>mb.classList.toggle('active',['profil','rangs'].includes(name)),0);
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-'+name));
   if(name==='dashboard') renderDashboard();
@@ -2597,7 +2577,6 @@ function switchTab(name){
   if(name==='seance') renderSeanceTab();
   if(name==='historique') renderHistory();
   if(name==='progression') renderProgression();
-  if(name==='records') renderRecords();
   if(name==='rangs') renderRankScale();
 }
 document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', ()=>{ switchTab(b.dataset.tab); }));
@@ -2805,7 +2784,7 @@ function renderDashboard(){
   const calendarWeekSessions = state.sessions.filter(s => new Date(s.date).getTime() >= calendarWeekStart);
   document.getElementById('stat-week-vol').textContent = Math.round(weekVol).toLocaleString('fr-FR') + ' kg';
   document.getElementById('stat-week-count').textContent = state.settings.weeklyGoal ? (calendarWeekSessions.length + ' / ' + state.settings.weeklyGoal) : calendarWeekSessions.length;
-  document.getElementById('stat-total-count').textContent = state.sessions.length;
+  document.getElementById('stat-total-count').textContent = (state.profile.streak||0) + ' j.';
 }
 
 function programCardEl(p, opts){
@@ -3648,7 +3627,8 @@ function renderProgression(){
   else { setChartEmpty('exercise-chart-wrap', true); setChartEmpty('onerm-chart-wrap', true); }
   drawGlobalVolumeChart();
   renderBodyweightSection();
-  drawRadarChart();
+  renderStats();
+  renderRecords();
   drawWeeklyChart();
   renderStrengthLevels();
   logMuscleRankPoints();
@@ -3799,7 +3779,7 @@ function logBodyWeight(){
 }
 
 
-let _pgPane = 'poids';
+let _pgPane = 'bilan';
 function pgShow(name){
   _pgPane = name;
   document.querySelectorAll('#pg-tabs button').forEach(b=>b.classList.toggle('active', b.dataset.pane===name));
@@ -3874,8 +3854,8 @@ function drawRadarChart(){
   };
   const order = ['Pectoraux','Bras','Dos','Jambes','Abdos','Épaules'];
   const vals = order.map(m=> mr[m] ? mr[m].elo : 0);
-  if(vals.every(v=>v===0)){ setChartEmpty('radar-chart-wrap', true); return; }
-  setChartEmpty('radar-chart-wrap', false);
+  const host = document.getElementById('radar-chart'); if(!host) return;
+  if(vals.every(v=>v===0)){ host.innerHTML = '<div class="pp-empty">Termine des séances avec des exercices reconnus pour voir ton équilibre musculaire.</div>'; return; }
   const W=440, H=540, cx=220, cy=285, R=104;
   const max = Math.max(2000, Math.ceil(Math.max(...vals)/400)*400);
   const pt = (ang,r)=>[cx+Math.cos(ang*Math.PI/180)*r, cy+Math.sin(ang*Math.PI/180)*r];
@@ -3902,7 +3882,7 @@ function drawRadarChart(){
     cards += `<div class="pp-card pp-${d.pos}" style="--c:${d.c};left:${left}%;top:${top}%;width:${wp}%;height:${hp}%"><span class="pp-hex"><img src="icons/pp/${d.k}.png" alt=""></span><div class="pp-tx"><div class="pp-name">${m.toUpperCase()}</div><div class="pp-val">${val}</div></div></div>`;
   });
   const svg = `<svg viewBox="0 0 ${W} ${H}" class="pp-svg"><defs><linearGradient id="ppg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8d5cff" stop-opacity=".55"/><stop offset="1" stop-color="#4b2bd6" stop-opacity=".35"/></linearGradient></defs>${g}<polygon points="${poly}" fill="url(#ppg)" stroke="#b388ff" stroke-width="2.6" stroke-linejoin="round" style="filter:drop-shadow(0 0 8px #7c4dffaa)"/>${lines}${dots}</svg>`;
-  document.getElementById('radar-chart').innerHTML = `<div class="pp-wrap">${svg}${cards}</div>`;
+  host.innerHTML = `<div class="pp-wrap">${svg}${cards}</div>`;
 }
 
 function drawWeeklyChart(){
@@ -4023,6 +4003,52 @@ function renderRankScale(){
   wrap.innerHTML = html;
 }
 
+function computeStats(){
+  const S = [...state.sessions].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const n = S.length;
+  let sets=0, reps=0, vol=0, mins=0, withDur=0, heavy=null, longest=0; const exC={}, days=[0,0,0,0,0,0,0];
+  S.forEach(se=>{
+    vol += se.totalVolume||0; if(se.durationMin){ mins += se.durationMin; withDur++; longest = Math.max(longest, se.durationMin); }
+    if(!heavy || (se.totalVolume||0) > (heavy.totalVolume||0)) heavy = se;
+    days[(new Date(se.date).getDay()+6)%7]++;
+    (se.exercises||[]).forEach(ex=>{ exC[ex.name]=(exC[ex.name]||0)+1; (ex.sets||[]).forEach(st=>{ sets++; reps += st.reps||0; }); });
+  });
+  const dates = [...new Set(S.map(se=>se.date.slice(0,10)))];
+  let best=0, cur=0, prev=null;
+  dates.forEach(d=>{ const t = new Date(d+'T00:00:00').getTime(); cur = (prev!==null && Math.round((t-prev)/86400000)===1) ? cur+1 : 1; best = Math.max(best,cur); prev = t; });
+  best = Math.max(best, state.profile.streak||0);
+  const first = n ? new Date(S[0].date) : null, now = new Date();
+  const weeks = first ? Math.max(1, Math.ceil((now-first)/(7*86400000))) : 1;
+  const monthN = S.filter(se=>{ const d=new Date(se.date); return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear(); }).length;
+  const topEx = Object.entries(exC).sort((a,b)=>b[1]-a[1])[0] || null;
+  const dIdx = days.indexOf(Math.max(...days));
+  return {n, vol, mins, withDur, sets, reps, best, first, weeks, monthN, topEx, longest, heavy,
+    avgWeek: n/weeks, avgDur: withDur ? mins/withDur : 0, favDay: n ? ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'][dIdx] : null};
+}
+function renderStats(){
+  const box = document.getElementById('stats-body'); if(!box) return;
+  const t = computeStats(), f = v=>Math.round(v).toLocaleString('fr-FR');
+  if(!t.n){ box.innerHTML = '<div class="empty-state"><div class="big"></div><h3>Pas encore de statistiques</h3><p>Termine ta première séance pour voir ton bilan apparaître ici.</p></div>'; return; }
+  const dur = m=>{ m=Math.round(m); return m>=60 ? Math.floor(m/60)+' h '+String(m%60).padStart(2,'0') : m+' min'; };
+  const volTxt = t.vol>=10000 ? (t.vol/1000).toFixed(1).replace('.',',')+' t' : f(t.vol)+' kg';
+  const tile = (l,v,sub)=>`<div class="bl-tile"><small>${l}</small><b>${v}</b>${sub?`<em>${sub}</em>`:''}</div>`;
+  box.innerHTML = `
+    <div class="bl-hero"><div class="bl-big"><b>${t.n}</b><span>séance${t.n>1?'s':''} au total</span></div>
+      <div class="bl-sub">depuis le ${fmtDate(t.first.toISOString().slice(0,10))} · ${t.avgWeek.toFixed(1).replace('.',',')} par semaine en moyenne</div></div>
+    <div class="bl-grid">
+      ${tile('Volume soulevé',volTxt)}
+      ${tile('Temps d\'entraînement',t.withDur?dur(t.mins):'—')}
+      ${tile('Séries',f(t.sets))}
+      ${tile('Répétitions',f(t.reps))}
+      ${tile('Ce mois-ci',t.monthN+' séance'+(t.monthN>1?'s':''))}
+      ${tile('Durée moyenne',t.withDur?dur(t.avgDur):'—')}
+      ${tile('Série en cours',(state.profile.streak||0)+' j.')}
+      ${tile('Meilleure série',t.best+' j.')}
+      ${tile('Jour favori',t.favDay||'—')}
+      ${tile('Séance la plus longue',t.longest?dur(t.longest):'—')}
+    </div>
+    <div class="bl-wide">${tile('Exercice favori',t.topEx?escapeXml(t.topEx[0]):'—',t.topEx?t.topEx[1]+' séances':'')}${tile('Séance la plus lourde',t.heavy?f(t.heavy.totalVolume)+' kg':'—',t.heavy?fmtDate(t.heavy.date.slice(0,10)):'')}</div>`;
+}
 function renderRecords(){
   const wrap = document.getElementById('records-list');
   wrap.innerHTML = '';
